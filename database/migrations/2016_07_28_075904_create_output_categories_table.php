@@ -14,6 +14,9 @@ class CreateOutputCategoriesTable extends Migration
     {
         Schema::create('output_categories', function (Blueprint $table) {
             $table->increments('id');
+            $table->string('slug');
+            $table->string('title');
+            $table->string('name');
             $table->timestamps();
         });
     }

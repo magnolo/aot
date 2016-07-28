@@ -1,0 +1,106 @@
+<md-stepper id="upload-wizard" md-mobile-step-text="vm.isMobileStepText" md-vertical="vm.isVertical" md-linear="vm.isLinear" md-alternative="vm.isAlternative">
+    <md-step md-label="Type">
+        <md-step-body layout="column" layout-align="center center">
+            <h2 class="wizard-header">Add a new entry to the database</h2>
+            <div layout="row">
+                <div class="wizard-button">
+                    <md-button class="md-fab wizard-icon" ng-click="vm.selectType(1)">
+                        <md-icon>file_upload</md-icon>
+                    </md-button>
+                    <div>add file</div>
+                </div>
+                <div class="wizard-button">
+                    <md-button class="md-fab wizard-icon" ng-click="vm.selectType(2)">
+                        <md-icon>link</md-icon>
+                    </md-button>
+                    <div>link</div>
+                </div>
+            </div>
+        </md-step-body>
+    </md-step>
+    <md-step md-label="Title">
+        <md-step-body>
+            <h1 class="wizard-head">Title &amp; Author</h1>
+            <form name="titleForm">
+                <div class="wizard-input-container">
+                    <h2 class="wizard-header">Edit the title of your document</h2>
+                    <div>
+                        <md-input-container class="md-block">
+                            <label>Document title*</label>
+                            <input type="text" ng-model="vm.item.document_title" name="document_title" required/>
+                            <div ng-messages="titleForm.document_title.$error">
+                                <div ng-message="required">This is required.</div>
+                            </div>
+                        </md-input-container>
+                    </div>
+                </div>
+                <div class="wizard-input-container">
+                    <h2 class="wizard-header">Add a user-friendly title that appears on screen</h2>
+                    <div>
+                        <md-input-container class="md-block">
+                            <label>Screen title</label>
+                            <input type="text" ng-model="vm.item.screen_title" name="screen_title"/>
+                        </md-input-container>
+                    </div>
+                </div>
+                <div class="wizard-input-container">
+                    <h2 class="wizard-header">Specify the output category</h2>
+                    <div>
+                        <md-input-container class="md-block">
+                            <label>Output category*</label>
+                            <md-select ng-model="vm.item.output_category_id" name="output_category" required>
+                                <md-option ng-repeat="cat in vm.outputCategories" value="{{cat.id}}">{{cat.title}}</md-option>
+                            </md-select>
+                            <div ng-messages="titleForm.output_category.$error">
+                                <div ng-message="required">This is required.</div>
+                            </div>
+                        </md-input-container>
+                    </div>
+                </div>
+                <div class="wizard-input-container">
+                    <h2 class="wizard-header">Add the author(s) of the document</h2>
+                    <div>
+                        <md-input-container class="md-block">
+                            <label>Author(s)</label>
+                            <md-select ng-model="vm.item.authors" multiple name="authors">
+                                <md-option ng-repeat="cat in vm.outputCategories" value="{{cat.id}}">{{cat.title}}</md-option>
+                            </md-select>
+                        </md-input-container>
+                    </div>
+                </div>
+            </form>
+        </md-step-body>
+        <md-step-actions>
+            <md-button class="md-primary md-raised" ng-click="vm.validateForm(titleForm);" ng-disabled="titleForm.$invalid">Continue</md-button>
+            <md-button class="md-primary" ng-click="vm.previousStep();">Back</md-button>
+        </md-step-actions>
+    </md-step>
+    <md-step md-label="Content">
+        <md-step-body>
+            <p>Step content</p>
+        </md-step-body>
+        <md-step-actions>
+            <md-button class="md-primary md-raised" ng-click="vm.nextStep();">Continue</md-button>
+            <md-button class="md-primary" ng-click="vm.previousStep();">Back</md-button>
+        </md-step-actions>
+    </md-step>
+    <md-step md-label="File" ng-show="vm.item.type_id == 2">
+        <md-step-body>
+            <p>Step content</p>
+        </md-step-body>
+        <md-step-actions>
+            <md-button class="md-primary md-raised" ng-click="vm.nextStep();">Continue</md-button>
+            <md-button class="md-primary" ng-click="vm.previousStep();">Back</md-button>
+        </md-step-actions>
+    </md-step>
+    <md-step md-label="Additional">
+        <md-step-body>
+            <p>Step content</p>
+        </md-step-body>
+        <md-step-actions>
+            <md-button class="md-primary md-raised" ng-click="vm.nextStep();">Continue</md-button>
+            <md-button class="md-primary" ng-click="vm.previousStep();">Back</md-button>
+        </md-step-actions>
+    </md-step>
+    <!-- Other steps if needed ... -->
+</md-stepper>

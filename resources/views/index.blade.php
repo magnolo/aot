@@ -9,13 +9,14 @@
     <meta name="theme-color" content="#0690B7">
 
     <link rel="manifest" href="manifest.json">
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
 
     <!--[if lte IE 10]>
     <script type="text/javascript">document.location.href = '/unsupported-browser'</script>
     <![endif]-->
 
     <style><?php require( public_path( "css/critical.css" ) ) ?></style>
-    
+
 </head>
 <body>
 

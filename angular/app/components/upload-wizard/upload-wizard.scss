@@ -1,0 +1,119 @@
+$color: #2196F3;
+
+//Overwrite Stepper Styles
+
+md-step-body, md-step-actions{
+  flex: 1 1 80%;
+  max-width: 80%;
+  width:80%;
+  margin-left:10%
+}
+md-step-actions{
+  margin-top:1em;
+  margin-bottom:1em;
+}
+.md-steppers-header{
+  box-shadow: 0px 0px;
+}
+.md-stepper-number{
+  font-size:0px;
+  width: 32px;
+  height: 32px;
+  margin: 0 12px;
+  border-radius: 32px;
+  border:2px solid $color;
+  background: #fff;
+  &::after, &::before{
+    width:0px !important;
+  }
+}
+.md-stepper-icon {
+    width: 28px;
+    height: 28px;
+    top: 1px;
+    font-size: 28px;
+    font-weight: 200;
+}
+.md-steppers-linear{
+   .md-stepper-title{
+     color:$color;
+   }
+}
+.md-stepper-indicator.md-active .md-stepper-title{
+  color:$color;
+  font-weight: 300;
+}
+.md-steppers-alternative{
+  .md-steppers-horizontal{
+    .md-stepper-title{
+      color:$color;
+    }
+    .md-stepper-indicator{
+      &::after{
+        background-color: $color;
+        top:42px;
+      }
+    }
+  }
+}
+.md-error .md-stepper-error-indicator md-icon {
+    color: #f44336;
+    width: 36px;
+    height: 36px;
+}
+.md-stepper-indicator.md-error .md-stepper-title {
+    color: #f44336 !important;
+}
+
+//Own Wizard style
+.wizard-head{
+    color: $color;
+    font-weight: 500;
+}
+.wizard-header{
+  font-style: italic;
+  font-weight: 200;
+  font-size:2em;
+  color: $color;
+  opacity: 0.4;
+}
+.wizard-button{
+  text-align: center;
+  margin:2em;
+  color: $color;
+  .wizard-icon{
+    color:$color;
+    border: 3px solid;
+    line-height: 66px;
+    width: 72px;
+    height: 72px;
+    background: #fff;
+    md-icon{
+      font-size: 36px;
+      width: 36px;
+      height: 36px;
+      color:$color;
+    }
+  }
+}
+.wizard-input-container{
+  label{
+    font-size:1.3em;
+  }
+  md-input-container{
+    &.md-input-invalid{
+      label{
+          color:rgb(213,0,0);
+      }
+    }
+    &:not(.md-input-invalid).md-input-has-value label{
+      color:$color;
+    }
+  }
+  input, select, textarea, .md-select-value{
+    font-size:1.3em;
+    // padding: 0px 5px;
+    // border: 1px solid $color;
+    // border-radius: 5px;
+  }
+}
