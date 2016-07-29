@@ -47,6 +47,9 @@ elixir(function(mix) {
         .sass(['./angular/**/*.scss', '!./angular/critical.scss'], 'public/css')
         .sass('./angular/critical.scss', 'public/css/critical.css')
         .styles(styles, './public/css/final.css')
+        // .browserSync({
+        //   'proxy': 'localhost:8000'
+        // })
         .version(assets)
         .swPrecache();
 

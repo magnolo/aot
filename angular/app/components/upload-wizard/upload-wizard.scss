@@ -1,31 +1,29 @@
-$color: #2196F3;
-
-//Overwrite Stepper Styles
-
-md-step-body, md-step-actions{
-  flex: 1 1 80%;
-  max-width: 80%;
-  width:80%;
-  margin-left:10%
+@import "../../../material/project"; //Overwrite Stepper Styles
+md-step-actions,
+md-step-body {
+    flex: 1 1 80%;
+    max-width: 80%;
+    width: 80%;
+    margin-left: 10%;
+    md-progress-linear{
+      height:75px;
+      .md-container{
+          height:75px;
+          .md-bar{
+              height:75px;
+          }
+      }
+    }
 }
-md-step-actions{
-  margin-top:1em;
-  margin-bottom:1em;
+md-step-actions {
+    margin-top: 1em;
+    margin-bottom: 1em;
 }
-.md-steppers-header{
-  box-shadow: 0px 0px;
+.md-steppers-header {
+    box-shadow: 0 0;
 }
-.md-stepper-number{
-  font-size:0px;
-  width: 32px;
-  height: 32px;
-  margin: 0 12px;
-  border-radius: 32px;
-  border:2px solid $color;
-  background: #fff;
-  &::after, &::before{
-    width:0px !important;
-  }
+.md-steppers-content {
+    min-height: calc(100vh - 64px - 118px - 156px);
 }
 .md-stepper-icon {
     width: 28px;
@@ -34,27 +32,77 @@ md-step-actions{
     font-size: 28px;
     font-weight: 200;
 }
-.md-steppers-linear{
-   .md-stepper-title{
-     color:$color;
-   }
-}
-.md-stepper-indicator.md-active .md-stepper-title{
-  color:$color;
-  font-weight: 300;
-}
-.md-steppers-alternative{
-  .md-steppers-horizontal{
-    .md-stepper-title{
-      color:$color;
+.md-steppers-linear {
+    .md-stepper-title {
+        color: $color;
     }
-    .md-stepper-indicator{
-      &::after{
-        background-color: $color;
-        top:42px;
-      }
+}
+.md-stepper-indicator.md-active .md-stepper-title {
+    color: $color;
+    font-weight: 300;
+}
+.md-steppers-alternative {
+    .md-steppers-horizontal {
+        .md-stepper-title {
+            color: $color;
+        }
+        .md-stepper-indicator {
+            &::after {
+                background-color: $color;
+                top: 42px;
+                height: 2px;
+            }
+            .md-stepper-number {
+                font-size: 0;
+                width: 32px;
+                height: 32px;
+                margin: 0 12px;
+                border-radius: 32px;
+                border: 2px solid $color;
+                background: #fff;
+                &::after,
+                &::before {
+                      opacity: 0;
+                }
+                &::after {
+
+                    width: 46px;
+                    height: 46px;
+                    border: 2px solid $color;
+                    background: transparent;
+                    border-radius: 50%;
+                    top: -9px;
+                    left: -9px;
+                    z-index: 1;
+                }
+                &::before {
+
+                    width: 36px;
+                    height: 36px;
+                    border: 5px solid #fff;
+                    background: transparent;
+                    border-radius: 50%;
+                    top: -7px;
+                    left: -7px;
+                    z-index: -1;
+                }
+            }
+            &.md-active {
+                .md-stepper-number {
+                    background: $color;
+                    &::after,
+                    &::before {
+                          opacity: 1;
+                    }
+                }
+            }
+            &.md-completed{
+              .md-stepper-number {
+                  background: $color;
+                }
+            }
+        }
     }
-  }
 }
 .md-error .md-stepper-error-indicator md-icon {
     color: #f44336;
@@ -64,56 +112,65 @@ md-step-actions{
 .md-stepper-indicator.md-error .md-stepper-title {
     color: #f44336 !important;
 }
-
 //Own Wizard style
-.wizard-head{
+.wizard-head {
     color: $color;
     font-weight: 500;
 }
-.wizard-header{
-  font-style: italic;
-  font-weight: 200;
-  font-size:2em;
-  color: $color;
-  opacity: 0.4;
+.wizard-header {
+    font-style: italic;
+    font-weight: 200;
+    font-size: 2em;
+    color: $color;
+    opacity: 0.4;
 }
-.wizard-button{
-  text-align: center;
-  margin:2em;
-  color: $color;
-  .wizard-icon{
-    color:$color;
-    border: 3px solid;
-    line-height: 66px;
-    width: 72px;
-    height: 72px;
-    background: #fff;
-    md-icon{
-      font-size: 36px;
-      width: 36px;
-      height: 36px;
-      color:$color;
+.wizard-button {
+    text-align: center;
+    margin: 2em;
+    color: $color;
+    .wizard-icon {
+        color: $color;
+        border: 3px solid;
+        line-height: 66px;
+        width: 72px;
+        height: 72px;
+        background: #fff;
+        &.dragover{
+          border-style:dashed;
+        }
+        md-icon {
+            font-size: 36px;
+            width: 36px;
+            height: 36px;
+            color: $color;
+        }
     }
-  }
 }
-.wizard-input-container{
-  label{
-    font-size:1.3em;
-  }
-  md-input-container{
-    &.md-input-invalid{
-      label{
-          color:rgb(213,0,0);
-      }
+.wizard-input-container {
+    padding: 0 1em;
+    label {
+        font-size: 1.3em;
     }
-    &:not(.md-input-invalid).md-input-has-value label{
-      color:$color;
+    md-input-container {
+        height: 58px;
+        &.md-input-invalid {
+            label,
+            md-select .md-select-value.md-select-placeholder {
+                color: rgb(213,0,0);
+                border-bottom-color: rgb(213,0,0);
+            }
+        }
+        &:not(.md-input-invalid).md-input-has-value label {
+            color: $color;
+        }
     }
-  }
-  input, select, textarea, .md-select-value{
-    font-size:1.3em;
-    // padding: 0px 5px;
-    // border: 1px solid $color;
-    // border-radius: 5px;
-  }
+    .md-select-value,
+    input,
+    select,
+    textarea {
+        font-size: 1.3em;
+        // padding: 0px 5px;
+        // border: 1px solid $color;
+        // border-radius: 5px;
+    }
 }

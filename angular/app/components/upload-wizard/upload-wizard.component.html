@@ -1,10 +1,12 @@
 <md-stepper id="upload-wizard" md-mobile-step-text="vm.isMobileStepText" md-vertical="vm.isVertical" md-linear="vm.isLinear" md-alternative="vm.isAlternative">
     <md-step md-label="Type">
         <md-step-body layout="column" layout-align="center center">
-            <h2 class="wizard-header">Add a new entry to the database</h2>
-            <div layout="row">
+            <h2 class="wizard-header">Add a new entry the database</h2>
+            <md-progress-linear ng-if="vm.isUploading" md-mode="determinate" value="{{vm.progress}}"></md-progress-linear>
+
+            <div layout="row" ng-if="!vm.isUploading">
                 <div class="wizard-button">
-                    <md-button class="md-fab wizard-icon" ng-click="vm.selectType(1)">
+                    <md-button class="md-fab wizard-icon" ngf-drag-over-class="'dragover'" ngf-drop="vm.uploadFile($file)" ngf-select="vm.uploadFile($file)">
                         <md-icon>file_upload</md-icon>
                     </md-button>
                     <div>add file</div>
@@ -15,6 +17,9 @@
                     </md-button>
                     <div>link</div>
                 </div>
+            </div>
+            <div>
+
             </div>
         </md-step-body>
     </md-step>
@@ -70,36 +75,135 @@
                 </div>
             </form>
         </md-step-body>
-        <md-step-actions>
-            <md-button class="md-primary md-raised" ng-click="vm.validateForm(titleForm);" ng-disabled="titleForm.$invalid">Continue</md-button>
-            <md-button class="md-primary" ng-click="vm.previousStep();">Back</md-button>
+        <md-step-actions layout="row" layout-align="space-between center">
+            <md-button class="md-primary" ng-click="vm.previousStep();"><md-icon>chevron_left</md-icon>Back</md-button>
+            <md-button class="md-primary md-raised" ng-click="vm.validateForm(titleForm);" ng-disabled="titleForm.$invalid">Continue<md-icon>chevron_right</md-icon></md-button>
         </md-step-actions>
     </md-step>
     <md-step md-label="Content">
         <md-step-body>
-            <p>Step content</p>
+          <h1 class="wizard-head">Content Information</h1>
+          <form name="contentForm">
+            <div class="wizard-input-container">
+                <h2 class="wizard-header">Specify the theme(s) of the document</h2>
+                <div>
+                    <md-input-container class="md-block">
+                        <label>Theme*</label>
+                        <md-select ng-model="vm.item.theme_id" name="theme" required>
+                            <md-option ng-repeat="cat in vm.outputCategories" value="{{cat.id}}">{{cat.title}}</md-option>
+                        </md-select>
+                        <div ng-messages="contentForm.theme.$error">
+                            <div ng-message="required">This is required.</div>
+                        </div>
+                    </md-input-container>
+                </div>
+            </div>
+
+          </form>
         </md-step-body>
-        <md-step-actions>
-            <md-button class="md-primary md-raised" ng-click="vm.nextStep();">Continue</md-button>
-            <md-button class="md-primary" ng-click="vm.previousStep();">Back</md-button>
+        <md-step-actions layout="row" layout-align="space-between center">
+            <md-button class="md-primary" ng-click="vm.previousStep();"><md-icon>chevron_left</md-icon>Back</md-button>
+            <md-button class="md-primary md-raised" ng-click="vm.validateForm(contentForm);" ng-disabled="contentForm.$invalid">Continue<md-icon>chevron_right</md-icon></md-button>
         </md-step-actions>
     </md-step>
-    <md-step md-label="File" ng-show="vm.item.type_id == 2">
+    <md-step md-label="File">
         <md-step-body>
-            <p>Step content</p>
+          <h1 class="wizard-head">File Information</h1>
+          <form name="fileForm">
+            <div class="wizard-input-container">
+                <h2 class="wizard-header">Specify the source of the document</h2>
+                <div>
+                    <md-input-container class="md-block">
+                        <label>Source*</label>
+                        <md-select ng-model="vm.item.source_id" name="source" required>
+                            <md-option ng-repeat="cat in vm.outputCategories" value="{{cat.id}}">{{cat.title}}</md-option>
+                        </md-select>
+                        <div ng-messages="fileForm.source.$error">
+                            <div ng-message="required">This is required.</div>
+                        </div>
+                    </md-input-container>
+                </div>
+            </div>
+            <div class="wizard-input-container">
+                <h2 class="wizard-header">Specify the type of the document</h2>
+                <div>
+                    <md-input-container class="md-block">
+                        <label>Type*</label>
+                        <md-select ng-model="vm.item.file_type_id" name="file_type" required>
+                            <md-option ng-repeat="type in vm.types" value="{{type.id}}">{{type.title}}</md-option>
+                        </md-select>
+                        <div ng-messages="fileForm.file_type.$error">
+                            <div ng-message="required">This is required.</div>
+                        </div>
+                    </md-input-container>
+                </div>
+            </div>
+            <div class="wizard-input-container">
+                <h2 class="wizard-header">Select year(s) of publication</h2>
+                <div>
+                    <md-input-container class="md-block">
+                        <label>Years*</label>
+                        <md-select ng-model="vm.item.output_category_id" name="years" required multiple>
+                            <md-option ng-repeat="cat in vm.outputCategories" value="{{cat.id}}">{{cat.title}}</md-option>
+                        </md-select>
+                        <div ng-messages="fileForm.years.$error">
+                            <div ng-message="required">This is required.</div>
+                        </div>
+                    </md-input-container>
+                </div>
+            </div>
+            <div class="wizard-input-container">
+                <h2 class="wizard-header">Select the document's language</h2>
+                <div>
+                    <md-input-container class="md-block">
+                        <label>Language*</label>
+                        <md-select ng-model="vm.item.language_id" name="language" required>
+                            <md-option ng-repeat="cat in vm.outputCategories" value="{{cat.id}}">{{cat.title}}</md-option>
+                        </md-select>
+                        <div ng-messages="fileForm.language.$error">
+                            <div ng-message="required">This is required.</div>
+                        </div>
+                    </md-input-container>
+                </div>
+            </div>
+          </form>
         </md-step-body>
-        <md-step-actions>
-            <md-button class="md-primary md-raised" ng-click="vm.nextStep();">Continue</md-button>
-            <md-button class="md-primary" ng-click="vm.previousStep();">Back</md-button>
+        <md-step-actions layout="row" layout-align="space-between center">
+            <md-button class="md-primary" ng-click="vm.previousStep();"><md-icon>chevron_left</md-icon>Back</md-button>
+            <md-button class="md-primary md-raised" ng-click="vm.validateForm(fileForm);" ng-disabled="fileForm.$invalid">Continue<md-icon>chevron_right</md-icon></md-button>
         </md-step-actions>
     </md-step>
     <md-step md-label="Additional">
         <md-step-body>
-            <p>Step content</p>
+          <h1 class="wizard-head">Additional Information</h1>
+          <form name="additionlForm">
+            <div class="wizard-input-container">
+                <h2 class="wizard-header">Add a short description of the content</h2>
+                <div>
+                    <md-input-container class="md-block">
+                        <label>Short description (max. 400 characters)</label>
+                        <textarea ng-model="vm.item.description" name="description" md-maxlength="400"></textarea>
+                        <div ng-messages="additionlForm.description.$error">
+                            <div ng-message="md-maxlength">max. 400 characters!</div>
+                        </div>
+                    </md-input-container>
+                </div>
+            </div>
+            <div class="wizard-input-container">
+                <h2 class="wizard-header">Add an internal comment</h2>
+                <div>
+                    <md-input-container class="md-block">
+                        <label>Internal comment</label>
+                        <textarea ng-model="vm.item.comment"></textarea>
+                    </md-input-container>
+                </div>
+            </div>
+
+          </form>
         </md-step-body>
-        <md-step-actions>
-            <md-button class="md-primary md-raised" ng-click="vm.nextStep();">Continue</md-button>
-            <md-button class="md-primary" ng-click="vm.previousStep();">Back</md-button>
+        <md-step-actions layout="row" layout-align="space-between center">
+              <md-button class="md-primary" ng-click="vm.previousStep();"><md-icon>chevron_left</md-icon>Back</md-button>
+            <md-button class="md-primary md-raised" ng-click="vm.finishWizard(additionlForm);" ng-disabled="additionlForm.$invalid"><md-icon>save</md-icon>&nbsp;Save</md-button>
         </md-step-actions>
     </md-step>
     <!-- Other steps if needed ... -->

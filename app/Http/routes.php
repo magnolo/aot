@@ -28,6 +28,11 @@ $api->group(['middleware' => ['api']], function ($api) {
     $api->post('auth/password/email', 'Auth\PasswordResetController@sendResetLinkEmail');
     $api->get('auth/password/verify', 'Auth\PasswordResetController@verify');
     $api->post('auth/password/reset', 'Auth\PasswordResetController@reset');
+
+    $api->get('/categories', 'OutputcategoriesController@all');
+    $api->get('/types', 'TypesController@all');
+
+    $api->post('/files', 'FilesController@upload');
 });
 
 //protected API routes with JWT (must be logged in)

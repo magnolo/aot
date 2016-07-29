@@ -19,6 +19,8 @@
     "angular-loading-bar": "~0.9.0",
     "satellizer": "^0.14.0",
     "material-steppers": "^1.0.2",
-    "angular-messages": "^1.5.8"
+    "angular-messages": "^1.5.8",
+    "angular-animate": "^1.5.8",
+    "ng-file-upload": "^12.0.4"
   }
 }

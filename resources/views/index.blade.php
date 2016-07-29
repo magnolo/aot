@@ -4,9 +4,9 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
 
-    <title>Laravel Angular Material Starter</title>
+    <title>Atlas of Torture</title>
 
-    <meta name="theme-color" content="#0690B7">
+    <meta name="theme-color" content="#ffffff">
 
     <link rel="manifest" href="manifest.json">
     <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
@@ -22,7 +22,7 @@
 
     <app-shell>
         <div id="app-shell-header">
-            <img src="img/icons/logo.svg" width="171" height="41">
+            <img src="img/atlas_of_torture_logo.png" height="29" width="223">
         </div>
         <div id="app-shell-content"></div>
     </app-shell>
