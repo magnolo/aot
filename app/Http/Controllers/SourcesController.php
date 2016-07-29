@@ -12,7 +12,7 @@ class SourcesController extends Controller
 {
     //
     public function all(){
-      $sources = Source::whereNull('parent_id')->with('children')->orderBy('title')->get();
+      $sources = Source::with('children')->orderBy('title')->get();
 
       return response()->success(['sources' => $sources]);
     }
