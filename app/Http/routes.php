@@ -31,6 +31,15 @@ $api->group(['middleware' => ['api']], function ($api) {
 
     $api->get('/categories', 'OutputcategoriesController@all');
     $api->get('/types', 'TypesController@all');
+    $api->get('/authors', 'AuthorsController@all');
+    $api->get('/themes', 'ThemesController@all');
+    $api->get('/sources', 'SourcesController@all');
+    $api->get('/languages', 'LanguagesController@all');
+    $api->get('/groups', 'GroupController@all');
+    $api->get('/instruments', 'InstrumentController@all');
+    $api->get('/years', 'YearController@all');
+
+    $api->get('/dependencies', 'GlobalController@dependencies');
 
     $api->post('/files', 'FilesController@upload');
 });

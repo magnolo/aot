@@ -1,7 +1,7 @@
 @import "../../../material/project"; //Overwrite Stepper Styles
 md-step-actions,
 md-step-body {
-    flex: 1 1 80%;
+
     max-width: 80%;
     width: 80%;
     margin-left: 10%;
@@ -152,7 +152,7 @@ md-step-actions {
         font-size: 1.3em;
     }
     md-input-container {
-        height: 58px;
+        min-height: 58px;
         &.md-input-invalid {
             label,
             md-select .md-select-value.md-select-placeholder {
@@ -172,5 +172,18 @@ md-step-actions {
         // padding: 0px 5px;
         // border: 1px solid $color;
         // border-radius: 5px;
+    }
+    .add_button{
+      color:$color;
+      font-size: 1.3em;
+      text-transform: lowercase;
+      margin-top: -.5em;
+      margin-bottom: .5em;
+      md-icon{
+        color:$color;
+      }
+      span{
+        opacity: 0.4;
+      }
     }
 }

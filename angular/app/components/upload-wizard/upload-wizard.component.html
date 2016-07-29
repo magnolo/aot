@@ -12,7 +12,7 @@
                     <div>add file</div>
                 </div>
                 <div class="wizard-button">
-                    <md-button class="md-fab wizard-icon" ng-click="vm.selectType(2)">
+                    <md-button class="md-fab wizard-icon">
                         <md-icon>link</md-icon>
                     </md-button>
                     <div>link</div>
@@ -54,7 +54,7 @@
                         <md-input-container class="md-block">
                             <label>Output category*</label>
                             <md-select ng-model="vm.item.output_category_id" name="output_category" required>
-                                <md-option ng-repeat="cat in vm.outputCategories" value="{{cat.id}}">{{cat.title}}</md-option>
+                                <md-option ng-repeat="cat in vm.outputCategories" ng-value="{{cat.id}}">{{cat.title}}</md-option>
                             </md-select>
                             <div ng-messages="titleForm.output_category.$error">
                                 <div ng-message="required">This is required.</div>
@@ -68,7 +68,7 @@
                         <md-input-container class="md-block">
                             <label>Author(s)</label>
                             <md-select ng-model="vm.item.authors" multiple name="authors">
-                                <md-option ng-repeat="cat in vm.outputCategories" value="{{cat.id}}">{{cat.title}}</md-option>
+                                <md-option ng-repeat="author in vm.authors" ng-value="{{author.id}}">{{author.lastname+" "+author.firstname}}</md-option>
                             </md-select>
                         </md-input-container>
                     </div>
@@ -89,8 +89,8 @@
                 <div>
                     <md-input-container class="md-block">
                         <label>Theme*</label>
-                        <md-select ng-model="vm.item.theme_id" name="theme" required>
-                            <md-option ng-repeat="cat in vm.outputCategories" value="{{cat.id}}">{{cat.title}}</md-option>
+                        <md-select ng-model="vm.item.themes" name="theme" required multiple>
+                            <md-option ng-repeat="theme in vm.themes" ng-value="{{theme}}">{{theme.title}}</md-option>
                         </md-select>
                         <div ng-messages="contentForm.theme.$error">
                             <div ng-message="required">This is required.</div>
@@ -98,7 +98,90 @@
                     </md-input-container>
                 </div>
             </div>
+            <div class="wizard-input-container" ng-if="vm.item.themes">
+                <div layout="column" layout-align="start start">
+                <h2 class="wizard-header">Specify the target group(s)</h2>
+                <md-button class="add_button" ng-click="vm.addTargetGroup()">
+                  <span >add target group</span><md-icon>add</md-icon>
+                </md-button>
+              </div>
+                <div layout="row" ng-repeat="(key, g) in vm.item.groups">
+                    <md-input-container flex="45">
+                        <label>Target Group</label>
+                        <md-select ng-model="g.group" name="instrument">
+                            <md-option ng-repeat="group in vm.groups" ng-value="{{group}}">{{group.title}}</md-option>
+                        </md-select>
+                    </md-input-container>
+                    <md-input-container flex="45" >
+                        <label>Parent Theme</label>
+                        <md-select ng-model="g.theme" name="instrument">
+                            <md-option ng-repeat="theme in vm.item.themes" ng-value="{{theme}}">{{theme.title}}</md-option>
+                        </md-select>
+                    </md-input-container>
+                    <div flex layout="row" layout-align="center start">
+                    <md-button class="md-icon-button md-primary" ng-click="vm.removeItem(vm.item.groups, key)">
+                      <md-icon>close</md-icon>
+                    </md-button>
+                  </div>
+                </div>
 
+            </div>
+            <div class="wizard-input-container" ng-if="vm.item.themes">
+              <div layout="column" layout-align="start start">
+                <h2 class="wizard-header">Specify legal instruments</h2>
+                <md-button class="add_button" ng-click="vm.addInstrument()">
+                  <span >add legal instrument</span><md-icon>add</md-icon>
+                </md-button>
+              </div>
+                  <div layout="row" ng-repeat="(key, i) in vm.item.instruments">
+                    <md-input-container flex="45">
+                        <label>Legal Instruments</label>
+                        <md-select ng-model="i.instrument" name="instrument">
+                            <md-option ng-repeat="instrument in vm.instruments" ng-value="{{instrument}}">{{instrument.title}}</md-option>
+                        </md-select>
+                    </md-input-container>
+                    <md-input-container flex="45" >
+                        <label>Parent Theme</label>
+                        <md-select ng-model="i.theme" name="instrument">
+                            <md-option ng-repeat="theme in vm.item.themes" ng-value="{{theme}}">{{theme.title}}</md-option>
+                        </md-select>
+                    </md-input-container>
+                    <div flex layout="row" layout-align="center start">
+                    <md-button class="md-icon-button md-primary" ng-click="vm.removeItem(vm.item.instruments, key)">
+                      <md-icon>close</md-icon>
+                    </md-button>
+                  </div>
+                </div>
+            </div>
+            <div class="wizard-input-container" ng-if="vm.item.instruments.length">
+
+                <div layout="column" layout-align="start start">
+                  <h2 class="wizard-header">Specify legal instruments Paragraphs</h2>
+                  <md-button class="add_button" ng-click="vm.addParagraph()">
+                    <span >add article</span><md-icon>add</md-icon>
+                  </md-button>
+                </div>
+                <div layout="row" ng-repeat="(key, p) in vm.item.paragraphs">
+                  <md-input-container flex="45" >
+                      <label>Parent Legal Instrument</label>
+                      <md-select ng-model="p.instrument" name="instrument">
+                          <md-option ng-if="instrument.children.length" ng-repeat="instrument in vm.instrumentsList()" ng-value="{{instrument}}">{{instrument.title}}</md-option>
+                      </md-select>
+                  </md-input-container>
+                    <md-input-container flex="45">
+                        <label>Article</label>
+                        <md-select ng-model="p.paragraph" name="paragraph">
+                            <md-option ng-repeat="paragraph in p.instrument.children" ng-value="{{paragraph.id}}">{{paragraph.title}}</md-option>
+                        </md-select>
+                    </md-input-container>
+
+                    <div flex layout="row" layout-align="center start">
+                    <md-button class="md-icon-button md-primary" ng-click="vm.removeItem(vm.item.paragraphs, key)">
+                      <md-icon>close</md-icon>
+                    </md-button>
+                  </div>
+                </div>
+            </div>
           </form>
         </md-step-body>
         <md-step-actions layout="row" layout-align="space-between center">
@@ -115,8 +198,8 @@
                 <div>
                     <md-input-container class="md-block">
                         <label>Source*</label>
-                        <md-select ng-model="vm.item.source_id" name="source" required>
-                            <md-option ng-repeat="cat in vm.outputCategories" value="{{cat.id}}">{{cat.title}}</md-option>
+                        <md-select ng-model="vm.item.sources" name="source" required>
+                            <md-option ng-repeat="source in vm.sources" ng-value="{{source.id}}">{{source.title}}</md-option>
                         </md-select>
                         <div ng-messages="fileForm.source.$error">
                             <div ng-message="required">This is required.</div>
@@ -130,7 +213,7 @@
                     <md-input-container class="md-block">
                         <label>Type*</label>
                         <md-select ng-model="vm.item.file_type_id" name="file_type" required>
-                            <md-option ng-repeat="type in vm.types" value="{{type.id}}">{{type.title}}</md-option>
+                            <md-option ng-repeat="type in vm.types" ng-value="{{type.id}}">{{type.title}}</md-option>
                         </md-select>
                         <div ng-messages="fileForm.file_type.$error">
                             <div ng-message="required">This is required.</div>
@@ -143,8 +226,8 @@
                 <div>
                     <md-input-container class="md-block">
                         <label>Years*</label>
-                        <md-select ng-model="vm.item.output_category_id" name="years" required multiple>
-                            <md-option ng-repeat="cat in vm.outputCategories" value="{{cat.id}}">{{cat.title}}</md-option>
+                        <md-select ng-model="vm.item.years" name="years" required multiple>
+                            <md-option ng-repeat="year in vm.years" ng-value="{{year.id}}">{{year.year}}</md-option>
                         </md-select>
                         <div ng-messages="fileForm.years.$error">
                             <div ng-message="required">This is required.</div>
@@ -158,7 +241,7 @@
                     <md-input-container class="md-block">
                         <label>Language*</label>
                         <md-select ng-model="vm.item.language_id" name="language" required>
-                            <md-option ng-repeat="cat in vm.outputCategories" value="{{cat.id}}">{{cat.title}}</md-option>
+                            <md-option ng-repeat="lang in vm.languages" ng-value="{{lang.id}}">{{lang.title}}</md-option>
                         </md-select>
                         <div ng-messages="fileForm.language.$error">
                             <div ng-message="required">This is required.</div>
