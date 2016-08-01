@@ -19,7 +19,7 @@ export function IvhTreeviewConfig(ivhTreeviewOptionsProvider){
       '<div class="ivh-treeview-node-content" title="{{trvw.label(node)}}">',
         '<div layout="row" flex>',
           '<span class="ivh-treeview-checkbox-wrapper" ng-if="trvw.useCheckboxes()"',
-              'checkboxer>',
+              'ivh-treeview-checkbox>',
           '</span>',
           '<span class="ivh-treeview-node-label" ivh-treeview-toggle flex>',
             '{{trvw.label(node)}}',

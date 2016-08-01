@@ -15,5 +15,10 @@ export class ItemService{
         success(data);
       });
     }
+    create(data, success){
+      this.API.all('items').post(data).then((response) => {
+        success(response);
+      });
+    } 
 
 }

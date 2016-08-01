@@ -6,4 +6,45 @@ documents-list{
   .md-display-2{
     color:$color;
   }
+
+  .group-container{
+    margin-bottom:1em;
+    &:hover{
+      .md-title{
+        color:$color;
+      }
+    }
+    .md-title{
+      margin-bottom:0.5em;
+      transition: all .25s ease;
+    }
+    .file-container{
+      cursor:pointer;
+      line-height: 1.4em;
+      md-icon{
+        color:$lightgrey;
+        margin:0px;
+        transition: all .25s ease;
+        font-size:18px;
+        width:18px;
+        height:18px;
+      }
+      .file-title{
+          transition: all .25s ease;
+          margin:0 0.5em;
+      }
+      .file-info{
+        color:$color;
+      }
+      &:hover{
+        .file-title{
+        
+          text-decoration:underline;
+        }
+        md-icon{
+          color:$color;
+        }
+      }
+    }
+  }
 }

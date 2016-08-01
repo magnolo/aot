@@ -29,6 +29,8 @@ $api->group(['middleware' => ['api']], function ($api) {
     $api->get('auth/password/verify', 'Auth\PasswordResetController@verify');
     $api->post('auth/password/reset', 'Auth\PasswordResetController@reset');
 
+    $api->get('/items', 'ItemsController@all');
+    $api->get('/items/{id}', 'ItemsController@show');
     $api->get('/categories', 'OutputcategoriesController@all');
     $api->get('/types', 'TypesController@all');
     $api->get('/authors', 'AuthorsController@all');
@@ -43,6 +45,7 @@ $api->group(['middleware' => ['api']], function ($api) {
     $api->get('/dependencies', 'GlobalController@dependencies');
 
     $api->post('/files', 'FilesController@upload');
+    $api->post('/items', 'ItemsController@create');
 });
 
 //protected API routes with JWT (must be logged in)

@@ -1,24 +1,26 @@
 class UploadWizardController {
 
-    constructor($mdStepper, CategoryService,TypeService,AuthorService,CountryService,ThemeService,SourceService,LanguageService, GroupService,InstrumentService,YearService,ToastService,  Upload) {
+    constructor(sweet, $mdStepper, ItemService, CategoryService, TypeService, AuthorService, CountryService, ThemeService, SourceService, LanguageService, GroupService, InstrumentService, YearService, ToastService, Upload) {
         'ngInject';
 
         //
         this.progress = 0;
         this.item = {
-          language_id: 1,
-          groups:[],
-          instruments:[],
-          paragraphs:[],
-          countries:[]
+            language_id: 1,
+            groups: [],
+            instruments: [],
+            paragraphs: [],
+            countries: []
         };
         this.isAlternative = true;
         this.isLinear = true;
         this.isUploading = false;
 
         this.$mdStepper = $mdStepper;
+        this.sweet = sweet;
         this.Upload = Upload;
         this.ToastService = ToastService;
+        this.ItemService = ItemService;
 
         this.outputCategories = [];
         this.types = [];
@@ -64,7 +66,9 @@ class UploadWizardController {
         this.ThemeService = ThemeService;
         this.ThemeService.all((data) => {
             this.themes = data;
-        }, {flattend:true});
+        }, {
+            flattend: true
+        });
 
         this.AuthorService = AuthorService;
         this.AuthorService.all((data) => {
@@ -95,10 +99,10 @@ class UploadWizardController {
         this.isUploading = true;
         this.Upload.upload({
             url: 'api/files',
-            file:file,
+            file: file,
             data: {
                 file: file,
-                size:file.size
+                size: file.size
             }
         }).then((response) => {
             this.stepper = this.$mdStepper('upload-wizard');
@@ -109,7 +113,7 @@ class UploadWizardController {
             this.isUploading = false;
             this.stepper.clearError();
             this.stepper.next();
-        }, (response)  => {
+        }, (response) => {
             this.isUploading = false;
             this.stepper = this.$mdStepper('upload-wizard');
             this.stepper.error(response.data.message);
@@ -136,45 +140,82 @@ class UploadWizardController {
         this.stepper = this.$mdStepper('upload-wizard');
         this.stepper.back();
     }
-    finishWizard(form){
-      this.stepper = this.$mdStepper('upload-wizard');
-      if (form.$valid) {
-          this.stepper.clearError();
-          console.log(this.item);
-      } else {
-          this.stepper.error('Errors in Form!');
-      }
-    }
-    addTargetGroup(){
-      this.item.groups.push({group:{},theme:{}});
-    }
-    addInstrument(){
-      this.item.instruments.push({instrument:{},theme:{}});
-    }
-    addParagraph(){
-      this.item.paragraphs.push({paragraph:{},instrument:{}});
-    }
-    addCountry(){
-      this.item.countries.push({country:{},theme:{}});
-    }
-    removeItem(list, key){
-      list.splice(key, 1);
-    }
-    instrumentsList(){
-      let list = [];
-      angular.forEach(this.item.instruments, function(item){
-        list.push(item.instrument);
-      });
-      return list;
-    }
-    instrumentsHasChildren(){
-      var found = false;
-      angular.forEach(this.item.instruments, function(item){
-        if(!found){
-          found = item.instrument.children.length ? true : false;
+    finishWizard(form) {
+        this.stepper = this.$mdStepper('upload-wizard');
+        if (form.$valid) {
+            this.stepper.clearError();
+            this.sweet.show({
+                title: 'Is everything correct?',
+                text: 'Data will be saved to the Database',
+                type: 'info',
+                confirmButtonColor: '#2196F3',
+                showCancelButton: true,
+                closeOnConfirm: false,
+                showLoaderOnConfirm: true
+            }, (inputValue) => {
+
+              if(inputValue){
+                this.ItemService.create(this.item, (response) => {
+                    this.sweet.show('Success', 'Data has been saved', 'success');
+                    this.item = {
+                        language_id: 1,
+                        groups: [],
+                        instruments: [],
+                        paragraphs: [],
+                        countries: []
+                    };
+                    this.stepper.goto(0);
+                });
+              }
+
+            });
+
+        } else {
+            this.stepper.error('Errors in Form!');
         }
-      });
-      return found;
+    }
+    addTargetGroup() {
+        this.item.groups.push({
+            group: {},
+            theme: {}
+        });
+    }
+    addInstrument() {
+        this.item.instruments.push({
+            instrument: {},
+            theme: {}
+        });
+    }
+    addParagraph() {
+        this.item.paragraphs.push({
+            paragraph: {},
+            instrument: {}
+        });
+    }
+    addCountry() {
+        this.item.countries.push({
+            country: {},
+            theme: {}
+        });
+    }
+    removeItem(list, key) {
+        list.splice(key, 1);
+    }
+    instrumentsList() {
+        let list = [];
+        angular.forEach(this.item.instruments, function(item) {
+            list.push(item.instrument);
+        });
+        return list;
+    }
+    instrumentsHasChildren() {
+        var found = false;
+        angular.forEach(this.item.instruments, function(item) {
+            if (!found) {
+                found = item.instrument.children.length ? true : false;
+            }
+        });
+        return found;
     }
 }
 

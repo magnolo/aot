@@ -1,7 +1,7 @@
 <md-stepper id="upload-wizard" md-mobile-step-text="vm.isMobileStepText" md-vertical="vm.isVertical" md-linear="vm.isLinear" md-alternative="vm.isAlternative">
     <md-step md-label="Type">
         <md-step-body layout="column" layout-align="center center">
-            <h2 class="wizard-header">Add a new entry the database</h2>
+            <h2 class="wizard-header">Add a new entry to the database</h2>
             <md-progress-linear ng-if="vm.isUploading" md-mode="determinate" value="{{vm.progress}}"></md-progress-linear>
 
             <div layout="row" ng-if="!vm.isUploading">

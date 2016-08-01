@@ -1,8 +1,13 @@
-<div layout="row" flex>
-<h1 class="md-display-2">Documents</h1>
 <div layout="column">
-<div ng-repeat="category in vm.categories" >
-  {{ category.title}}
-</div>
-</div>
+    <h1 class="md-display-2">Documents</h1>
+    <div layout="column">
+        <div class="group-container" ng-repeat="category in vm.categories | orderBy: 'id'">
+            <div class="md-title">{{ category.title}} (0)</div>
+            <div layout="row" layout-align="start center" ng-click="vm.downloadFile(item.file)" class="file-container" ng-repeat="item in vm.items | filterBy: ['category.id']: category.id">
+                <md-icon>insert_drive_file</md-icon>
+                <span class="file-title"> {{ item.screen_title || item.document_title }} </span>
+                <span class="file-info">({{ item.file.ext}}, {{ item.file.size | byteFmt: 2 }})</span>
+            </div>
+        </div>
+    </div>
 </div>
