@@ -5,6 +5,7 @@ require('./tasks/swPrecache.task.js');
 require('./tasks/ngHtml2Js.task.js');
 require('./tasks/angular.task.js');
 require('./tasks/bower.task.js');
+require('./tasks/docs.task.js');
 require('laravel-elixir-karma');
 
 /*
@@ -47,11 +48,9 @@ elixir(function(mix) {
         .sass(['./angular/**/*.scss', '!./angular/critical.scss'], 'public/css')
         .sass('./angular/critical.scss', 'public/css/critical.css')
         .styles(styles, './public/css/final.css')
-        // .browserSync({
-        //   'proxy': 'localhost:8000'
-        // })
         .version(assets)
-        .swPrecache();
+        .swPrecache()
+        .gulpDocs('./angular/');
 
         //enable front-end tests by uncommenting the below line
         // .karma({jsDir: karmaJsDir});

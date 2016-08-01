@@ -3,7 +3,7 @@
     <div layout="column">
         <div class="group-container" ng-repeat="category in vm.categories | orderBy: 'id'">
             <div class="md-title">{{ category.title}} (0)</div>
-            <div layout="row" layout-align="start center" ng-click="vm.downloadFile(item.file)" class="file-container" ng-repeat="item in vm.items | filterBy: ['category.id']: category.id">
+            <div layout="row" layout-align="start center" ng-click="vm.downloadFile(item.file)" class="file-container" ng-repeat="item in vm.items | filterBy: ['category.id']: category.id | map: vm.filterItems ">
                 <md-icon>insert_drive_file</md-icon>
                 <span class="file-title"> {{ item.screen_title || item.document_title }} </span>
                 <span class="file-info">({{ item.file.ext}}, {{ item.file.size | byteFmt: 2 }})</span>

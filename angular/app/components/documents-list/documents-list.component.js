@@ -19,6 +19,9 @@ class DocumentsListController{
 
     $onInit(){
     }
+    filterItems(item){
+    
+    }
 }
 
 export const DocumentsListComponent = {

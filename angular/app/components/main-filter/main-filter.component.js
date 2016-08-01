@@ -61,7 +61,6 @@ class MainFilterController {
     $onInit() {}
     changeSelection(ivhNode, ivhIsSelected, ivhTree) {
         this.filters = _.indexOf(this.filters, ivhNode) == -1 ? _.union(this.filters, [ivhNode]) : _.pull(this.filters, ivhNode);
-        console.log(ivhNode);
         return this.filters;
     }
     clearFilters() {
