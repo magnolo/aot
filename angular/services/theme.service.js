@@ -5,8 +5,8 @@ export class ThemeService{
       //
       this.API = API;
   }
-  all(success){
-    this.API.all('themes').getList().then((data) => {
+  all(success, filter){
+    this.API.all('themes',{filter}).getList().then((data) => {
       success(data);
     });
   }

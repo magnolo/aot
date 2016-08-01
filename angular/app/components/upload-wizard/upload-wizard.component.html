@@ -182,6 +182,33 @@
                   </div>
                 </div>
             </div>
+            <div class="wizard-input-container" ng-if="vm.item.themes">
+              <div layout="column" layout-align="start start">
+                <h2 class="wizard-header">Specify Country(ies)</h2>
+                <md-button class="add_button" ng-click="vm.addCountry()">
+                  <span >add country</span><md-icon>add</md-icon>
+                </md-button>
+              </div>
+                  <div layout="row" ng-repeat="(key, c) in vm.item.countries">
+                    <md-input-container flex="45">
+                        <label>Country(ies)</label>
+                        <md-select ng-model="c.countries" name="countries" multiple>
+                            <md-option ng-repeat="country in vm.countries" ng-value="{{country}}">{{country.name}}</md-option>
+                        </md-select>
+                    </md-input-container>
+                    <md-input-container flex="45" >
+                        <label>Parent Theme</label>
+                        <md-select ng-model="c.theme" name="instrument">
+                            <md-option ng-repeat="theme in vm.item.themes" ng-value="{{theme}}">{{theme.title}}</md-option>
+                        </md-select>
+                    </md-input-container>
+                    <div flex layout="row" layout-align="center start">
+                    <md-button class="md-icon-button md-primary" ng-click="vm.removeItem(vm.item.countries, key)">
+                      <md-icon>close</md-icon>
+                    </md-button>
+                  </div>
+                </div>
+            </div>
           </form>
         </md-step-body>
         <md-step-actions layout="row" layout-align="space-between center">

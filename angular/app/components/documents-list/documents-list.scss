@@ -1,0 +1,9 @@
+@import "../../../material/project";
+
+documents-list{
+  padding: 0px 2em;
+  display: flex;
+  .md-display-2{
+    color:$color;
+  }
+}

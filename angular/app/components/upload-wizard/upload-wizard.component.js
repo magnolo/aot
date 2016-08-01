@@ -1,6 +1,6 @@
 class UploadWizardController {
 
-    constructor($mdStepper, CategoryService,TypeService,AuthorService,ThemeService,SourceService,LanguageService, GroupService,InstrumentService,YearService,ToastService,  Upload) {
+    constructor($mdStepper, CategoryService,TypeService,AuthorService,CountryService,ThemeService,SourceService,LanguageService, GroupService,InstrumentService,YearService,ToastService,  Upload) {
         'ngInject';
 
         //
@@ -9,7 +9,8 @@ class UploadWizardController {
           language_id: 1,
           groups:[],
           instruments:[],
-          paragraphs:[]
+          paragraphs:[],
+          countries:[]
         };
         this.isAlternative = true;
         this.isLinear = true;
@@ -28,6 +29,12 @@ class UploadWizardController {
         this.groups = [];
         this.instruments = [];
         this.years = [];
+        this.counries = [];
+
+        this.CountryService = CountryService;
+        this.CountryService.all((data) => {
+            this.countries = data;
+        });
 
         this.YearService = YearService;
         this.YearService.all((data) => {
@@ -57,7 +64,7 @@ class UploadWizardController {
         this.ThemeService = ThemeService;
         this.ThemeService.all((data) => {
             this.themes = data;
-        });
+        }, {flattend:true});
 
         this.AuthorService = AuthorService;
         this.AuthorService.all((data) => {
@@ -146,6 +153,9 @@ class UploadWizardController {
     }
     addParagraph(){
       this.item.paragraphs.push({paragraph:{},instrument:{}});
+    }
+    addCountry(){
+      this.item.countries.push({country:{},theme:{}});
     }
     removeItem(list, key){
       list.splice(key, 1);

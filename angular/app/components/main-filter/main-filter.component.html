@@ -1,0 +1,85 @@
+<div class="search-box" layout="row" layout-align="start center">
+    <span>Search&nbsp;&nbsp;</span>
+    <div flex>
+        <md-input-container class="md-block">
+            <label>Term</label>
+            <input type="text" ng-model="vm.search"/>
+        </md-input-container>
+    </div>
+</div>
+<div class="header" layout="row" layout-align="space-between end">
+    <h2 class="md-display-1" ng-if="vm.filters.length">Selected Filters</h2>
+    <h2 class="md-display-1" ng-if="!vm.filters.length">Select Filters</h2>
+    <md-button ng-if="vm.filters.length" ng-click="vm.clearFilters()">clear all</md-button>
+</div>
+<md-chips ng-model="vm.filters" md-on-remove="vm.changeSelection($chip)" ng-if="vm.filters.length">
+    <md-chip-template>{{$chip.title || $chip.name}}
+    </md-chip-template>
+    <input disabled/>
+</md-chips>
+<v-accordion class="vAccordion--default">
+    <v-pane>
+        <v-pane-header>
+            <div class="md-headline">Filter by theme</div>
+        </v-pane-header>
+        <v-pane-content>
+            <div ivh-treeview="vm.themes" ivh-treeview-on-cb-change="vm.changeSelection(ivhNode, ivhIsSelected, ivhTree)" ivh-treeview-filter="vm.search"></div>
+        </v-pane-content>
+    </v-pane>
+    <v-pane>
+        <v-pane-header>
+            <div class="md-headline">Filter by source</div>
+        </v-pane-header>
+        <v-pane-content>
+            <div ivh-treeview="vm.sources" ivh-treeview-on-cb-change="vm.changeSelection(ivhNode, ivhIsSelected, ivhTree)" ivh-treeview-filter="vm.search"></div>
+        </v-pane-content>
+    </v-pane>
+    <v-pane >
+        <v-pane-header>
+            <div class="md-headline">Filter by country</div>
+        </v-pane-header>
+        <v-pane-content>
+            <div ivh-treeview="vm.countries" ivh-treeview-label-attribute="'name'" ivh-treeview-on-cb-change="vm.changeSelection(ivhNode, ivhIsSelected, ivhTree)" ivh-treeview-filter="vm.search"></div>
+        </v-pane-content>
+    </v-pane>
+    <v-pane >
+        <v-pane-header>
+            <div class="md-headline">Filter by year</div>
+        </v-pane-header>
+        <v-pane-content>
+            <div ivh-treeview="vm.years" ivh-treeview-label-attribute="'year'" ivh-treeview-on-cb-change="vm.changeSelection(ivhNode, ivhIsSelected, ivhTree)" ivh-treeview-filter="vm.search"></div>
+        </v-pane-content>
+    </v-pane>
+    <v-pane >
+        <v-pane-header>
+            <div class="md-headline">Filter by document type</div>
+        </v-pane-header>
+        <v-pane-content>
+            <div ivh-treeview="vm.types" ivh-treeview-on-cb-change="vm.changeSelection(ivhNode, ivhIsSelected, ivhTree)" ivh-treeview-filter="vm.search"></div>
+        </v-pane-content>
+    </v-pane>
+    <v-pane >
+        <v-pane-header>
+            <div class="md-headline">Filter by language</div>
+        </v-pane-header>
+        <v-pane-content>
+            <div ivh-treeview="vm.languages" ivh-treeview-on-cb-change="vm.changeSelection(ivhNode, ivhIsSelected, ivhTree)" ivh-treeview-filter="vm.search"></div>
+        </v-pane-content>
+    </v-pane>
+    <v-pane >
+        <v-pane-header>
+            <div class="md-headline">Filter by legal instrument</div>
+        </v-pane-header>
+        <v-pane-content>
+            <div ivh-treeview="vm.instruments" ivh-treeview-on-cb-change="vm.changeSelection(ivhNode, ivhIsSelected, ivhTree)" ivh-treeview-filter="vm.search"></div>
+        </v-pane-content>
+    </v-pane>
+    <v-pane >
+        <v-pane-header>
+            <div class="md-headline">Filter by group</div>
+        </v-pane-header>
+        <v-pane-content>
+            <div ivh-treeview="vm.groups" ivh-treeview-on-cb-change="vm.changeSelection(ivhNode, ivhIsSelected, ivhTree)" ivh-treeview-filter="vm.search"></div>
+        </v-pane-content>
+    </v-pane>
+</v-accordion>

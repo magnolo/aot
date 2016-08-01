@@ -38,6 +38,7 @@ $api->group(['middleware' => ['api']], function ($api) {
     $api->get('/groups', 'GroupController@all');
     $api->get('/instruments', 'InstrumentController@all');
     $api->get('/years', 'YearController@all');
+    $api->get('/countries', 'CountriesController@all');
 
     $api->get('/dependencies', 'GlobalController@dependencies');
 

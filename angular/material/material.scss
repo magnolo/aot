@@ -1,0 +1,12 @@
+@import "project";
+md-chips .md-chips{
+  box-shadow: 0px 0px;
+}
+md-chips.md-default-theme .md-chip, md-chips .md-chip{
+  background: transparent;
+  border:1px solid $color;
+  color:$color;
+  md-icon{
+    color:$color;
+  }
+}

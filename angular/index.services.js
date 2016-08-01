@@ -1,3 +1,4 @@
+import {CountryService} from './services/country.service';
 import {GlobalService} from './services/global.service';
 import {YearService} from './services/year.service';
 import {InstrumentService} from './services/instrument.service';
@@ -14,6 +15,7 @@ import {DialogService} from './services/dialog.service';
 import {ToastService} from './services/toast.service';
 
 angular.module('app.services')
+	.service('CountryService', CountryService)
 	.service('GlobalService', GlobalService)
 	.service('YearService', YearService)
 	.service('InstrumentService', InstrumentService)

@@ -1,0 +1,84 @@
+@import "../../../material/project";
+ul.ivh-treeview {
+    list-style-type: none;
+    li {
+        display: inline-block;
+        width: 100%;
+        line-height: 26px;
+    }
+
+    // .ivh-treeview-toggler {
+    //     float: right;
+    // }
+    .ivh-treeview-checker{
+      background: $lightgrey;
+      border-radius: 50%;
+      margin:0px 8px;
+      margin-top:8px;
+      width:18px;
+      height:18px;
+      md-icon{
+        color:#fff;
+        font-size: 18px;
+        width: 18px;
+        height: 18px;
+        vertical-align: top;
+      }
+      &.selected{
+        background:$color;
+      }
+    }
+}
+main-filter {
+    padding: 0 2em;
+    .header {
+        color: $color;
+        h2 {
+            margin-bottom: 0;
+            margin-top: 5px;
+        }
+        border-bottom: 1px solid $color;
+    }
+    .search-box {
+        > span {
+
+        }
+        md-input-container {
+            label {
+                margin-left: 10px;
+                margin-bottom: 2px;
+            }
+            .md-errors-spacer {
+                position: absolute;
+            }
+            &.md-focused {
+                .md-input {
+                    border-width: 2px;
+                }
+            }
+            .md-input {
+                padding: 5px 10px;
+                border: 1px solid $lightgrey;
+                border-radius: 15px;
+            }
+        }
+    }
+    .vAccordion--default v-pane-header::after,
+    .vAccordion--default v-pane-header::before {
+        right: 5px;
+        width: 13px;
+        height: 2px;
+    }
+    .vAccordion--default v-pane-header {
+        margin-top:.5em;
+        margin-bottom: 0;
+        margin-left: 1.7em;
+        border-bottom: 1px solid $color;
+        color: $color;
+    }
+    v-pane-content {
+        > div > div > ul {
+            padding-left: 0;
+        }
+    }
+}

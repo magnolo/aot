@@ -1,3 +1,5 @@
+import {DocumentsListComponent} from './app/components/documents-list/documents-list.component';
+import {MainFilterComponent} from './app/components/main-filter/main-filter.component';
 import {UploadWizardHeaderComponent} from './app/components/upload-wizard-header/upload-wizard-header.component';
 import {UploadWizardComponent} from './app/components/upload-wizard/upload-wizard.component';
 import {AppHeaderComponent} from './app/components/app-header/app-header.component';
@@ -9,6 +11,8 @@ import {LoginFormComponent} from './app/components/login-form/login-form.compone
 import {RegisterFormComponent} from './app/components/register-form/register-form.component';
 
 angular.module('app.components')
+	.component('documentsList', DocumentsListComponent)
+	.component('mainFilter', MainFilterComponent)
 	.component('uploadWizardHeader', UploadWizardHeaderComponent)
 	.component('uploadWizard', UploadWizardComponent)
 	.component('appHeader', AppHeaderComponent)
