@@ -9,21 +9,27 @@
  */
 class UploadWizardController {
 
-    constructor(sweet, $mdStepper, ItemService, CategoryService, TypeService, AuthorService, CountryService, ThemeService, SourceService, LanguageService, GroupService, InstrumentService, YearService, ToastService, Upload) {
+    constructor(sweet,$document, $state, $mdStepper, ItemService, CategoryService, TypeService, AuthorService, CountryService, ThemeService, SourceService, LanguageService, GroupService, InstrumentService, YearService, ToastService, Upload) {
         'ngInject';
 
         this.progress = 0;
+        this.top = 64;
+        this.duration = 300;
         this.item = {
             language_id: 1,
             groups: [],
             instruments: [],
             paragraphs: [],
-            countries: []
+            countries: [],
+            authors:[],
+            themes:[]
         };
         this.isAlternative = true;
         this.isLinear = true;
         this.isUploading = false;
 
+        this.$state = $state;
+        this.$document = $document;
         this.$mdStepper = $mdStepper;
         this.sweet = sweet;
         this.Upload = Upload;
@@ -122,6 +128,7 @@ class UploadWizardController {
             this.isUploading = false;
             this.stepper.clearError();
             this.stepper.next();
+            this.$document.scrollTop(this.top,this.duration);
         }, (response) => {
             this.isUploading = false;
             this.stepper = this.$mdStepper('upload-wizard');
@@ -145,6 +152,7 @@ class UploadWizardController {
         if (form.$valid) {
             this.stepper.clearError();
             this.stepper.next();
+            this.$document.scrollTop(this.top,this.duration);
         } else {
             this.stepper.error('Errors in Form!');
         }
@@ -159,6 +167,7 @@ class UploadWizardController {
     previousStep() {
         this.stepper = this.$mdStepper('upload-wizard');
         this.stepper.back();
+        this.$document.scrollTop(this.top,this.duration);
     }
 
     /**
@@ -185,15 +194,15 @@ class UploadWizardController {
             }, (inputValue) => {
               if(inputValue){
                 this.ItemService.create(this.item, (response) => {
-                    this.sweet.show('Success', 'Data has been saved', 'success');
-                    this.item = {
-                        language_id: 1,
-                        groups: [],
-                        instruments: [],
-                        paragraphs: [],
-                        countries: []
-                    };
-                    this.stepper.goto(0);
+                    this.sweet.show({
+                        title: 'Success!',
+                        type:'success',
+                        text: '<b>'+(response.data.item.screen_title || response.data.item.document_title)+'</b><br /> has been saved',
+                        html: true
+                    });
+                    this.$state.reload();
+                },(error) => {
+                  this.sweet.show('Ups...', 'Something went wrong! Please check your data.', 'error');
                 });
               }
 
@@ -293,7 +302,7 @@ class UploadWizardController {
     instrumentsHasChildren() {
         var found = false;
         angular.forEach(this.item.instruments, function(item) {
-            if (!found) {
+            if (!found && typeof item.instrument.children != "undefined") {
                 found = item.instrument.children.length ? true : false;
             }
         });

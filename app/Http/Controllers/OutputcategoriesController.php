@@ -11,7 +11,7 @@ class OutputcategoriesController extends Controller
 {
     //
     public function all(){
-      $cats = Outputcategory::orderBy('title')->get();
+      $cats = Outputcategory::orderBy('title')->with('items')->get();
 
       return response()->success(['categories' => $cats]);
     }

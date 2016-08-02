@@ -8,11 +8,11 @@
     </div>
 </div>
 <div class="header" layout="row" layout-align="space-between end">
-    <h2 class="md-display-1" ng-if="vm.filters.length">Selected Filters</h2>
-    <h2 class="md-display-1" ng-if="!vm.filters.length">Select Filters</h2>
-    <md-button ng-if="vm.filters.length" ng-click="vm.clearFilters()">clear all</md-button>
+    <h2 class="md-display-1" ng-if="vm.FilterService.filters.length">Selected Filters</h2>
+    <h2 class="md-display-1" ng-if="!vm.FilterService.filters.length">Select Filters</h2>
+    <md-button ng-if="vm.FilterService.filters.length" ng-click="vm.clearFilters()">clear all</md-button>
 </div>
-<md-chips ng-model="vm.filters" md-on-remove="vm.changeSelection($chip)" ng-if="vm.filters.length">
+<md-chips ng-model="vm.FilterService.filters" md-on-remove="vm.changeSelection($chip)" ng-if="vm.FilterService.filters.length">
     <md-chip-template>{{$chip.title || $chip.name}}
     </md-chip-template>
     <input disabled/>

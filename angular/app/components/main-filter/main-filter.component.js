@@ -1,5 +1,5 @@
 class MainFilterController {
-    constructor(ThemeService, SourceService, CountryService, YearService, TypeService, LanguageService, InstrumentService,GroupService, ivhTreeviewMgr) {
+    constructor(FilterService, ThemeService, SourceService, CountryService, YearService, TypeService, LanguageService, InstrumentService,GroupService, ivhTreeviewMgr) {
         'ngInject';
 
         //
@@ -12,7 +12,8 @@ class MainFilterController {
         this.instruments = [];
         this.groups = [];
 
-        this.filters = [];
+        this.FilterService = FilterService;
+        this.FilterService.filters = [];
 
         this.ivhTreeviewMgr = ivhTreeviewMgr;
 
@@ -60,12 +61,13 @@ class MainFilterController {
 
     $onInit() {}
     changeSelection(ivhNode, ivhIsSelected, ivhTree) {
-        this.filters = _.indexOf(this.filters, ivhNode) == -1 ? _.union(this.filters, [ivhNode]) : _.pull(this.filters, ivhNode);
-        return this.filters;
+        this.FilterService.filters = _.indexOf(this.FilterService.filters, ivhNode) == -1 ? _.union(this.FilterService.filters, [ivhNode]) : _.pull(this.FilterService.filters, ivhNode);
+        console.log(this.FilterService.filters);
+        return this.FilterService.filters;
     }
     clearFilters() {
         this.ivhTreeviewMgr.deselectAll(this.themes);
-        this.filters = [];
+        this.FilterService.filters = [];
     }
 }
 

@@ -35,9 +35,6 @@
     "urlPattern": "'/api/years'",
     "handler": "cacheFirst"
   }, {
-    "urlPattern": "'/api/categories'",
-    "handler": "cacheFirst"
-  }, {
     "urlPattern": "'/api/groups'",
     "handler": "cacheFirst"
   }, {
