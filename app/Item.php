@@ -35,4 +35,13 @@ class Item extends Model
     public function years(){
       return $this->belongsToMany('App\Year', 'item_years', 'item_id', 'year_id');
     }
+    public function countries(){
+      return $this->belongsToMany('App\Country', 'item_countries', 'item_id', 'country_id');
+    }
+    public function groups(){
+      return $this->belongsToMany('App\Group', 'item_groups', 'item_id', 'group_id');
+    }
+    public function instruments(){
+      return $this->belongsToMany('App\Instrument', 'item_instruments', 'item_id', 'instrument_id');
+    }
 }

@@ -260,7 +260,7 @@ class UploadWizardController {
      */
     addCountry() {
         this.item.countries.push({
-            country: {},
+            countries: {},
             theme: {}
         });
     }

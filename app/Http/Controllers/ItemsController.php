@@ -10,18 +10,21 @@ use App\Item;
 use App\Theme;
 use App\Year;
 use App\Author;
+use App\Country;
+use App\Instrument;
+use App\Group;
 
 class ItemsController extends Controller
 {
     //
     public function all(){
-      $items = Item::with(['authors', 'themes', 'years', 'file', 'language','category', 'source'])->get();
+      $items = Item::with(['authors', 'themes', 'years', 'file', 'language','category', 'source', 'countries', 'groups', 'instruments'])->get();
 
       return response()->success(['items' => $items]);
     }
     public function show($id){
       $item = Item::findOrFail($id);
-      $item->load(['authors', 'themes', 'years', 'file', 'language','category', 'source']);
+      $item->load(['authors', 'themes', 'years', 'file', 'language','category', 'source', 'countries', 'groups', 'instruments']);
       return response()->success(['item' => $item]);
     }
     public function create(Request $request){
@@ -47,6 +50,24 @@ class ItemsController extends Controller
       foreach($request->get('years') as $y){
         $year = Year::find($y);
         $item->years()->attach($year);
+      }
+      foreach($request->get('countries') as $c){
+        foreach($c['countries'] as $count){
+          $country = Country::find($count['id']);
+          $item->countries()->attach($country,['theme_id' => $c['theme']['id']]);
+        }
+      }
+      foreach($request->get('groups') as $g){
+        $group = Group::find($g['group']['id']);
+        $item->groups()->attach($group,['theme_id' => $g['theme']['id']]);
+      }
+      foreach($request->get('instruments') as $i){
+        $instrument = Instrument::find($i['instrument']['id']);
+        $item->instruments()->attach($instrument,['theme_id' => $i['theme']['id']]);
+      }
+      foreach($request->get('paragraphs') as $i){
+        $instrument = Instrument::find($i['paragraph']);
+        $item->instruments()->attach($instrument,['parent_id' => $i['instrument']['id']]);
       }
 
       return response()->success(['item' => $item]);
