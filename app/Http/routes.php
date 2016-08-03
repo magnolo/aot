@@ -31,6 +31,9 @@ $api->group(['middleware' => ['api']], function ($api) {
 
     $api->get('/items', 'ItemsController@all');
     $api->get('/items/{id}', 'ItemsController@show');
+    $api->get('/items/{id}/download', 'ItemsController@download');
+
+
     $api->get('/categories', 'OutputcategoriesController@all');
     $api->get('/types', 'TypesController@all');
     $api->get('/authors', 'AuthorsController@all');

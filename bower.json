@@ -26,6 +26,7 @@
     "v-accordion": "^1.6.0",
     "angular-filter": "^0.5.9",
     "angular-sweetalert": "angular-h-sweetalert#^1.4.7",
-    "angular-scroll": "^1.0.0"
+    "angular-scroll": "^1.0.0",
+    "angular-file-saver": "^1.1.2"
   }
 }

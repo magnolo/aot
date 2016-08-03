@@ -1,9 +1,11 @@
 export class ItemService{
-    constructor(API){
+    constructor(API, FileSaver, Blob){
         'ngInject';
 
         //
         this.API = API;
+        this.FileSaver = FileSaver;
+        this.Blob = Blob;
     }
     all(success){
       this.API.all('items').getList().then((data) => {
@@ -20,6 +22,18 @@ export class ItemService{
         success(response);
       },(response) => {
         error(response);
+      });
+    }
+    download(item, success, error){
+      this.API.one('items', item.id).one('download').get().then((response) => {
+        this.FileSaver.saveAs(new this.Blob([response]), item.document_title);
+        if(typeof success != "undefined"){
+          success(response);
+        }
+      },(response) => {
+        if(typeof error != "undefined"){
+          error(response);
+        }
       });
     }
 

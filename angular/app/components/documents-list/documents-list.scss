@@ -28,6 +28,9 @@ documents-list{
         font-size:18px;
         width:18px;
         height:18px;
+        &:hover{
+          color:$color;
+        }
       }
       .file-title{
           transition: all .25s ease;
@@ -38,12 +41,10 @@ documents-list{
       }
       &:hover{
         .file-title{
-        
+
           text-decoration:underline;
         }
-        md-icon{
-          color:$color;
-        }
+
       }
     }
   }

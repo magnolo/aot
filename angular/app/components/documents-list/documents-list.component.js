@@ -1,5 +1,5 @@
 class DocumentsListController{
-    constructor($scope,CategoryService, ItemService, FilterService){
+    constructor($scope,CategoryService, ItemService, FilterService, sweet){
         'ngInject';
 
         //
@@ -7,6 +7,7 @@ class DocumentsListController{
         this.items = [];
 
         this.FilterService = FilterService;
+        this.sweet = sweet;
 
         this.CategoryService = CategoryService;
         this.CategoryService.all((data) => {
@@ -56,6 +57,24 @@ class DocumentsListController{
             });
             return valid.length >= this.FilterService.filters.length ? true : false;
         }
+
+
+    }
+    /**
+     * @ngdoc function
+     * @name downloadFile
+     * @param {object} item The item from which the file to request
+     * @description
+     *
+     *
+     */
+    downloadFile(item){
+    //  this.sweet.show('Download File', 'The file is getting prepared for download', 'info');
+      // this.ItemService.download(item, (response) => {
+      //   //  this.sweet.show('File downloaded', 'The file is ', 'success');
+      // }, (response) => {
+      //     //this.sweet.show('Download error', 'The file could not be reached', 'error');
+      // });
     }
 
 }

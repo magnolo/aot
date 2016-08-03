@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use Illuminate\Http\Response;
 
 use App\Http\Requests;
 
@@ -13,6 +14,7 @@ use App\Author;
 use App\Country;
 use App\Instrument;
 use App\Group;
+use Storage;
 
 class ItemsController extends Controller
 {
@@ -71,5 +73,17 @@ class ItemsController extends Controller
       }
 
       return response()->success(['item' => $item]);
+    }
+
+    public function download($id){
+      $item = Item::findOrFail($id);
+      $item->load('file');
+      $file = Storage::disk('local')->get($item->file->filename);
+
+       return (new Response($file, 200))
+               ->header('Content-Type', $item->file->mime)
+               ->header('Content-Length', $item->file->size)
+               ->header('Content-Disposition', 'attachment; filename="'.$item->document_title.'"');
+      //return response()->download(storage_path().$item->file->filename, $item->document_tile, ['Content-Type' => $item->file->mime]);
     }
 }

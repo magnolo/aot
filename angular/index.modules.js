@@ -18,5 +18,6 @@ angular.module('app.directives', []);
 angular.module('app.components', [
 	'ui.router', 'ngMaterial', 'angular-loading-bar',
 	'restangular', 'ngStorage', 'satellizer','mdSteppers','ngMessages','ngFileUpload',
-   'ivh.treeview', 'vAccordion', 'ngAnimate','angular.filter','hSweetAlert','duScroll'
+   'ivh.treeview', 'vAccordion', 'ngAnimate','angular.filter','hSweetAlert','duScroll',
+   'ngFileSaver'
 ]);
