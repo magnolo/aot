@@ -10,3 +10,20 @@ md-chips.md-default-theme .md-chip, md-chips .md-chip{
     color:$color;
   }
 }
+
+md-checkbox{
+  &.md-indeterminate{
+    &.md-primary{
+      &:not([disabled]){
+        .md-icon{
+          color:$color;
+          border-color:$color;
+        }
+      }
+
+    }
+  }
+  .md-icon{
+    border-radius: 50%;
+  }
+}

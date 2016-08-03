@@ -4,29 +4,27 @@ ul.ivh-treeview {
     li {
         display: inline-block;
         width: 100%;
-        line-height: 26px;
+        line-height: 22px;
     }
-
     // .ivh-treeview-toggler {
     //     float: right;
     // }
-    .ivh-treeview-checker{
-      background: $lightgrey;
-      border-radius: 50%;
-      margin:0px 8px;
-      margin-top:8px;
-      width:18px;
-      height:18px;
-      md-icon{
-        color:#fff;
-        font-size: 18px;
+    .ivh-treeview-checker {
+        background: $lightgrey;
+        border-radius: 50%;
+        margin: 8px 8px 0;
         width: 18px;
         height: 18px;
-        vertical-align: top;
-      }
-      &.selected{
-        background:$color;
-      }
+        md-icon {
+            color: #fff;
+            font-size: 18px;
+            width: 18px;
+            height: 18px;
+            vertical-align: top;
+        }
+        &.selected {
+            background: $color;
+        }
     }
 }
 main-filter {
@@ -40,9 +38,7 @@ main-filter {
         border-bottom: 1px solid $color;
     }
     .search-box {
-        > span {
-
-        }
+        > span {}
         md-input-container {
             label {
                 margin-left: 10px;
@@ -63,22 +59,32 @@ main-filter {
             }
         }
     }
-    .vAccordion--default v-pane-header::after,
-    .vAccordion--default v-pane-header::before {
-        right: 5px;
-        width: 13px;
-        height: 2px;
-    }
-    .vAccordion--default v-pane-header {
-        margin-top:.5em;
-        margin-bottom: 0;
-        margin-left: 1.7em;
-        border-bottom: 1px solid $color;
-        color: $color;
-    }
-    v-pane-content {
-        > div > div > ul {
-            padding-left: 0;
+    .vAccordion--default {
+        v-pane {
+            v-pane-header {
+                margin-top: 0.5em;
+                margin-bottom: 0;
+                margin-left: 1.7em;
+                border-bottom: 1px solid $color;
+                color: $color;
+                &:after,
+                &:before {
+                    right: 5px;
+                    width: 13px;
+                    height: 2px;
+                }
+            }
+            v-pane-content {
+                > div > div > ul {
+                    padding-left: 0;
+                }
+            }
+            &.is-expanded {
+                overflow: visible;
+                v-pane-content {
+                    overflow: visible;
+                }
+            }
         }
     }
 }

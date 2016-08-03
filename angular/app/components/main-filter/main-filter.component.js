@@ -60,10 +60,12 @@ class MainFilterController {
     }
 
     $onInit() {}
-    changeSelection(ivhNode, ivhIsSelected, ivhTree) {
-        this.FilterService.filters = _.indexOf(this.FilterService.filters, ivhNode) == -1 ? _.union(this.FilterService.filters, [ivhNode]) : _.pull(this.FilterService.filters, ivhNode);
-        console.log(this.FilterService.filters);
+    changeSelection(item) {
+        this.FilterService.filters = _.indexOf(this.FilterService.filters, item) == -1 ? _.union(this.FilterService.filters, [item]) : _.pull(this.FilterService.filters, item);
         return this.FilterService.filters;
+    }
+    removeFilter(item){
+      console.log(_.indexOf(this.FilterService.filters, item));
     }
     clearFilters() {
         this.ivhTreeviewMgr.deselectAll(this.themes);

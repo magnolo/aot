@@ -4,5 +4,6 @@ export class FilterService{
 
         //
         this.filters = [];
+        this.searchTerm= "";
     }
 }

@@ -10,12 +10,14 @@ export function CheckboxerDirective() {
     return {
         restrict: 'AE',
         template: [
-          '<div ',
-      'class="ivh-treeview-checker"',
+          '<md-checkbox ',
+       'class="md-primary"',
+       'aria-label="{{node.title || node.name}}"',
       'ng-model="isSelected"',
+      'md-indeterminate="isIndeterminate"',
       'ng-class="{selected: isSelected}"',
-      'ng-change="resolveIndeterminateClick()"',
-      'ng-click="trvw.select(node, isSelected)" ><md-icon>check</md-icon></div>'
+      'ng-click="resolveIndeterminateClick()"',
+      'ng-change="trvw.select(node, isSelected)" ></md-checkbox>'
         ].join(''),
         controller: CheckboxerController,
         bindings: {
@@ -47,7 +49,13 @@ export function CheckboxerDirective() {
 
             // Update the checkbox when the node's indeterminate status changes
             scope.$watch('node.' + indeterminateAttr, function(newVal, oldVal) {
-                element.find('div').prop('indeterminate', newVal);
+                // element.find('md-checkbox').prop('md-indeterminate', newVal);
+                if(typeof newVal == "undefined"){
+                    scope.isIndeterminate = false;
+                }
+                else{
+                    scope.isIndeterminate = newVal;
+                }
             });
         }
     }
