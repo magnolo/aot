@@ -8,8 +8,9 @@ class Instrument extends Model
 {
     //
     protected $table = 'legalinstruments';
+    protected $appends = ['acronym_title'];
 
-    public function getAcronymTitle(){
+    public function getAcronymTitleAttribute(){
       if($this->acronym){
         return $this->acronym;
       }

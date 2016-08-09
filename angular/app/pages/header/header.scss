@@ -12,6 +12,7 @@
 
 .DemoHeader-container{
     height: 100%;
+    padding-left:2em;
 }
 
 .DemoHeader-logo {
@@ -20,15 +21,20 @@
 
 .DemoHeader-link{
     text-decoration: none;
-    color: $color !important;
+    color: $color;
     padding: 0 20px;
     display: inline-block;
     transition: 250ms background-color;
     line-height: 64px;
+    &.active{
+      background-color:$color;
+      color:#fff;
+    }
 }
 
 .DemoHeader-link:hover{
     background-color: $background;
+    color:$color;
 }
 
 .DemoHeader-github{

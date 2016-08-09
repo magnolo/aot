@@ -19,7 +19,6 @@ export function IvhTreeviewConfig(ivhTreeviewOptionsProvider){
       '<div class="ivh-treeview-node-content" title="{{trvw.label(node)}}">',
         '<div layout="row" flex>',
           '<span class="ivh-treeview-checkbox-wrapper" ng-if="trvw.useCheckboxes()"',
-              // 'ivh-treeview-checkbox>',
               ' checkboxer>',
           '</span>',
           '<span class="ivh-treeview-node-label" ivh-treeview-toggle flex>',
@@ -32,18 +31,5 @@ export function IvhTreeviewConfig(ivhTreeviewOptionsProvider){
         '<div ivh-treeview-children></div>',
       '</div>'
     ].join('\n')
-  //   nodeTpl:  [
-  //   '<div>',
-  //
-  //     '<checkboxer node="node"></checkboxer>',
-  //     '<span class="ivh-treeview-node-label" ivh-treeview-toggle>',
-  //      '{{:: trvw.label(node)}}',
-  //     '</span>',
-  //     '<span ivh-treeview-toggle class="ivh-treeview-toggler">',
-  //       '<span ivh-treeview-twistie></span>',
-  //     '</span>',
-  //     '<div ivh-treeview-children></div>',
-  //   '</div>'
-  // ].join('\n')
   });
 }

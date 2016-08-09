@@ -31,10 +31,10 @@
             <div class="md-headline">Filter by source</div>
         </v-pane-header>
         <v-pane-content>
-            <div ivh-treeview="vm.sources" ivh-treeview-on-cb-change="vm.changeSelection(ivhNode, ivhIsSelected, ivhTree)" ivh-treeview-filter="vm.FilterService.searchTerm"></div>
+            <div ivh-treeview="vm.sources" ivh-treeview-label-attribute="'acronym_title'" ivh-treeview-on-cb-change="vm.changeSelection(ivhNode, ivhIsSelected, ivhTree)" ivh-treeview-filter="vm.FilterService.searchTerm"></div>
         </v-pane-content>
     </v-pane>
-    <v-pane >
+    <v-pane>
         <v-pane-header>
             <div class="md-headline">Filter by country</div>
         </v-pane-header>
