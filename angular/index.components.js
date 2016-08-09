@@ -1,3 +1,5 @@
+import {MainFilterControlComponent} from './app/components/main-filter-control/main-filter-control.component';
+import {MainFilterSidebarComponent} from './app/components/main-filter-sidebar/main-filter-sidebar.component';
 import {DocumentsListComponent} from './app/components/documents-list/documents-list.component';
 import {MainFilterComponent} from './app/components/main-filter/main-filter.component';
 import {UploadWizardComponent} from './app/components/upload-wizard/upload-wizard.component';
@@ -10,6 +12,8 @@ import {LoginFormComponent} from './app/components/login-form/login-form.compone
 import {RegisterFormComponent} from './app/components/register-form/register-form.component';
 
 angular.module('app.components')
+	.component('mainFilterControl', MainFilterControlComponent)
+	.component('mainFilterSidebar', MainFilterSidebarComponent)
 	.component('documentsList', DocumentsListComponent)
 	.component('mainFilter', MainFilterComponent)
 	.component('uploadWizard', UploadWizardComponent)

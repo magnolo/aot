@@ -1,1 +1,7 @@
-
+body, html{
+  overflow: hidden;
+}
+.main-page{
+  overflow-x: hidden;
+  overflow-y: auto;
+}

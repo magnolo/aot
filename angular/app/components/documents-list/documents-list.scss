@@ -5,8 +5,11 @@ documents-list{
   display: flex;
   .md-display-2{
     color:$color;
+    margin: .01em 0;
   }
-
+  .group-wrapper{
+    margin-top:1.5em;
+  }
   .group-container{
     margin-bottom:1em;
     &:hover{

@@ -9,7 +9,7 @@
 </div>
 <div class="header" layout="row" layout-align="space-between end">
     <h2 class="md-display-1" ng-if="vm.FilterService.filters.length">Selected Filters</h2>
-    <h2 class="md-display-1" ng-if="!vm.FilterService.filters.length">Select Filters</h2>
+    <!-- <h2 class="md-display-1" ng-if="!vm.FilterService.filters.length">Select Filters</h2> -->
     <md-button ng-if="vm.FilterService.filters.length" ng-click="vm.clearFilters()">clear all</md-button>
 </div>
 <md-chips ng-model="vm.FilterService.filters" md-on-remove="vm.removeFilter($chip)" ng-if="vm.FilterService.filters.length">
@@ -71,7 +71,7 @@
             <div class="md-headline">Filter by legal instrument</div>
         </v-pane-header>
         <v-pane-content>
-            <div ivh-treeview="vm.instruments" ivh-treeview-on-cb-change="vm.changeSelection(ivhNode, ivhIsSelected, ivhTree)" ivh-treeview-filter="vm.search"></div>
+            <div ivh-treeview="vm.instruments" ivh-treeview-label-attribute="'acronym_title'" ivh-treeview-on-cb-change="vm.changeSelection(ivhNode, ivhIsSelected, ivhTree)" ivh-treeview-filter="vm.search"></div>
         </v-pane-content>
     </v-pane>
     <v-pane >

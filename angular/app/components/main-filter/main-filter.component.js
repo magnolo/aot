@@ -59,16 +59,22 @@ class MainFilterController {
 
     }
 
-    $onInit() {}
-    changeSelection(item) {
+    changeSelection(item, isSelected, tree) {
+        item.thisTree = tree;
         this.FilterService.filters = _.indexOf(this.FilterService.filters, item) == -1 ? _.union(this.FilterService.filters, [item]) : _.pull(this.FilterService.filters, item);
         return this.FilterService.filters;
     }
     removeFilter(item){
-      console.log(_.indexOf(this.FilterService.filters, item));
+      this.ivhTreeviewMgr.deselect(item.thisTree, item);
     }
     clearFilters() {
         this.ivhTreeviewMgr.deselectAll(this.themes);
+        this.ivhTreeviewMgr.deselectAll(this.sources);
+        this.ivhTreeviewMgr.deselectAll(this.countries);
+        this.ivhTreeviewMgr.deselectAll(this.types);
+        this.ivhTreeviewMgr.deselectAll(this.years);
+        this.ivhTreeviewMgr.deselectAll(this.instruments);
+        this.ivhTreeviewMgr.deselectAll(this.groups);
         this.FilterService.filters = [];
     }
 }

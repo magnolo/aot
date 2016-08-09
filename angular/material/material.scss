@@ -27,3 +27,10 @@ md-checkbox{
     border-radius: 50%;
   }
 }
+md-sidenav{
+   @media screen and (min-width: 450px){
+     width:400px;
+     max-width: 400px;
+     min-width: 400px;
+   }
+}

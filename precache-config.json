@@ -21,31 +21,7 @@
     "handler": "cacheFirst"
   }, {
     "urlPattern": "'https://ghbtns.com/'",
-    "handler": "cacheFirst"
-  }, {
-    "urlPattern": "'/api/themes'",
-    "handler": "cacheFirst"
-  }, {
-    "urlPattern": "'/api/countries'",
-    "handler": "cacheFirst"
-  }, {
-    "urlPattern": "'/api/sources'",
-    "handler": "cacheFirst"
-  }, {
-    "urlPattern": "'/api/years'",
-    "handler": "cacheFirst"
-  }, {
-    "urlPattern": "'/api/groups'",
-    "handler": "cacheFirst"
-  }, {
-    "urlPattern": "'/api/types'",
-    "handler": "cacheFirst"
-  }, {
-    "urlPattern": "'/api/languages'",
-    "handler": "cacheFirst"
-  }, {
-    "urlPattern": "'/api/instruments'",
-    "handler": "cacheFirst"
+    "handler": "cacheFirst" 
   }
 ],
   "handleFetch": true

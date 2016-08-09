@@ -28,16 +28,19 @@ ul.ivh-treeview {
     }
 }
 main-filter {
-    padding: 0 2em;
+    padding: 0;
+    display: block;
     .header {
         color: $color;
         h2 {
-            margin-bottom: 0;
-            margin-top: 5px;
+          margin-bottom: 0;
+          margin-top: 0px;
+          padding-left: 8px;
         }
         border-bottom: 1px solid $color;
     }
     .search-box {
+        padding:8px;
         > span {}
         md-input-container {
             label {
@@ -59,13 +62,25 @@ main-filter {
             }
         }
     }
+    md-chips{
+      border-bottom:1px solid $color;
+      display:block;
+      .md-chips{
+        .md-chip-input-container{
+          display: none;
+        }
+      }
+    }
+
+
     .vAccordion--default {
+        padding: 0 8px;
         v-pane {
             v-pane-header {
                 margin-top: 0.5em;
                 margin-bottom: 0;
-                margin-left: 1.7em;
-                border-bottom: 1px solid $color;
+                // margin-left: 1.7em;
+                border-bottom: 0px solid $color;
                 color: $color;
                 &:after,
                 &:before {
@@ -75,6 +90,9 @@ main-filter {
                 }
             }
             v-pane-content {
+                > div {
+                  margin-bottom:0px;
+                }
                 > div > div > ul {
                     padding-left: 0;
                 }
