@@ -1,0 +1,39 @@
+<div layout="column" >
+    <div class="label" flex>{{ vm.label}}</div>
+    <div layout="row" layout-align="start center">
+    <md-autocomplete
+        md-selected-item-change="vm.selectedItemChange(item)"
+        md-selected-item="vm.selectedItem"
+        md-search-text="vm.searchText"
+        md-items="item in vm.list | filter: vm.searchText"
+        md-item-text="item[vm.text]"
+        md-min-length="0"
+        placeholder="{{ vm.title }}"
+        md-menu-class="autocomplete-custom-template">
+        <md-item-template>
+            <span class="item-title">
+                <md-icon>{{ vm.icon }}</md-icon>
+                <span md-highlight-text="vm.searchText">
+                    {{ item[vm.text] }}
+                </span>
+            </span>
+        </md-item-template>
+        <md-not-found>
+            <md-button class="md-primary md-raised" ng-click="vm.createNew(vm.searchText)">
+                <md-icon>add</md-icon>
+                <span>&nbsp;Create new</span>
+            </md-button>
+        </md-not-found>
+    </md-autocomplete>
+    <md-button class="md-primary md-icon-button">
+      <md-icon>add</md-icon>
+    </md-button>
+  </div>
+</div>
+</div>
+<md-chips ng-model="vm.item" md-on-remove="vm.removeItem($chip)" ng-if="vm.item.length">
+<md-chip-template>
+    {{$chip[vm.text]}}
+</md-chip-template>
+<input disabled/>
+</md-chips>

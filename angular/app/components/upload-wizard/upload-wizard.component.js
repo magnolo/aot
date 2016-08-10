@@ -308,6 +308,8 @@ class UploadWizardController {
         });
         return found;
     }
+
+    
 }
 
 export const UploadWizardComponent = {
