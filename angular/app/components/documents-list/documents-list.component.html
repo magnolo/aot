@@ -11,24 +11,80 @@
                         ({{ vm.filterItems[category.id].length }})</div>
                 </v-pane-header>
                 <v-pane-content class="group-container">
-                    <div
-                        layout="row"
-                        layout-align="start center"
-                        ng-click="vm.downloadFile(item)"
-                        class="file-container"
-                        ng-repeat="item in vm.filterItems[category.id] = (vm.items | filterBy: ['category.id']: category.id | filter: vm.FilterService.searchTerm | filter: vm.filterItems )">
-                        <div>
-                            <md-icon>insert_drive_file</md-icon>
-                            <a title="download file" href="/api/items/{{item.id}}/download" target="_blank" download="{{item.document_title}}">
-                                <md-icon>file_download</md-icon>
-                            </a>
+                    <div layout="column" class="file-container" ng-class="{'active': vm.selectedItem == item}" ng-repeat="item in vm.filterItems[category.id] = (vm.items | filterBy: ['category.id']: category.id | filter: vm.FilterService.searchTerm | filter: vm.filterItems )">
+                        <div class="header" layout="row" layout-align="start center">
+                            <div class="actions">
+                                <md-icon ng-click="vm.toggleSelectedItem(item)">insert_drive_file</md-icon>
+                                <a title="download file" href="/api/items/{{item.id}}/download" target="_blank" download="{{item.document_title}}">
+                                    <md-icon>file_download</md-icon>
+                                </a>
+                            </div>
+                            <div flex layout="row" layout-align="space-between center">
+                                <span class="file-title">
+                                    {{ item.screen_title || item.document_title }}
+                                </span>
+                                <span class="file-info">({{ item.file.ext}},
+                                    {{ item.file.size | byteFmt: 2 }})</span>
+                            </div>
                         </div>
-                        <div flex layout="row" layout-align="space-between center">
-                            <span class="file-title">
-                                {{ item.screen_title || item.document_title }}
-                            </span>
-                            <span class="file-info">({{ item.file.ext}},
-                                {{ item.file.size | byteFmt: 2 }})</span>
+                        <div class="item-details" ng-if="vm.selectedItem == item">
+                            <div class="item-description" ng-if="item.short_description">
+                                {{ item.short_description}}
+                            </div>
+                            <div layout="row" layout-wrap>
+                              <div class="item-file item-info" flex="33">
+                                  <div layout="column" layout-align="center center">
+                                    <div class="wizard-button">
+                                        <a class="md-fab md-primary md-button wizard-icon" title="download file" href="/api/items/{{item.id}}/download" target="_blank" download="{{item.document_title}}">
+                                            <md-icon>file_download</md-icon>
+                                        </a>
+                                    </div>
+                                  </div>
+                              </div>
+                                <div class="item-file item-info" flex="33">
+                                    <h4>Details</h4>
+                                    <div layout="column">
+                                      <div layout="row">
+                                        <span>Type:&nbsp;</span>
+                                        <span>{{ item.file.ext}}</span>
+                                      </div>
+                                      <div layout="row">
+                                        <span>Size:&nbsp;</span>
+                                        <span> {{ item.file.size | byteFmt: 2 }}</span>
+                                      </div>
+                                      <div layout="row">
+                                        <span>Date:&nbsp;</span>
+                                        <span am-time-ago="item.created_at | amParse:'YYYY-MM-DD HH:mm:ss'"></span>
+                                      </div>
+                                    </div>
+                                </div>
+                                <div class="item-authors item-info"flex="33" ng-if="item.instruments.length">
+                                    <h4>Authors</h4>
+                                    <div layout="row" ng-repeat="author in item.authors">
+                                        {{ author.lastname }},
+                                        {{ author.firstname }}
+                                    </div>
+                                </div>
+
+                                <div class="item-themes item-info" flex="33" ng-if="item.themes.length">
+                                    <h4>Themes</h4>
+                                    <div layout="row" ng-repeat="theme in item.themes">
+                                        {{ theme.title }}
+                                    </div>
+                                </div>
+                                <div class="item-groups item-info" flex="33" ng-if="item.groups.length">
+                                    <h4>Target Groups</h4>
+                                    <div layout="row" ng-repeat="group in item.groups">
+                                        {{ group.title }}
+                                    </div>
+                                </div>
+                                <div class="item-groups item-info" flex="33" ng-if="item.group.instruments">
+                                    <h4>Legal Instruments</h4>
+                                    <div layout="row" ng-repeat="instrument in item.instruments">
+                                        {{ instrument.title }}
+                                    </div>
+                                </div>
+                            </div>
                         </div>
                     </div>
                 </v-pane-content>

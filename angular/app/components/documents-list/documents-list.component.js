@@ -76,6 +76,9 @@ class DocumentsListController{
       //     //this.sweet.show('Download error', 'The file could not be reached', 'error');
       // });
     }
+    toggleSelectedItem(item){
+      return this.selectedItem = this.selectedItem == item ? null : item;
+    }
 
 }
 

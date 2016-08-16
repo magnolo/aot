@@ -1,54 +1,86 @@
 @import "../../../material/project";
-
-documents-list{
-  padding: 0px 2em;
-  display: flex;
-  .md-display-2{
-    color:$color;
-    margin: .01em 0;
-  }
-  .group-wrapper{
-    margin-top:1.5em;
-  }
-  .group-container{
-    margin-bottom:1em;
-    &:hover{
-      .md-title{
-        color:$color;
-      }
+documents-list {
+    padding: 0 2em;
+    display: flex;
+    .md-display-2 {
+        color: $color;
+        margin: 0.01em 0;
     }
-    .md-title{
-      margin-bottom:0.5em;
-      transition: all .25s ease;
+    .group-wrapper {
+        margin-top: 1.5em;
     }
-    .file-container{
-      cursor:pointer;
-      line-height: 1.4em;
-      md-icon{
-        color:$lightgrey;
-        margin:0px;
-        transition: all .25s ease;
-        font-size:18px;
-        width:18px;
-        height:18px;
-        &:hover{
-          color:$color;
+    .group-container {
+        margin-bottom: 1em;
+        &:hover {
+            .md-title {
+                color: $color;
+            }
         }
-      }
-      .file-title{
-          transition: all .25s ease;
-          margin:0 0.5em;
-      }
-      .file-info{
-        color:$color;
-      }
-      &:hover{
-        .file-title{
-
-          text-decoration:underline;
+        .md-title {
+            margin-bottom: 0.5em;
+            transition: all 0.25s ease;
         }
+        .file-container {
+            cursor: pointer;
+            line-height: 1.4em;
+            .actions{
+              md-icon {
+                  color: $lightgrey;
+                  margin: 0;
+                  transition: all 0.25s ease;
+                  font-size: 18px;
+                  width: 18px;
+                  height: 18px;
+                  &:hover {
+                      color: $color;
+                  }
+              }
+            }
 
-      }
+            .file-title {
+                transition: all 0.25s ease;
+                margin: 0 0.5em;
+            }
+            .file-info {
+                color: $color;
+            }
+            &:hover {
+                .file-title {
+                    //text-decoration: underline;
+                }
+            }
+            .item-details {
+                margin:1em 0;
+                .item-description {
+                    margin: 0.5em;
+                }
+                .item-info {
+                  padding:0.5em ;
+                    h4 {
+                        margin: 0.5em 0;
+                        font-weight: 500;
+                        color: $color;
+                    }
+                    .wizard-button{
+                      margin-top:2em;
+                      .wizard-icon{
+                        border-radius:50%;
+                        display: inline-block;
+                      }
+                    }
+
+                }
+            }
+            &.active{
+              margin-top:.5em;
+              .file-title{
+                font-size:1.3em;
+              }
+              .header{
+                border-bottom: 1px solid #ccc;
+padding-bottom: .5em;
+              }
+            }
+        }
     }
-  }
 }
