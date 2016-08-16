@@ -5,7 +5,7 @@ class DocumentsListController{
         //
         this.categories = [];
         this.items = [];
-
+        this.filterItems = [];
         this.FilterService = FilterService;
         this.sweet = sweet;
 
