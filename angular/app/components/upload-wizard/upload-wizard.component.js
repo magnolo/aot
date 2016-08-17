@@ -198,9 +198,21 @@ class UploadWizardController {
                         title: 'Success!',
                         type:'success',
                         text: '<b>'+(response.data.item.screen_title || response.data.item.document_title)+'</b><br /> has been saved',
-                        html: true
+                        html: true,
+                        confirmButtonColor: '#2196F3',
+                        showCancelButton: true,
+                        closeOnConfirm: true,
+                        confirmButtonText: 'Upload next file',
+                        cancelButtonText: 'Show me the list'
+                    }, (isConfirm)=>{
+                      if(isConfirm){
+                        this.$state.reload();
+                      }
+                      else{
+                        this.$state.go('app.landing');
+                      }
                     });
-                    this.$state.reload();
+
                 },() => {
                   this.sweet.show('Ups...', 'Something went wrong! Please check your data.', 'error');
                 });

@@ -32,7 +32,7 @@ class ItemsController extends Controller
       return response()->success(['item' => $item]);
     }
     public function create(Request $request){
-      DB::transaction(function () {
+      DB::beginTransaction();
         $item = new Item;
         $item->document_title = $request->get('document_title');
         $item->screen_title = $request->get('screen_title');
@@ -82,7 +82,8 @@ class ItemsController extends Controller
           $instrument = Instrument::find($i['paragraph']);
           $item->instruments()->attach($instrument,['parent_id' => $i['instrument']['id']]);
         }
-      });
+
+      DB::commit();
       return response()->success(['item' => $item]);
     }
 
