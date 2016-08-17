@@ -28,12 +28,10 @@ $factory->define(App\PasswordReset::class, function (Faker\Generator $faker) {
 });
 
 $factory->define(App\Author::class, function (Faker\Generator $faker) {
-    $firstName = $faker->firstName;
-    $lastName = $faker->lastName;
-    $slug = str_slug($firstName." ".$lastName);
+    $name = $faker->name;
+    $slug = str_slug($name);
     return [
         'slug' => $slug,
-        'firstname'  => $firstName,
-        'lastname' => $lastName
+        'name'  => $name
     ];
 });

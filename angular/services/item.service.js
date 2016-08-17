@@ -27,11 +27,11 @@ export class ItemService{
     download(item, success, error){
       this.API.one('items', item.id).one('download').get().then((response) => {
         this.FileSaver.saveAs(new this.Blob([response]), item.document_title);
-        if(typeof success != "undefined"){
+        if(angular.isDefined(success)){
           success(response);
         }
       },(response) => {
-        if(typeof error != "undefined"){
+        if(angular.isDefined(error)){
           error(response);
         }
       });

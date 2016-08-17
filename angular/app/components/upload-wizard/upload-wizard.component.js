@@ -201,7 +201,7 @@ class UploadWizardController {
                         html: true
                     });
                     this.$state.reload();
-                },(error) => {
+                },() => {
                   this.sweet.show('Ups...', 'Something went wrong! Please check your data.', 'error');
                 });
               }
@@ -302,14 +302,14 @@ class UploadWizardController {
     instrumentsHasChildren() {
         var found = false;
         angular.forEach(this.item.instruments, function(item) {
-            if (!found && typeof item.instrument.children != "undefined") {
+            if (!found && angular.isDefined(item.instrument.children)) {
                 found = item.instrument.children.length ? true : false;
             }
         });
         return found;
     }
 
-    
+
 }
 
 export const UploadWizardComponent = {

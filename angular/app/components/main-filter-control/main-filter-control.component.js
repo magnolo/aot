@@ -13,7 +13,7 @@ class MainFilterControlController{
       this.$mdSidenav(menu_id)
           .toggle()
           .then(function () {
-            console.log("toggle " + menu_id + " is done");
+          //  console.log("toggle " + menu_id + " is done");
           });
     }
 }

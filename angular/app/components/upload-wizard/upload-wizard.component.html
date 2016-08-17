@@ -62,7 +62,7 @@
                 </div>
                 <div class="wizard-input-container">
                     <h2 class="wizard-header">Add the author(s) of the document</h2>
-                    <autocomplete-multiple label="Author(s)" item="vm.item.authors" list="vm.authors" text="firstname" title="add an author" icon="person"></autocomplete-multiple>
+                    <autocomplete-multiple label="Author(s)" item="vm.item.authors" list="vm.authors" text="name" title="add an author" icon="person"></autocomplete-multiple>
                 </div>
             </form>
         </md-step-body>
@@ -76,14 +76,14 @@
     <md-step md-label="Content">
         <md-step-body>
             <h1 class="wizard-head">Content Information</h1>
-            <form name="contentForm">
+            <form name="contentForm" novalidate>
                 <div class="wizard-input-container">
                     <h2 class="wizard-header">Specify the theme(s) of the document</h2>
                     <div>
                         <md-input-container class="md-block">
                             <label>Theme*</label>
-                            <md-select ng-model="vm.item.themes" name="theme" required multiple>
-                                <md-option ng-repeat="theme in vm.themes" ng-value="{{theme}}">{{theme.title}}</md-option>
+                            <md-select ng-model="vm.item.themes" name="themes" required multiple>
+                                <md-option ng-repeat="theme in vm.themes" ng-value="theme">{{theme.title}}</md-option>
                             </md-select>
                             <div ng-messages="contentForm.theme.$error">
                                 <div ng-message="required">This is required.</div>
@@ -100,16 +100,17 @@
                         </md-button>
                     </div>
                     <div layout="row" ng-repeat="(key, g) in vm.item.groups">
+
                         <md-input-container flex="45">
                             <label>Target Group</label>
-                            <md-select ng-model="g.group" name="instrument">
-                                <md-option ng-repeat="group in vm.groups" ng-value="{{group}}">{{group.title}}</md-option>
+                            <md-select ng-model="g.group" name="group_{{key}}" required>
+                                <md-option ng-repeat="group in vm.groups" ng-value="group">{{group.title}}</md-option>
                             </md-select>
                         </md-input-container>
                         <md-input-container flex="45">
                             <label>Parent Theme</label>
-                            <md-select ng-model="g.theme" name="instrument">
-                                <md-option ng-repeat="theme in vm.item.themes" ng-value="{{theme}}">{{theme.title}}</md-option>
+                            <md-select ng-model="g.theme" name="group_{{key}}_theme" required>
+                                <md-option ng-repeat="theme in vm.item.themes" ng-value="theme">{{theme.title}}</md-option>
                             </md-select>
                         </md-input-container>
                         <div flex layout="row" layout-align="center start">
@@ -131,14 +132,14 @@
                     <div layout="row" ng-repeat="(key, i) in vm.item.instruments">
                         <md-input-container flex="45">
                             <label>Legal Instruments</label>
-                            <md-select ng-model="i.instrument" name="instrument">
-                                <md-option ng-repeat="instrument in vm.instruments" ng-value="{{instrument}}">{{instrument.title}}</md-option>
+                            <md-select ng-model="i.instrument" name="instrument" required>
+                                <md-option ng-repeat="instrument in vm.instruments" ng-value="instrument">{{instrument.acronym_title}}</md-option>
                             </md-select>
                         </md-input-container>
                         <md-input-container flex="45">
                             <label>Parent Theme</label>
-                            <md-select ng-model="i.theme" name="instrument">
-                                <md-option ng-repeat="theme in vm.item.themes" ng-value="{{theme}}">{{theme.title}}</md-option>
+                            <md-select ng-model="i.theme" name="instrument" required>
+                                <md-option ng-repeat="theme in vm.item.themes" ng-value="theme">{{theme.title}}</md-option>
                             </md-select>
                         </md-input-container>
                         <div flex layout="row" layout-align="center start">
@@ -160,14 +161,14 @@
                     <div layout="row" ng-repeat="(key, p) in vm.item.paragraphs">
                         <md-input-container flex="45">
                             <label>Parent Legal Instrument</label>
-                            <md-select ng-model="p.instrument" name="instrument">
-                                <md-option ng-if="instrument.children.length" ng-repeat="instrument in vm.instrumentsList()" ng-value="{{instrument}}">{{instrument.title}}</md-option>
+                            <md-select ng-model="p.instrument" name="instrument" required>
+                                <md-option ng-if="instrument.children.length" ng-repeat="instrument in vm.instrumentsList()" ng-value="instrument">{{instrument.acronym_title}}</md-option>
                             </md-select>
                         </md-input-container>
                         <md-input-container flex="45">
                             <label>Article</label>
-                            <md-select ng-model="p.paragraph" name="paragraph">
-                                <md-option ng-repeat="paragraph in p.instrument.children" ng-value="{{paragraph.id}}">{{paragraph.title}}</md-option>
+                            <md-select ng-model="p.paragraph" name="paragraph" required>
+                                <md-option ng-repeat="paragraph in p.instrument.children" ng-value="paragraph.id">{{paragraph.title}}</md-option>
                             </md-select>
                         </md-input-container>
 
@@ -189,14 +190,14 @@
                     <div layout="row" ng-repeat="(key, c) in vm.item.countries">
                         <md-input-container flex="45">
                             <label>Country(ies)</label>
-                            <md-select ng-model="c.countries" name="countries" multiple>
-                                <md-option ng-repeat="country in vm.countries" ng-value="{{country}}">{{country.name}}</md-option>
+                            <md-select ng-model="c.countries" name="countries" multiple required>
+                                <md-option ng-repeat="country in vm.countries" ng-value="country">{{country.name}}</md-option>
                             </md-select>
                         </md-input-container>
                         <md-input-container flex="45">
                             <label>Parent Theme</label>
-                            <md-select ng-model="c.theme" name="instrument">
-                                <md-option ng-repeat="theme in vm.item.themes" ng-value="{{theme}}">{{theme.title}}</md-option>
+                            <md-select ng-model="c.theme" name="instrument" required>
+                                <md-option ng-repeat="theme in vm.item.themes" ng-value="theme">{{theme.title}}</md-option>
                             </md-select>
                         </md-input-container>
                         <div flex layout="row" layout-align="center start">
@@ -225,7 +226,7 @@
                         <md-input-container class="md-block">
                             <label>Source*</label>
                             <md-select ng-model="vm.item.sources" name="source" required>
-                                <md-option ng-repeat="source in vm.sources" ng-value="{{source.id}}">{{source.title}}</md-option>
+                                <md-option ng-repeat="source in vm.sources" ng-value="{{source.id}}">{{source.acronym_title}}</md-option>
                             </md-select>
                             <div ng-messages="fileForm.source.$error">
                                 <div ng-message="required">This is required.</div>

@@ -26,7 +26,7 @@ export class APIService {
                     if (token) {
                         headers.Authorization = 'Bearer ' + token;
                     }
-                }).addResponseInterceptor(function(data, operation, what, url) {
+                }).addResponseInterceptor(function(data, operation, what) {
                     var extractedData;
                     if (operation === "getList") {
                         var type = what;

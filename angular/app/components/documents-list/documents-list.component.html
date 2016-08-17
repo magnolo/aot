@@ -61,8 +61,7 @@
                                 <div class="item-authors item-info"flex="33" ng-if="item.instruments.length">
                                     <h4>Authors</h4>
                                     <div layout="row" ng-repeat="author in item.authors">
-                                        {{ author.lastname }},
-                                        {{ author.firstname }}
+                                        {{ author.name }}
                                     </div>
                                 </div>
 
@@ -78,10 +77,22 @@
                                         {{ group.title }}
                                     </div>
                                 </div>
-                                <div class="item-groups item-info" flex="33" ng-if="item.group.instruments">
+                                <div class="item-instruments item-info" flex="33" ng-if="item.instruments.length">
                                     <h4>Legal Instruments</h4>
                                     <div layout="row" ng-repeat="instrument in item.instruments">
                                         {{ instrument.title }}
+                                    </div>
+                                </div>
+                                <div class="item-years item-info" flex="33" ng-if="item.years.length">
+                                    <h4>Years</h4>
+                                    <div layout="row" ng-repeat="year in item.years">
+                                        {{ year.year }}
+                                    </div>
+                                </div>
+                                <div class="item-countries item-info" flex="33" ng-if="item.countries.length">
+                                    <h4>Countries</h4>
+                                    <div layout="row" ng-repeat="country in item.countries">
+                                        {{ country.name }}
                                     </div>
                                 </div>
                             </div>

@@ -31,7 +31,7 @@ class DocumentsListController{
             if(!this.FilterService.filters.length) return true;
             let valid = [];
 
-            angular.forEach(this.FilterService.filters, (filter, key) =>{
+            angular.forEach(this.FilterService.filters, (filter) =>{
               if(filter.route == "languages"){
                 if(item.language_id == filter.id){
                   valid.push(true);
@@ -48,7 +48,7 @@ class DocumentsListController{
                 }
               }
               else{
-                angular.forEach(item[filter.route], (itemProp, k) => {
+                angular.forEach(item[filter.route], (itemProp) => {
                   if(itemProp.id == filter.id){
                     valid.push(true);
                   }
@@ -68,14 +68,14 @@ class DocumentsListController{
      *
      *
      */
-    downloadFile(item){
-    //  this.sweet.show('Download File', 'The file is getting prepared for download', 'info');
-      // this.ItemService.download(item, (response) => {
-      //   //  this.sweet.show('File downloaded', 'The file is ', 'success');
-      // }, (response) => {
-      //     //this.sweet.show('Download error', 'The file could not be reached', 'error');
-      // });
-    }
+    // downloadFile(item){
+    // //  this.sweet.show('Download File', 'The file is getting prepared for download', 'info');
+    //   // this.ItemService.download(item, (response) => {
+    //   //   //  this.sweet.show('File downloaded', 'The file is ', 'success');
+    //   // }, (response) => {
+    //   //     //this.sweet.show('Download error', 'The file could not be reached', 'error');
+    //   // });
+    // }
     toggleSelectedItem(item){
       return this.selectedItem = this.selectedItem == item ? null : item;
     }

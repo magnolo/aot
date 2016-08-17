@@ -1,5 +1,5 @@
 class CheckboxerController {
-    constructor(ivhTreeviewMgr) {
+    constructor() {
         'ngInject';
 
         //
@@ -43,14 +43,14 @@ export function CheckboxerDirective() {
             };
 
             // Update the checkbox when the node's selected status changes
-            scope.$watch('node.' + selectedAttr, function(newVal, oldVal) {
+            scope.$watch('node.' + selectedAttr, function(newVal) {
                 scope.isSelected = newVal;
             });
 
             // Update the checkbox when the node's indeterminate status changes
-            scope.$watch('node.' + indeterminateAttr, function(newVal, oldVal) {
+            scope.$watch('node.' + indeterminateAttr, function(newVal) {
                 // element.find('md-checkbox').prop('md-indeterminate', newVal);
-                if(typeof newVal == "undefined"){
+                if(angular.isUndefined(newVal)){
                     scope.isIndeterminate = false;
                 }
                 else{
