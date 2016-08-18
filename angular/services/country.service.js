@@ -5,8 +5,8 @@ export class CountryService{
       //
       this.API = API;
   }
-  all(success){
-    this.API.all('countries').getList().then((data) => {
+  all(success, query){
+    this.API.all('countries').getList(query).then((data) => {
       success(data);
     });
   }

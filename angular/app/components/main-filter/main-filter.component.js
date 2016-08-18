@@ -45,7 +45,7 @@ class MainFilterController {
         this.CountryService = CountryService;
         this.CountryService.all((data) => {
             this.countries = data;
-        });
+        },{groupBy:'continents'});
 
         this.SourceService = SourceService;
         this.SourceService.all((data) => {

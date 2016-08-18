@@ -5,6 +5,9 @@ ul.ivh-treeview {
         display: inline-block;
         width: 100%;
         line-height: 22px;
+        .ivh-treeview-node-label{
+          min-height: 36px;
+        }
     }
     // .ivh-treeview-toggler {
     //     float: right;

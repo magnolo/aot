@@ -16,9 +16,9 @@ export function IvhTreeviewConfig(ivhTreeviewOptionsProvider){
     twistieCollapsedTpl: '<md-icon>expand_more</md-icon>',
     twistieLeafTpl: '',
     nodeTpl: [
-      '<div class="ivh-treeview-node-content" title="{{trvw.label(node)}}">',
+      '<div class="ivh-treeview-node-content" title="{{node.title || trvw.label(node)}}">',
         '<div layout="row" flex>',
-          '<span class="ivh-treeview-checkbox-wrapper" ng-if="trvw.useCheckboxes()"',
+          '<span class="ivh-treeview-checkbox-wrapper" ng-if="trvw.useCheckboxes() && !node.nocheck"',
               ' checkboxer>',
           '</span>',
           '<span class="ivh-treeview-node-label" ivh-treeview-toggle flex>',
