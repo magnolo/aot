@@ -295,7 +295,7 @@
             </form>
         </md-step-body>
         <md-step-body  ng-show="vm.isUrl">
-            <h1 class="wizard-head">URL Information</h1>
+            <h1 class="wizard-head">Source Information</h1>
             <form name="fileForm">
                 <div class="wizard-input-container">
                     <h2 class="wizard-header">Specify the source of the document</h2>
@@ -311,7 +311,7 @@
                         </md-input-container>
                     </div>
                 </div>
-                <div class="wizard-input-container">
+                <!-- <div class="wizard-input-container" ng-if="!vm.isUrl">
                     <h2 class="wizard-header">Specify the type of the document</h2>
                     <div>
                         <md-input-container class="md-block">
@@ -325,7 +325,7 @@
                         </md-input-container>
                     </div>
                 </div>
-                <!-- <div class="wizard-input-container">
+                <div class="wizard-input-container">
                     <h2 class="wizard-header">Select year(s) of publication</h2>
                     <div>
                         <md-input-container class="md-block">

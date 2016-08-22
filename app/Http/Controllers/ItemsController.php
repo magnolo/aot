@@ -53,6 +53,9 @@ class ItemsController extends Controller
             $item->document_title = $item->url;
           }
         }
+        if(!$item->type_id){
+          $item->type_id = 0;
+        }
 
         $item->save();
 
