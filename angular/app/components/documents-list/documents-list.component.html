@@ -13,17 +13,23 @@
                 <v-pane-content class="group-container">
                     <div layout="column" class="file-container" ng-class="{'active': vm.selectedItem == item}" ng-repeat="item in vm.filterItems[category.id] = (vm.items | filterBy: ['category.id']: category.id | filter: vm.FilterService.searchTerm | filter: vm.filterItems )">
                         <div class="header" layout="row" layout-align="start center">
-                            <div class="actions">
+                            <div class="actions" ng-if="!item.url">
                                 <md-icon ng-click="vm.toggleSelectedItem(item)">insert_drive_file</md-icon>
                                 <a title="download file" href="/api/items/{{item.id}}/download" target="_blank" download="{{item.document_title}}">
                                     <md-icon>file_download</md-icon>
+                                </a>
+                            </div>
+                            <div class="actions" ng-if="item.url">
+                                <md-icon ng-click="vm.toggleSelectedItem(item)">insert_drive_file</md-icon>
+                                <a title="Visit URL" ng-href="{{item.url}}" target="_blank">
+                                    <md-icon>link</md-icon>
                                 </a>
                             </div>
                             <div flex layout="row" layout-align="space-between center">
                                 <span class="file-title">
                                     {{ item.screen_title || item.document_title }}
                                 </span>
-                                <span class="file-info">({{ item.file.ext}},
+                                <span class="file-info" ng-if="item.file">({{ item.file.ext}},
                                     {{ item.file.size | byteFmt: 2 }})</span>
                             </div>
                         </div>
@@ -35,15 +41,18 @@
                               <div class="item-file item-info" flex="33">
                                   <div layout="column" layout-align="center center">
                                     <div class="wizard-button">
-                                        <a class="md-fab md-primary md-button wizard-icon" title="download file" href="/api/items/{{item.id}}/download" target="_blank" download="{{item.document_title}}">
+                                        <a ng-if="!item.url" class="md-fab md-primary md-button wizard-icon" title="download file" href="/api/items/{{item.id}}/download" target="_blank" download="{{item.document_title}}">
                                             <md-icon>file_download</md-icon>
+                                        </a>
+                                        <a ng-if="item.url" class="md-fab md-primary md-button wizard-icon" title="Visit URL" ng-href="{{item.url}}" target="_blank" >
+                                            <md-icon>link</md-icon>
                                         </a>
                                     </div>
                                   </div>
                               </div>
                                 <div class="item-file item-info" flex="33">
                                     <h4>Details</h4>
-                                    <div layout="column">
+                                    <div layout="column" ng-if="!item.url">
                                       <div layout="row">
                                         <span>Type:&nbsp;</span>
                                         <span>{{ item.file.ext}}</span>
@@ -51,6 +60,16 @@
                                       <div layout="row">
                                         <span>Size:&nbsp;</span>
                                         <span> {{ item.file.size | byteFmt: 2 }}</span>
+                                      </div>
+                                      <div layout="row">
+                                        <span>Date:&nbsp;</span>
+                                        <span am-time-ago="item.created_at | amParse:'YYYY-MM-DD HH:mm:ss'"></span>
+                                      </div>
+                                    </div>
+                                    <div layout="column" ng-if="item.url">
+                                      <div layout="row">
+                                        <span>Type:&nbsp;</span>
+                                        <span>Hyperlink</span>
                                       </div>
                                       <div layout="row">
                                         <span>Date:&nbsp;</span>

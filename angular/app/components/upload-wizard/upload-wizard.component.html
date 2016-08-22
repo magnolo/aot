@@ -12,7 +12,7 @@
                     <div>add file</div>
                 </div>
                 <div class="wizard-button">
-                    <md-button class="md-fab wizard-icon">
+                    <md-button class="md-fab wizard-icon" ng-click="vm.startLinkWizard()">
                         <md-icon>link</md-icon>
                     </md-button>
                     <div>link</div>
@@ -25,7 +25,7 @@
         <md-step-body>
             <h1 class="wizard-head">Title &amp; Author</h1>
             <form name="titleForm">
-                <div class="wizard-input-container">
+                <div class="wizard-input-container" ng-if="!vm.isUrl">
                     <h2 class="wizard-header">Edit the title of your document</h2>
                     <div>
                         <md-input-container class="md-block">
@@ -33,6 +33,19 @@
                             <input type="text" ng-model="vm.item.document_title" name="document_title" required/>
                             <div ng-messages="titleForm.document_title.$error">
                                 <div ng-message="required">This is required.</div>
+                            </div>
+                        </md-input-container>
+                    </div>
+                </div>
+                <div class="wizard-input-container" ng-if="vm.isUrl">
+                    <h2 class="wizard-header">Add the hyperlink</h2>
+                    <div>
+                        <md-input-container class="md-block">
+                            <label>Hyperlink (URL)*</label>
+                            <input type="url" ng-model="vm.item.url" name="document_title" required/>
+                            <div ng-messages="titleForm.document_title.$error">
+                                <div ng-message="required">This is required.</div>
+                                <div ng-message="url">This is not a valid URL.</div>
                             </div>
                         </md-input-container>
                     </div>
@@ -83,7 +96,10 @@
                         <md-input-container class="md-block">
                             <label>Theme*</label>
                             <md-select ng-model="vm.item.themes" name="themes" required multiple>
-                                <md-option ng-repeat="theme in vm.themes" ng-value="theme">{{theme.title}}</md-option>
+                                <md-option ng-repeat="theme in vm.themes" ng-value="theme">
+                                  <div class="with-children"><span>{{theme.title}}</span></div>
+                                  <md-option ng-repeat="t in theme.children" ng-value="t">{{ t.title}}</md-option>
+                                </md-option>
                             </md-select>
                             <div ng-messages="contentForm.theme.$error">
                                 <div ng-message="required">This is required.</div>
@@ -216,8 +232,8 @@
             </md-button>
         </md-step-actions>
     </md-step>
-    <md-step md-label="File">
-        <md-step-body>
+    <md-step md-label="{{ !vm.isUrl ? 'File' : 'Link'}}" >
+        <md-step-body ng-show="!vm.isUrl">
             <h1 class="wizard-head">File Information</h1>
             <form name="fileForm">
                 <div class="wizard-input-container">
@@ -276,6 +292,67 @@
                         </md-input-container>
                     </div>
                 </div>
+            </form>
+        </md-step-body>
+        <md-step-body  ng-show="vm.isUrl">
+            <h1 class="wizard-head">URL Information</h1>
+            <form name="fileForm">
+                <div class="wizard-input-container">
+                    <h2 class="wizard-header">Specify the source of the document</h2>
+                    <div>
+                        <md-input-container class="md-block">
+                            <label>Source*</label>
+                            <md-select ng-model="vm.item.sources" name="source" required>
+                                <md-option ng-repeat="source in vm.sources" ng-value="{{source.id}}">{{source.acronym_title}}</md-option>
+                            </md-select>
+                            <div ng-messages="fileForm.source.$error">
+                                <div ng-message="required">This is required.</div>
+                            </div>
+                        </md-input-container>
+                    </div>
+                </div>
+                <div class="wizard-input-container">
+                    <h2 class="wizard-header">Specify the type of the document</h2>
+                    <div>
+                        <md-input-container class="md-block">
+                            <label>Type*</label>
+                            <md-select ng-model="vm.item.file_type_id" name="file_type" required>
+                                <md-option ng-repeat="type in vm.types" ng-value="{{type.id}}">{{type.title}}</md-option>
+                            </md-select>
+                            <div ng-messages="fileForm.file_type.$error">
+                                <div ng-message="required">This is required.</div>
+                            </div>
+                        </md-input-container>
+                    </div>
+                </div>
+                <!-- <div class="wizard-input-container">
+                    <h2 class="wizard-header">Select year(s) of publication</h2>
+                    <div>
+                        <md-input-container class="md-block">
+                            <label>Years*</label>
+                            <md-select ng-model="vm.item.years" name="years" required multiple>
+                                <md-option ng-repeat="year in vm.years" ng-value="{{year.id}}">{{year.year}}</md-option>
+                            </md-select>
+                            <div ng-messages="fileForm.years.$error">
+                                <div ng-message="required">This is required.</div>
+                            </div>
+                        </md-input-container>
+                    </div>
+                </div>
+                <div class="wizard-input-container">
+                    <h2 class="wizard-header">Select the document's language</h2>
+                    <div>
+                        <md-input-container class="md-block">
+                            <label>Language*</label>
+                            <md-select ng-model="vm.item.language_id" name="language" required>
+                                <md-option ng-repeat="lang in vm.languages" ng-value="{{lang.id}}">{{lang.title}}</md-option>
+                            </md-select>
+                            <div ng-messages="fileForm.language.$error">
+                                <div ng-message="required">This is required.</div>
+                            </div>
+                        </md-input-container>
+                    </div>
+                </div> -->
             </form>
         </md-step-body>
         <md-step-actions layout="row" layout-align="space-between center">

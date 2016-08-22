@@ -187,3 +187,36 @@ md-step-actions {
       }
     }
 }
+md-select-value{
+  md-option{
+    display: none;
+  }
+  .with-children{
+    float:left;
+  }
+}
+md-select-menu[multiple]{
+  > md-content{
+    > md-option{
+      min-height:48px;
+      height:auto;
+      &.md-checkbox-enabled{
+        > .md-container{
+          top:24px;
+        }
+        > .md-text{
+          > div{
+            &.with-children{
+                  margin: 16px 0;
+
+            }
+
+          }
+        }
+      }
+      md-option{
+
+      }
+    }
+  }
+}

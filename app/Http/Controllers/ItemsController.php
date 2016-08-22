@@ -42,45 +42,77 @@ class ItemsController extends Controller
         $item->language_id = $request->get('language_id');
         $item->file_id = $request->get('file_id');
         $item->source_id = $request->get('sources');
-        $item->save();
+        $item->url = $request->get('url');
+        $item->comment = $request->get('comment');
 
-        foreach($request->get('authors') as $a){
-          if(isset($a['id'])){
-            $author = Author::find($a['id']);
+        if(!$item->document_title){
+          if($item->screen_title){
+            $item->document_title = $item->screen_title;
           }
           else{
-            $author = new Author;
-            $author->slug = str_slug($a['name']);
-            $author->name = $a['name'];
-            $author->save();
-          }
-          $item->authors()->attach($author);
-        }
-        foreach($request->get('themes') as $t){
-          $theme = Theme::find($t['id']);
-          $item->themes()->attach($theme);
-        }
-        foreach($request->get('years') as $y){
-          $year = Year::find($y);
-          $item->years()->attach($year);
-        }
-        foreach($request->get('countries') as $c){
-          foreach($c['countries'] as $count){
-            $country = Country::find($count['id']);
-            $item->countries()->attach($country,['theme_id' => $c['theme']['id']]);
+            $item->document_title = $item->url;
           }
         }
-        foreach($request->get('groups') as $g){
-          $group = Group::find($g['group']['id']);
-          $item->groups()->attach($group,['theme_id' => $g['theme']['id']]);
+
+        $item->save();
+
+        if($request->has('authors')){
+          foreach($request->get('authors') as $a){
+            if(isset($a['id'])){
+              $author = Author::find($a['id']);
+            }
+            else{
+              $author = new Author;
+              $author->slug = str_slug($a['name']);
+              $author->name = $a['name'];
+              $author->save();
+            }
+            $item->authors()->attach($author);
+          }
         }
-        foreach($request->get('instruments') as $i){
-          $instrument = Instrument::find($i['instrument']['id']);
-          $item->instruments()->attach($instrument,['theme_id' => $i['theme']['id']]);
+
+        if($request->has('themes')){
+          foreach($request->get('themes') as $t){
+            $theme = Theme::find($t['id']);
+            $item->themes()->attach($theme);
+          }
         }
-        foreach($request->get('paragraphs') as $i){
-          $instrument = Instrument::find($i['paragraph']);
-          $item->instruments()->attach($instrument,['parent_id' => $i['instrument']['id']]);
+
+        if($request->has('years')){
+          foreach($request->get('years') as $y){
+            $year = Year::find($y);
+            $item->years()->attach($year);
+          }
+        }
+
+        if($request->has('countries')){
+          foreach($request->get('countries') as $c){
+            foreach($c['countries'] as $count){
+              $country = Country::find($count['id']);
+              $item->countries()->attach($country,['theme_id' => $c['theme']['id']]);
+            }
+          }
+        }
+
+        if($request->has('groups')){
+          foreach($request->get('groups') as $g){
+            $group = Group::find($g['group']['id']);
+            $item->groups()->attach($group,['theme_id' => $g['theme']['id']]);
+          }
+        }
+
+        if($request->has('instruments')){
+          foreach($request->get('instruments') as $i){
+            $instrument = Instrument::find($i['instrument']['id']);
+            $item->instruments()->attach($instrument,['theme_id' => $i['theme']['id']]);
+          }
+        }
+
+        if($request->has('paragraphs')){
+          foreach($request->get('paragraphs') as $i){
+            $instrument = Instrument::find($i['paragraph']);
+            $item->instruments()->attach($instrument,['parent_id' => $i['instrument']['id']]);
+          }
         }
 
       DB::commit();

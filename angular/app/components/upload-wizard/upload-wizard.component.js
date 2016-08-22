@@ -27,6 +27,7 @@ class UploadWizardController {
         this.isAlternative = true;
         this.isLinear = true;
         this.isUploading = false;
+        this.isUrl = false;
 
         this.$state = $state;
         this.$document = $document;
@@ -110,6 +111,7 @@ class UploadWizardController {
      * the wizard goes on to the next state, the type "file" will be set (instead of "url")
      */
     uploadFile(file) {
+        this.isUrl = false;
         this.item.type_id = 1;
         this.isUploading = true;
         this.Upload.upload({
@@ -321,6 +323,19 @@ class UploadWizardController {
         return found;
     }
 
+    /**
+     * @ngdoc function
+     * @name startLinkWizard
+     * @description
+     * Defines that the item is set for an URL and
+     * sets the wizard for it
+     */
+     startLinkWizard(){
+       this.isUrl = true;
+       this.item.output_category_id = 6;
+       this.stepper = this.$mdStepper('upload-wizard');
+       this.stepper.next();
+     }
 
 }
 
