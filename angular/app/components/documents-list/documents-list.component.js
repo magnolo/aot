@@ -48,8 +48,9 @@ class DocumentsListController{
                 }
               }
               else{
-                angular.forEach(item[filter.route], (itemProp) => {
-                  if(itemProp.id == filter.id){
+                let type = filter.route || filter.thisTree[0].route;
+                angular.forEach(item[type], (itemProp) => {
+                  if(itemProp.id == filter.id || itemProp.parent_id == filter.id){
                     valid.push(true);
                   }
                 });
