@@ -107,7 +107,7 @@
                         </md-input-container>
                     </div>
                 </div>
-                <div class="wizard-input-container" ng-if="vm.item.themes">
+                <div class="wizard-input-container" >
                     <div layout="column" layout-align="start start">
                         <h2 class="wizard-header">Specify the target group(s)</h2>
                         <md-button class="add_button" ng-click="vm.addTargetGroup()">
@@ -137,7 +137,7 @@
                     </div>
 
                 </div>
-                <div class="wizard-input-container" ng-if="vm.item.themes">
+                <div class="wizard-input-container" >
                     <div layout="column" layout-align="start start">
                         <h2 class="wizard-header">Specify legal instruments</h2>
                         <md-button class="add_button" ng-click="vm.addInstrument()">
@@ -195,7 +195,7 @@
                         </div>
                     </div>
                 </div>
-                <div class="wizard-input-container" ng-if="vm.item.themes">
+                <div class="wizard-input-container">
                     <div layout="column" layout-align="start start">
                         <h2 class="wizard-header">Specify Country(ies)</h2>
                         <md-button class="add_button" ng-click="vm.addCountry()">
@@ -311,48 +311,6 @@
                         </md-input-container>
                     </div>
                 </div>
-                <!-- <div class="wizard-input-container" ng-if="!vm.isUrl">
-                    <h2 class="wizard-header">Specify the type of the document</h2>
-                    <div>
-                        <md-input-container class="md-block">
-                            <label>Type*</label>
-                            <md-select ng-model="vm.item.file_type_id" name="file_type" required>
-                                <md-option ng-repeat="type in vm.types" ng-value="{{type.id}}">{{type.title}}</md-option>
-                            </md-select>
-                            <div ng-messages="fileForm.file_type.$error">
-                                <div ng-message="required">This is required.</div>
-                            </div>
-                        </md-input-container>
-                    </div>
-                </div>
-                <div class="wizard-input-container">
-                    <h2 class="wizard-header">Select year(s) of publication</h2>
-                    <div>
-                        <md-input-container class="md-block">
-                            <label>Years*</label>
-                            <md-select ng-model="vm.item.years" name="years" required multiple>
-                                <md-option ng-repeat="year in vm.years" ng-value="{{year.id}}">{{year.year}}</md-option>
-                            </md-select>
-                            <div ng-messages="fileForm.years.$error">
-                                <div ng-message="required">This is required.</div>
-                            </div>
-                        </md-input-container>
-                    </div>
-                </div>
-                <div class="wizard-input-container">
-                    <h2 class="wizard-header">Select the document's language</h2>
-                    <div>
-                        <md-input-container class="md-block">
-                            <label>Language*</label>
-                            <md-select ng-model="vm.item.language_id" name="language" required>
-                                <md-option ng-repeat="lang in vm.languages" ng-value="{{lang.id}}">{{lang.title}}</md-option>
-                            </md-select>
-                            <div ng-messages="fileForm.language.$error">
-                                <div ng-message="required">This is required.</div>
-                            </div>
-                        </md-input-container>
-                    </div>
-                </div> -->
             </form>
         </md-step-body>
         <md-step-actions layout="row" layout-align="space-between center">

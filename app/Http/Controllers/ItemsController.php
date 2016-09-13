@@ -91,23 +91,36 @@ class ItemsController extends Controller
         if($request->has('countries')){
           foreach($request->get('countries') as $c){
             foreach($c['countries'] as $count){
+              $theme_id = null;
+              if(isset($c['theme']['id'])){
+                $theme_id = $c['theme']['id'];
+                //dd($c);
+              }
               $country = Country::find($count['id']);
-              $item->countries()->attach($country,['theme_id' => $c['theme']['id']]);
+              $item->countries()->attach($country,['theme_id' => $theme_id]);
             }
           }
         }
 
         if($request->has('groups')){
           foreach($request->get('groups') as $g){
+            $theme_id = null;
+            if(isset($g['theme']['id'])){
+              $theme_id = $g['theme']['id'];
+            }
             $group = Group::find($g['group']['id']);
-            $item->groups()->attach($group,['theme_id' => $g['theme']['id']]);
+            $item->groups()->attach($group,['theme_id' => $theme_id]);
           }
         }
 
         if($request->has('instruments')){
           foreach($request->get('instruments') as $i){
+            $theme_id = null;
+            if(isset($i['theme']['id'])){
+              $theme_id = $i['theme']['id'];
+            }
             $instrument = Instrument::find($i['instrument']['id']);
-            $item->instruments()->attach($instrument,['theme_id' => $i['theme']['id']]);
+            $item->instruments()->attach($instrument,['theme_id' => $theme_id]);
           }
         }
 
