@@ -29,7 +29,7 @@ class AuthController extends Controller
         }
 
         $user = Auth::user();
-
+        $user->load('roles');
 
         return response()->success(compact('user', 'token'));
     }
