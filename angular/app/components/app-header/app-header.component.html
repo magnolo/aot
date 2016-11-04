@@ -4,10 +4,37 @@
             <div layout="row" layout-align="space-between center">
                 <img src="img/atlas_of_torture_logo.png" ui-sref="app.landing" class="DemoHeader-logo"/>
                 <div layout="row" layout-align="center stretch">
+                    <!-- <a ui-sref-active="active" class="DemoHeader-link md-subhead" ui-sref="app.login">Login</a> -->
                     <a ui-sref-active="active" class="DemoHeader-link md-subhead" ui-sref="app.upload-wizard">Add Entry</a>
-
+                    <md-menu>
+                        <md-button aria-label="user menu" class="md-icon-button" ng-click="vm.openMenu($mdOpenMenu, $event)">
+                            <md-icon md-menu-origin>account_circle</md-icon>
+                        </md-button>
+                        <md-menu-content width="4">
+                            <!-- <md-menu-item>
+                                <md-button  ui-sref="app.login">
+                                    <md-icon md-menu-align-target>lock</md-icon>
+                                    Login
+                                </md-button>
+                            </md-menu-item> -->
+                            <md-menu-item class="height-auto" ng-if="!vm.isAuthenticated()">
+                                <login-form></login-form>
+                            </md-menu-item>
+                            <md-menu-item>
+                              <md-button ui-sref="app.admin.dashboard">
+                                <md-icon md-menu-align-target>dashboard</md-icon>
+                                Dashboard
+                              </md-button>
+                            </md-menu-item>
+                            <md-menu-item ng-if="vm.isAuthenticated()" >
+                                <md-button ng-click="vm.logout()">
+                                  <md-icon md-menu-align-target>power_settings_new</md-icon>
+                                  Logout
+                                </md-button>
+                            </md-menu-item>
+                        </md-menu-content>
+                    </md-menu>
                 </div>
-
             </div>
         </div>
     </div>

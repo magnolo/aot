@@ -4,6 +4,9 @@ export function RoutesConfig($stateProvider, $urlRouterProvider) {
     let getView = (viewName) => {
         return `./views/app/pages/${viewName}/${viewName}.page.html`;
     };
+    let getAdminView = (viewName) => {
+        return `./views/app/pages/admin/${viewName}/${viewName}.page.html`;
+    };
 
     $urlRouterProvider.otherwise('/');
 
@@ -68,5 +71,21 @@ export function RoutesConfig($stateProvider, $urlRouterProvider) {
                     templateUrl: getView('upload-wizard')
                 }
             }
-        });
+        })
+        .state('app.admin', {
+            abstract: true,
+            url:'/admin',
+            data:{
+              auth:true
+            }
+        })
+        .state('app.admin.dashboard', {
+            url:'/dashboard',
+            views:{
+              'main@':{
+                templateUrl: getAdminView('dashboard')
+              }
+            }
+        })
+        ;
 }

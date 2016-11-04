@@ -49,7 +49,7 @@ elixir(function(mix) {
         .sass('./angular/critical.scss', 'public/css/critical.css')
         .styles(styles, './public/css/final.css')
         .version(assets)
-        .swPrecache();
+        //.swPrecache();
         //.gulpDocs('./angular/');
 
         //enable front-end tests by uncommenting the below line
