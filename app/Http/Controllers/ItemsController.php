@@ -21,10 +21,15 @@ use DB;
 class ItemsController extends Controller
 {
     //
-    public function all(){
-      $items = Item::with(['authors', 'themes', 'years', 'file', 'language','category', 'source', 'countries', 'groups', 'instruments'])->get();
+    public function all(Request $request){
+      $items = Item::with(['authors', 'themes', 'years', 'file', 'language','category', 'source', 'countries', 'groups', 'instruments']);
+      if($request->has('limit')) $items = $items->take($request->get('limit'));
+      if($request->has('page')) $items = $items->skip(($request->get('page')*$request->get('limit'))-$request->get('limit'));
+      // if($request->has('order')) $items = $items->orderBy($request->get('order'));
 
-      return response()->success(['items' => $items]);
+      $items = $items->get();
+      $count = Item::all()->count();
+      return response()->success(['items' => $items, 'count' => $count]);
     }
     public function show($id){
       $item = Item::findOrFail($id);

@@ -1,3 +1,5 @@
+import {DocumentsTableComponent} from './app/components/documents-table/documents-table.component';
+import {DashboardComponent} from './app/components/dashboard/dashboard.component';
 import {AutocompleteMultipleComponent} from './app/components/autocomplete-multiple/autocomplete-multiple.component';
 import {MainFilterControlComponent} from './app/components/main-filter-control/main-filter-control.component';
 import {MainFilterSidebarComponent} from './app/components/main-filter-sidebar/main-filter-sidebar.component';
@@ -13,6 +15,8 @@ import {LoginFormComponent} from './app/components/login-form/login-form.compone
 import {RegisterFormComponent} from './app/components/register-form/register-form.component';
 
 angular.module('app.components')
+	.component('documentsTable', DocumentsTableComponent)
+	.component('dashboard', DashboardComponent)
 	.component('autocompleteMultiple', AutocompleteMultipleComponent)
 	.component('mainFilterControl', MainFilterControlComponent)
 	.component('mainFilterSidebar', MainFilterSidebarComponent)

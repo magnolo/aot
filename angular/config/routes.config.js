@@ -73,10 +73,15 @@ export function RoutesConfig($stateProvider, $urlRouterProvider) {
             }
         })
         .state('app.admin', {
-            abstract: true,
+            // abstract: true,
             url:'/admin',
-            data:{
-              auth:true
+            // data:{
+            //   auth:true
+            // },
+            views:{
+              'main@':{
+                templateUrl: getAdminView('dashboard')
+              }
             }
         })
         .state('app.admin.dashboard', {
@@ -87,5 +92,12 @@ export function RoutesConfig($stateProvider, $urlRouterProvider) {
               }
             }
         })
-        ;
+        .state('app.admin.documents', {
+            url:'/documents',
+            views:{
+              'main@':{
+                templateUrl: getAdminView('items')
+              }
+            }
+        });
 }

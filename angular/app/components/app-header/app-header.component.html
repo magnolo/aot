@@ -20,7 +20,7 @@
                             <md-menu-item class="height-auto" ng-if="!vm.isAuthenticated()">
                                 <login-form></login-form>
                             </md-menu-item>
-                            <md-menu-item>
+                            <md-menu-item ng-if="vm.isAuthenticated()">
                               <md-button ui-sref="app.admin.dashboard">
                                 <md-icon md-menu-align-target>dashboard</md-icon>
                                 Dashboard

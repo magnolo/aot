@@ -8,17 +8,22 @@ export class ItemService{
         this.Blob = Blob;
     }
     all(success){
-      this.API.all('items').getList().then((data) => {
+      return this.API.all('items').getList().then((data) => {
+        success(data);
+      });
+    }
+    get(query, success){
+      return this.API.all('items').getList(query).then((data) => {
         success(data);
       });
     }
     one(id, success){
-      this.API.one('items', id).get().then((data) => {
+      return this.API.one('items', id).get().then((data) => {
         success(data);
       });
     }
     create(data, success, error){
-      this.API.all('items').post(data).then((response) => {
+      return this.API.all('items').post(data).then((response) => {
         success(response);
       },(response) => {
         error(response);
