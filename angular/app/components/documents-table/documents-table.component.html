@@ -1,9 +1,23 @@
-<md-toolbar class="md-table-toolbar md-primary">
+<md-toolbar class="md-table-toolbar md-primary" ng-hide="vm.filter.show">
     <div class="md-toolbar-tools">
-        <span>Documents</span>
+        <h2 class="md-title">Documents</h2>
+        <div flex></div>
+        <md-button class="md-icon-button" ng-click="vm.filter.show = !vm.filter.show">
+          <md-icon>filter_list</md-icon>
+        </md-button>
     </div>
 </md-toolbar>
-
+<md-toolbar class="md-table-toolbar md-primary" ng-show="vm.filter.show" aria-hidden="false" >
+  <div class="md-toolbar-tools">
+    <md-icon>search</md-icon>
+    <form flex name="vm.filter.form">
+      <input type="text" ng-model="vm.query.filter" ng-model-options="vm.filter.options" placeholder="Search...">
+    </form>
+    <md-button class="md-icon-button" ng-click="vm.removeFilter()" aria-label="close">
+      <md-icon class="material-icons">close</md-icon>
+    </button>
+  </div>
+</md-toolbar>
 <md-table-container>
     <table md-table md-row-select multiple ng-model="vm.selected" md-progress="vm.promise">
         <thead md-head md-order="query.order" md-on-reorder="vm.getDocuments">

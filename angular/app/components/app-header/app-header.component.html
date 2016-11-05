@@ -5,9 +5,12 @@
                 <img src="img/atlas_of_torture_logo.png" ui-sref="app.landing" class="DemoHeader-logo"/>
                 <div layout="row" layout-align="center stretch">
                     <!-- <a ui-sref-active="active" class="DemoHeader-link md-subhead" ui-sref="app.login">Login</a> -->
-                    <a ui-sref-active="active" class="DemoHeader-link md-subhead" ui-sref="app.upload-wizard">Add Entry</a>
-                    <md-menu>
-                        <md-button aria-label="user menu" class="md-icon-button" ng-click="vm.openMenu($mdOpenMenu, $event)">
+                    <a ui-sref-active="active" layout="row" layout-align="center center" class="DemoHeader-link md-subhead" ui-sref="app.upload-wizard">
+                      <md-icon class="md-primary">add</md-icon>
+                      <span>Add Entry</span>
+                    </a>
+                    <md-menu layout="colum" layout-align="center center">
+                        <md-button aria-label="user menu" class="md-icon-button md-primary" ng-click="vm.openMenu($mdOpenMenu, $event)">
                             <md-icon md-menu-origin>account_circle</md-icon>
                         </md-button>
                         <md-menu-content width="4">

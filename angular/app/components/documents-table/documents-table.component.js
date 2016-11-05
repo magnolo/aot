@@ -9,10 +9,17 @@ class DocumentsTableController {
         this.promise;
         this.fabOpen = false;
         this.selected = [];
+        this.filter = {
+          show:false,
+          options: {
+            debounce: 500
+          }
+        }
         this.query = {
             order: 'title',
             limit: 15,
-            page: 1
+            page: 1,
+            filter:''
         };
 
         this.ItemService = ItemService;
@@ -44,6 +51,10 @@ class DocumentsTableController {
     }
     saveDocument(document){
       this.ItemService.update(document.id, document);
+    }
+    removeFilter(){
+      this.query.filter = '';
+      this.filter.show = false;
     }
 }
 

@@ -53,3 +53,27 @@ table.md-table.md-row-select td.md-cell:nth-child(n+3):nth-last-child(n+2), tabl
 md-checkbox.md-default-theme.md-checked .md-icon, md-checkbox.md-checked .md-icon {
     background-color: $color;
 }
+md-toolbar.md-table-toolbar{
+  &.md-primary{
+    .material-icons{
+      color:#fff;
+    }
+  }
+}
+md-toolbar.md-table-toolbar form {
+  margin-left: 16px;
+}
+md-toolbar.md-table-toolbar form > input {
+  width: 100%;
+  margin: 0;
+  border: none;
+  color: #fff;
+  background: $color;
+  &::placeholder{
+    color:rgba(255,255,255,0.6);
+    font-weight: 200;
+  }
+}
+md-toolbar.md-table-toolbar form > input:focus {
+  outline: none;
+}
