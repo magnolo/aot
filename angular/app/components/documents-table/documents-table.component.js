@@ -55,6 +55,7 @@ class DocumentsTableController {
     removeFilter(){
       this.query.filter = '';
       this.filter.show = false;
+      this.getDocuments();
     }
 }
 

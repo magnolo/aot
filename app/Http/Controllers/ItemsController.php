@@ -26,9 +26,20 @@ class ItemsController extends Controller
       if($request->has('limit')) $items = $items->take($request->get('limit'));
       if($request->has('page')) $items = $items->skip(($request->get('page')*$request->get('limit'))-$request->get('limit'));
       // if($request->has('order')) $items = $items->orderBy($request->get('order'));
-
+      if($request->has('filter')){
+        if($request->get('filter')){
+          $items = $items->where('document_title', 'like', '%'.$request->get('filter'). '%')->orWhere('screen_title', 'like', '%'.$request->get('filter'). '%');
+          $count = $items->count();
+        }
+        else{
+          $count = Item::all()->count();
+        }
+      }
+      else{
+        $count = Item::all()->count();
+      }
       $items = $items->get();
-      $count = Item::all()->count();
+
       return response()->success(['items' => $items, 'count' => $count]);
     }
     public function show($id){

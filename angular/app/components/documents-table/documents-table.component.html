@@ -11,7 +11,7 @@
   <div class="md-toolbar-tools">
     <md-icon>search</md-icon>
     <form flex name="vm.filter.form">
-      <input type="text" ng-model="vm.query.filter" ng-model-options="vm.filter.options" placeholder="Search...">
+      <input type="text" ng-change="vm.getDocuments()" ng-model="vm.query.filter" ng-model-options="vm.filter.options" placeholder="Search...">
     </form>
     <md-button class="md-icon-button" ng-click="vm.removeFilter()" aria-label="close">
       <md-icon class="material-icons">close</md-icon>
