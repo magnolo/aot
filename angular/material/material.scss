@@ -1,4 +1,7 @@
 @import "project";
+md-content.md-default-theme, md-content, html.md-default-theme, html, body.md-default-theme, body{
+  background: #fff;
+}
 md-chips .md-chips{
   box-shadow: 0px 0px;
 }

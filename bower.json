@@ -14,7 +14,7 @@
     "angular": "~1.5",
     "angular-ui-router": "~1.0.0-alpha.3",
     "ngstorage": "~0.3.10",
-    "angular-material": "~1.0.8",
+    "angular-material": "~1.1.0",
     "restangular": "~1.5.2",
     "angular-loading-bar": "~0.9.0",
     "satellizer": "^0.14.0",
@@ -29,6 +29,7 @@
     "angular-scroll": "^1.0.0",
     "angular-file-saver": "^1.1.2",
     "angular-moment": "1.0.0-beta.6",
-    "angular-material-data-table": "^0.10.9"
+    "angular-material-data-table": "^0.10.9",
+    "ng-inline-edit": "^0.7.0"
   }
 }

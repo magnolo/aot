@@ -1,11 +1,11 @@
 export class ItemService{
-    constructor(API, FileSaver, Blob){
+    constructor(API, FileSaver, Blob, ToastService){
         'ngInject';
 
-        //
         this.API = API;
         this.FileSaver = FileSaver;
         this.Blob = Blob;
+        this.ToastService = ToastService;
     }
     all(success){
       return this.API.all('items').getList().then((data) => {
@@ -28,6 +28,15 @@ export class ItemService{
       },(response) => {
         error(response);
       });
+    }
+    update(id, data, success, error){
+      return this.API.one('items', id).customPUT(data).then((response) => {
+        if(success) success(response);
+        return this.ToastService.show('Change successfully saved!');
+      }, (response) => {
+        if(error) error(response);
+        return this.ToastService.error('Error on saving data!');
+      })
     }
     download(item, success, error){
       this.API.one('items', item.id).one('download').get().then((response) => {

@@ -140,6 +140,16 @@ class ItemsController extends Controller
       return response()->success(['item' => $item]);
     }
 
+    public function update(Request $request, $id){
+        DB::beginTransaction();
+        $mainData = $request->only(['comment', 'document_title', 'language_id', 'screen_title', 'short_description', 'source_id']);
+        $item = Item::where('id', $id);
+        $success = $item->update($mainData);
+        $item = $item->first();
+        $item->load(['authors', 'themes', 'years', 'file', 'language','category', 'source', 'countries', 'groups', 'instruments']);
+        DB::commit();
+        return response()->success(['item' => $item , 'success' => $success]);
+    }
     public function download($id){
       $item = Item::findOrFail($id);
       $item->load('file');

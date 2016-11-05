@@ -1,6 +1,55 @@
+@import "project";
 .u-center{
     text-align: center;
 }
 .height-auto{
   height:auto;
+}
+.ng-inline-edit{
+  .ng-inline-edit__text--placeholder {
+    color: #999;
+    font-weight: normal;
+    font-style: italic;
+  }
+  a.ng-inline-edit__button--edit{
+    opacity: 0;
+    transition: opacity .25s ease-in-out;
+    .material-icons{
+      color:$color;
+    }
+  }
+  &:hover{
+    a.ng-inline-edit__button--edit{
+      opacity: 1;
+    }
+  }
+  .ng-inline-edit__input {
+  border-bottom: 1px dashed #666;
+}
+
+.ng-inline-edit--error .ng-inline-edit__input {
+  border-color: #f00;
+}
+
+}
+table.md-table{
+  .material-icons{
+    font-size:16px;
+    height:16px;
+    line-height: 16px;
+    width:16px;
+    margin-left:4px;
+    min-height: 16px;
+    min-width: 16px;
+  }
+  th.md-column{
+    color: $color;
+    background-color: $background;
+  }
+}
+table.md-table.md-row-select td.md-cell:nth-child(n+3):nth-last-child(n+2), table.md-table.md-row-select th.md-column:nth-child(n+3):nth-last-child(n+2) {
+    padding: 0 20px 0 0;
+}
+md-checkbox.md-default-theme.md-checked .md-icon, md-checkbox.md-checked .md-icon {
+    background-color: $color;
 }

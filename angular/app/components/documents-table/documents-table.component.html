@@ -1,19 +1,27 @@
-<md-toolbar class="md-table-toolbar md-default">
+<md-toolbar class="md-table-toolbar md-primary">
     <div class="md-toolbar-tools">
         <span>Documents</span>
     </div>
 </md-toolbar>
 
-<!-- exact table from live demo -->
 <md-table-container>
     <table md-table md-row-select multiple ng-model="vm.selected" md-progress="vm.promise">
         <thead md-head md-order="query.order" md-on-reorder="vm.getDocuments">
             <tr md-row>
+                <th md-column>
+                    <span>ID</span>
+                </th>
+                <th md-column>
+                    <span>Type</span>
+                </th>
                 <th md-column md-order-by="screen_title">
-                    <span>Title</span>
+                    <span>Screen Title</span>
                 </th>
                 <th md-column md-order-by="document_title">
-                    <span>Doc Title</span>
+                    <span>Document Title</span>
+                </th>
+                <th md-column>
+                    <span>Ext</span>
                 </th>
                 <th md-column>
                     <span>Category</span>
@@ -21,23 +29,78 @@
                 <th md-column>
                     <span>Source</span>
                 </th>
-
+                <th md-column>
+                    <span>Created</span>
+                </th>
             </tr>
         </thead>
         <tbody md-body>
-            <tr md-row md-select="document" md-select-id="id" md-auto-select ng-repeat="document in vm.documents">
-                <td md-cell>{{document.screen_title}}</td>
-                <td md-cell>{{document.document_title}}</td>
+            <tr md-row md-select="document" md-select-id="id" ng-repeat="document in vm.documents">
+                <td md-cell>{{ document.id }}</td>
                 <td md-cell>
-                    <md-select ng-model="document.category_id" placeholder="Category">
+                    <a ng-if="!document.url" title="download file" href="/api/items/{{document.id}}/download" target="_blank" download="{{document.document_title}}">
+                        <md-icon>file_download</md-icon>
+                    </a>
+                    <a ng-if="document.url" title="Visit URL" ng-href="{{document.url}}" target="_blank">
+                        <md-icon>link</md-icon>
+                    </a>
+                </td>
+                <td
+                    md-cell
+                    inline-edit-callback="vm.inlineUpdate(document, 'screen_title', newValue)"
+                    inline-edit-on-click
+                    inline-edit-on-blur="cancel"
+                    inline-edit="document.screen_title"
+                    inline-edit-btn-edit="<md-icon>edit</md-icon>"
+                    inline-edit-btn-save="<md-icon>save</md-icon>"
+                    inline-edit-btn-cancel="<md-icon class='md-warning'>close</md-icon>"
+                    inline-edit-placeholder="No value yet..."></td>
+                <td
+                    md-cell
+                    inline-edit-callback="vm.inlineUpdate(document, 'document_title', newValue)"
+                    inline-edit-on-click
+                    inline-edit-on-blur="cancel"
+                    inline-edit="document.document_title"
+                    inline-edit-btn-edit="<md-icon>edit</md-icon>"
+                    inline-edit-btn-save="<md-icon>save</md-icon>"
+                    inline-edit-btn-cancel="<md-icon class='md-warning'>close</md-icon>"
+                    inline-edit-placeholder="No value yet..."></td>
+                <td md-cell>
+                    <span ng-if="!document.url">{{ document.file.ext}}</span>
+                    <span ng-if="document.url">URL</span>
+                </td>
+                <td md-cell>
+                    <md-select ng-if="!document.url" ng-model="document.category_id" placeholder="Category" ng-change="vm.saveDocument(document)">
                         <md-option ng-value="category.id" ng-repeat="category in vm.categories">{{category.title}}</md-option>
                     </md-select>
+                    <span ng-if="document.url">
+                        {{ document.category.title }}
+                    </span>
                 </td>
-                <td md-cell>{{document.source.acronym_title || document.source.acronym }}</td>
-
+                <td md-cell>
+                    <md-select ng-model="document.source_id" placeholder="Source" ng-change="vm.saveDocument(document)">
+                        <md-option ng-value="source.id" ng-repeat="source in vm.sources">{{source.acronym_title || source.acronym }}</md-option>
+                    </md-select>
+                </td>
+                <td md-cell am-time-ago="document.created_at | amParse:'YYYY.MM.DD HH:mm:ss'"></td>
             </tr>
         </tbody>
     </table>
 </md-table-container>
-
 <md-table-pagination md-limit="vm.query.limit" md-limit-options="[5, 10, 15]" md-page="vm.query.page" md-total="{{vm.documents.count}}" md-on-paginate="vm.getDocuments" md-page-select></md-table-pagination>
+
+<md-fab-speed-dial md-open="vm.fabOpen" md-direction="up" ng-hide="!vm.selected.length" class="md-fab-bottom-right md-scale" ng-mouseenter="vm.fabOpen=true" ng-mouseleave="vm.fabOpen=false">
+    <md-fab-trigger>
+        <md-button aria-label="menu" class="md-fab md-primary">
+            <md-icon>menu</md-icon>
+        </md-button>
+    </md-fab-trigger>
+    <md-fab-actions>
+        <md-button aria-label="Delete" class="md-fab md-warn md-raised md-mini">
+            <md-tooltip md-direction="left" md-delay="500">Delete
+                {{ vm.selected.length }}
+                Item(s)</md-tooltip>
+            <md-icon>delete</md-icon>
+        </md-button>
+    </md-fab-actions>
+</md-fab-speed-dial>

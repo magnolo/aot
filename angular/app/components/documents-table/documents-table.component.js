@@ -1,11 +1,13 @@
 class DocumentsTableController {
-    constructor(ItemService, CategoryService) {
+    constructor(ItemService, CategoryService, SourceService) {
         'ngInject';
 
         //
         this.documents;
         this.categories;
+        this.sources;
         this.promise;
+        this.fabOpen = false;
         this.selected = [];
         this.query = {
             order: 'title',
@@ -15,10 +17,16 @@ class DocumentsTableController {
 
         this.ItemService = ItemService;
         this.CategoryService = CategoryService;
-        
+        this.SourceService = SourceService;
+
         this.CategoryService.all((data) => {
           this.categories = data;
         });
+
+        this.SourceService.all((data) => {
+          this.sources = data;
+        });
+
 
         this.getDocuments = () =>{
             this.promise = this.ItemService.get(this.query, (data) => {
@@ -28,6 +36,14 @@ class DocumentsTableController {
     }
     $onInit() {
         this.getDocuments();
+    }
+    inlineUpdate(document, field, value){
+      document[field] = value;
+      this.saveDocument(document);
+    //  this.ItemService.update(document.id, data);
+    }
+    saveDocument(document){
+      this.ItemService.update(document.id, document);
     }
 }
 
