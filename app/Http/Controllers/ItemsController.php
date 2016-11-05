@@ -27,16 +27,19 @@ class ItemsController extends Controller
       if($request->has('page')) $items = $items->skip(($request->get('page')*$request->get('limit'))-$request->get('limit'));
       // if($request->has('order')) $items = $items->orderBy($request->get('order'));
       if($request->has('filter')){
-        if($request->get('filter')){
           $items = $items->where('document_title', 'like', '%'.$request->get('filter'). '%')->orWhere('screen_title', 'like', '%'.$request->get('filter'). '%');
           $count = $items->count();
         }
         else{
           $count = Item::all()->count();
-        }
       }
-      else{
-        $count = Item::all()->count();
+      if($request->has('category')){
+        $items = $items->where('category_id', $request->get('category'));
+        $count = $items->count();
+      }
+      if($request->has('source')){
+        $items = $items->where('source_id', $request->get('source'));
+        $count = $items->count();
       }
       $items = $items->get();
 
@@ -160,6 +163,12 @@ class ItemsController extends Controller
         $item->load(['authors', 'themes', 'years', 'file', 'language','category', 'source', 'countries', 'groups', 'instruments']);
         DB::commit();
         return response()->success(['item' => $item , 'success' => $success]);
+    }
+    public function removeBulk(Request $request){
+      // DB::beginTransaction();
+      $items = Item::destroy($request->get('ids'));
+      // DB::commit();
+      return response()->success(['success' => $request->get('ids')]);
     }
     public function download($id){
       $item = Item::findOrFail($id);

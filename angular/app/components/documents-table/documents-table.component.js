@@ -1,5 +1,5 @@
 class DocumentsTableController {
-    constructor(ItemService, CategoryService, SourceService) {
+    constructor(ItemService, CategoryService, SourceService, sweet) {
         'ngInject';
 
         //
@@ -9,11 +9,15 @@ class DocumentsTableController {
         this.promise;
         this.fabOpen = false;
         this.selected = [];
+
         this.filter = {
           show:false,
           options: {
             debounce: 500
           }
+        }
+        this.filterRelations = {
+          show:false
         }
         this.query = {
             order: 'title',
@@ -22,6 +26,7 @@ class DocumentsTableController {
             filter:''
         };
 
+        this.sweet = sweet;
         this.ItemService = ItemService;
         this.CategoryService = CategoryService;
         this.SourceService = SourceService;
@@ -35,7 +40,7 @@ class DocumentsTableController {
         });
 
 
-        this.getDocuments = () =>{
+        this.getDocuments = () => {
             this.promise = this.ItemService.get(this.query, (data) => {
                 this.documents = data;
             }).$promise;
@@ -47,15 +52,58 @@ class DocumentsTableController {
     inlineUpdate(document, field, value){
       document[field] = value;
       this.saveDocument(document);
-    //  this.ItemService.update(document.id, data);
+
     }
     saveDocument(document){
       this.ItemService.update(document.id, document);
     }
-    removeFilter(){
+    showSearch(){
+      this.query.filter = '';
+      this.filter.show = true;
+      this.filterRelations.show= false;
+      this.getDocuments();
+    }
+    showFilters(){
       this.query.filter = '';
       this.filter.show = false;
+      this.filterRelations.show= true;
       this.getDocuments();
+    }
+    removeFilter(){
+      this.query.filter = '';
+      this.query.category = null;
+      this.query.source = null;
+      this.filter.show = false;
+      this.filterRelations.show= false;
+      this.getDocuments();
+    }
+    deleteItems(){
+      this.sweet.show({
+          title: 'Are you shure?',
+          text: 'You are about to delete '+ this.selected.length + ' document(s). Really?',
+          type: 'info',
+          confirmButtonColor: '#2196F3',
+          showCancelButton: true,
+          closeOnConfirm: false,
+          showLoaderOnConfirm: true
+      }, (inputValue) => {
+        if(inputValue){
+          this.ItemService.remove(this.selected.map((item)=> { return item.id;}), (response) => {
+              this.sweet.show({
+                  title: 'Success!',
+                  type:'success',
+                  text: 'The selected items are now gone!',
+                  confirmButtonColor: '#2196F3',
+                  closeOnConfirm: true,
+                  confirmButtonText: 'OK',
+              });
+              this.selected = [];
+              this.getDocuments();
+          },() => {
+            this.sweet.show('Ups...', 'Something went wrong!', 'error');
+          });
+        }
+      });
     }
 }
 

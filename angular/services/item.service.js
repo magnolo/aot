@@ -38,6 +38,16 @@ export class ItemService{
         return this.ToastService.error('Error on saving data!');
       })
     }
+    remove(ids, success, error){
+      debugger;
+      return this.API.all('items').customDELETE('', {ids:ids}).then((response) => {
+        if(success) success(response);
+        return this.ToastService.show('Items successfully deleted!');
+      }, (response) => {
+        if(error) error(response);
+        return this.ToastService.error('Error on deleting items!');
+      })
+    }
     download(item, success, error){
       this.API.one('items', item.id).one('download').get().then((response) => {
         this.FileSaver.saveAs(new this.Blob([response]), item.document_title);

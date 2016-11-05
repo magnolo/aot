@@ -50,6 +50,8 @@ $api->group(['middleware' => ['api']], function ($api) {
     $api->post('/files', 'FilesController@upload');
     $api->post('/items', 'ItemsController@create');
     $api->put('/items/{id}', 'ItemsController@update');
+    $api->delete('/items', 'ItemsController@removeBulk');
+
 });
 
 //protected API routes with JWT (must be logged in)

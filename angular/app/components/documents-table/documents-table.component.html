@@ -1,8 +1,11 @@
-<md-toolbar class="md-table-toolbar md-primary" ng-hide="vm.filter.show">
+<md-toolbar class="md-table-toolbar md-primary" ng-show="!vm.filter.show && !vm.filterRelations.show">
     <div class="md-toolbar-tools">
         <h2 class="md-title">Documents</h2>
         <div flex></div>
-        <md-button class="md-icon-button" ng-click="vm.filter.show = !vm.filter.show">
+        <md-button class="md-icon-button" ng-click="vm.showSearch()">
+          <md-icon>search</md-icon>
+        </md-button>
+        <md-button class="md-icon-button" ng-click="vm.showFilters()">
           <md-icon>filter_list</md-icon>
         </md-button>
     </div>
@@ -11,8 +14,28 @@
   <div class="md-toolbar-tools">
     <md-icon>search</md-icon>
     <form flex name="vm.filter.form">
-      <input type="text" ng-change="vm.getDocuments()" ng-model="vm.query.filter" ng-model-options="vm.filter.options" placeholder="Search...">
+      <input type="text" ng-focus="vm.filter.show" ng-change="vm.getDocuments()" ng-model="vm.query.filter" ng-model-options="vm.filter.options" placeholder="Search...">
     </form>
+    <md-button class="md-icon-button" ng-click="vm.removeFilter()" aria-label="close">
+      <md-icon class="material-icons">close</md-icon>
+    </button>
+  </div>
+</md-toolbar>
+<md-toolbar class="md-table-toolbar md-primary" ng-show="vm.filterRelations.show" aria-hidden="false" >
+  <div class="md-toolbar-tools">
+    <md-input-container>
+      <label>by Categories</label>
+      <md-select  ng-model="vm.query.category" placeholder="Select category" ng-change="vm.getDocuments()">
+          <md-option ng-value="category.id" ng-repeat="category in vm.categories">{{category.title}}</md-option>
+      </md-select>
+    </md-input-container>
+    <md-input-container>
+      <label>by Source</label>
+      <md-select ng-model="vm.query.source" placeholder="Source" ng-change="vm.getDocuments()">
+          <md-option ng-value="source.id" ng-repeat="source in vm.sources">{{source.acronym_title || source.acronym }}</md-option>
+      </md-select>
+    </md-input-container>
+    <span flex></span>
     <md-button class="md-icon-button" ng-click="vm.removeFilter()" aria-label="close">
       <md-icon class="material-icons">close</md-icon>
     </button>
@@ -110,7 +133,7 @@
         </md-button>
     </md-fab-trigger>
     <md-fab-actions>
-        <md-button aria-label="Delete" class="md-fab md-warn md-raised md-mini">
+        <md-button ng-click="vm.deleteItems()" aria-label="Delete" class="md-fab md-warn md-raised md-mini">
             <md-tooltip md-direction="left" md-delay="500">Delete
                 {{ vm.selected.length }}
                 Item(s)</md-tooltip>
