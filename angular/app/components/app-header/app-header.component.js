@@ -1,10 +1,12 @@
 class AppHeaderController{
-    constructor($sce, $auth){
+    constructor($sce, $state, $auth, UserService){
         'ngInject';
 
         this.$sce = $sce;
         this.originatorEv;
         this.$auth = $auth;
+        this.$state = $state;
+        this.UserService = UserService;
     }
     openMenu($mdOpenMenu, ev){
       this.originatorEv = ev;
@@ -15,6 +17,8 @@ class AppHeaderController{
     }
     logout(){
       this.$auth.logout();
+      this.UserService.clearUser();
+      this.$state.go('app.landing');
     }
     $onInit(){
 

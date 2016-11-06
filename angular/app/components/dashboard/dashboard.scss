@@ -1,0 +1,20 @@
+md-grid-list {
+    md-grid-tile {
+        cursor: pointer;
+        md-grid-tile-footer,
+        md-grid-tile-header {
+            height: 64px;
+            color: rgba(0,0,0,0.54);
+            background: transparent;
+            h3 {
+                font-size: 32px;
+            }
+        }
+        .material-icons {
+            font-size: 64px;
+            line-height: 1em;
+            width: 64px;
+            height: 64px;
+        }
+    }
+}

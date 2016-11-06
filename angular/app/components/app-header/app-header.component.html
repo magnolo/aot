@@ -6,8 +6,8 @@
                 <div layout="row" layout-align="center stretch">
                     <!-- <a ui-sref-active="active" class="DemoHeader-link md-subhead" ui-sref="app.login">Login</a> -->
                     <a ui-sref-active="active" layout="row" layout-align="center center" class="DemoHeader-link md-subhead" ui-sref="app.upload-wizard">
-                      <md-icon class="md-primary">add</md-icon>
-                      <span>Add Entry</span>
+                        <md-icon class="md-primary">add</md-icon>
+                        <span>Add Entry</span>
                     </a>
                     <md-menu layout="colum" layout-align="center center">
                         <md-button aria-label="user menu" class="md-icon-button md-primary" ng-click="vm.openMenu($mdOpenMenu, $event)">
@@ -23,16 +23,35 @@
                             <md-menu-item class="height-auto" ng-if="!vm.isAuthenticated()">
                                 <login-form></login-form>
                             </md-menu-item>
+                            <!-- <md-menu-item ng-if="vm.isAuthenticated()">
+                                <md-button>
+                                    <md-icon>account_box</md-icon>
+                                    {{ vm.UserService.getUser().name }}
+                                  </md-button>
+                            </md-menu-item> -->
                             <md-menu-item ng-if="vm.isAuthenticated()">
-                              <md-button ui-sref="app.admin.dashboard">
-                                <md-icon md-menu-align-target>dashboard</md-icon>
-                                Dashboard
-                              </md-button>
+                                <md-button ui-sref="app.admin.dashboard">
+                                    <md-icon md-menu-align-target>dashboard</md-icon>
+                                    Dashboard
+                                </md-button>
                             </md-menu-item>
-                            <md-menu-item ng-if="vm.isAuthenticated()" >
+                            <md-menu-item ng-if="vm.isAuthenticated()">
+                                <md-button ui-sref="app.admin.documents">
+                                    <md-icon md-menu-align-target>assignment</md-icon>
+                                    Documents
+                                </md-button>
+                            </md-menu-item>
+                            <md-menu-item ng-if="vm.isAuthenticated()">
+                                <md-button ui-sref="app.admin.dashboard">
+                                    <md-icon md-menu-align-target>shuffle</md-icon>
+                                    Tags
+                                </md-button>
+                            </md-menu-item>
+                            <md-divider ng-if="vm.isAuthenticated()"></md-divider>
+                            <md-menu-item ng-if="vm.isAuthenticated()">
                                 <md-button ng-click="vm.logout()">
-                                  <md-icon md-menu-align-target>power_settings_new</md-icon>
-                                  Logout
+                                    <md-icon md-menu-align-target>power_settings_new</md-icon>
+                                    Logout
                                 </md-button>
                             </md-menu-item>
                         </md-menu-content>

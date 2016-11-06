@@ -9,7 +9,7 @@ angular.module('app', [
 	'app.partials'
 ]);
 
-angular.module('app.run', []);
+angular.module('app.run', ['ui.router']);
 angular.module('app.routes', []);
 angular.module('app.filters', []);
 angular.module('app.services', []);

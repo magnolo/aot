@@ -71,6 +71,19 @@ md-toolbar.md-table-toolbar{
     font-size:16px;
   }
 }
+md-toolbar.md-table-toolbar{
+  .md-table-pagination{
+    color:#fff;
+    border-top-width: 0px;
+    .page-select, .limit-select{
+      display: none;
+    }
+  }
+  md-select .md-select-value.md-select-placeholder{
+    color:#fff;
+    border-color:#fff;
+  }
+}
 md-toolbar.md-table-toolbar form {
   margin-left: 16px;
 }

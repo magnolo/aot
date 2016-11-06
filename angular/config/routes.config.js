@@ -74,10 +74,10 @@ export function RoutesConfig($stateProvider, $urlRouterProvider) {
         })
         .state('app.admin', {
             abstract: true,
-            url:'/admin',
-            //  data:{
-            //    auth:true
-            //  }
+            data:{
+              auth:true
+            },
+            url:'/admin'
 
         })
         .state('app.admin.dashboard', {

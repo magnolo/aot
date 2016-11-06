@@ -1,10 +1,11 @@
 class LoginFormController {
-	constructor($auth, ToastService, $state) {
+	constructor($auth, ToastService, $state, UserService) {
 		'ngInject';
 
 		this.$auth = $auth;
 		this.ToastService = ToastService;
 		this.$state = $state;
+		this.UserService = UserService;
 	}
 
     $onInit(){
@@ -24,6 +25,7 @@ class LoginFormController {
 
 				this.ToastService.show('Logged in successfully.');
 				this.$state.go('app.landing');
+				this.UserService.setUser(response.data.data.user);
 			})
 			.catch(this.failedLogin.bind(this));
 	}
