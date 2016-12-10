@@ -5,7 +5,7 @@ export class ToastService {
 		this.$mdToast = $mdToast;
 
 		this.delay = 6000;
-		this.position = 'top right';
+		this.position = 'bottom right';
 		this.action = 'OK';
 	}
 
@@ -19,6 +19,18 @@ export class ToastService {
 			.content(content)
 			.position(this.position)
 			.action(this.action)
+			.hideDelay(this.delay)
+		);
+	}
+	simple(content) {
+		if (!content) {
+			return false;
+		}
+
+		return this.$mdToast.show(
+			this.$mdToast.simple()
+			.content(content)
+			.position(this.position)
 			.hideDelay(this.delay)
 		);
 	}

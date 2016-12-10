@@ -137,6 +137,10 @@
         </md-button>
     </md-fab-trigger>
     <md-fab-actions>
+        <md-button ng-if="vm.selected.length == 1" ui-sref="app.admin.documents.details({id: vm.selected[0].id})" aria-label="Edit" class="md-fab md-accent md-raised md-mini">
+            <md-tooltip md-direction="left" md-delay="500">Edit Item</md-tooltip>
+            <md-icon>edit</md-icon>
+        </md-button>
         <md-button ng-click="vm.deleteItems()" aria-label="Delete" class="md-fab md-warn md-raised md-mini">
             <md-tooltip md-direction="left" md-delay="500">Delete
                 {{ vm.selected.length }}
@@ -145,3 +149,4 @@
         </md-button>
     </md-fab-actions>
 </md-fab-speed-dial>
+<div ui-view="document"></div>

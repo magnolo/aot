@@ -1,4 +1,5 @@
-<md-sidenav class="md-sidenav-right" md-component-id="right"  md-is-locked-open="$mdMedia('gt-sm')" >
+
+<md-sidenav  class="md-sidenav-right" md-component-id="right"  md-is-locked-open="$mdMedia('gt-sm')" >
     <md-toolbar>
         <h1 class="md-toolbar-tools">
           <md-icon>assignment</md-icon>
@@ -9,7 +10,7 @@
           </md-button>
         </h1>
     </md-toolbar>
-    <md-content style="overflow-x:hidden">
+    <md-content class="filter-content">
         <main-filter></main-filter>
         <md-button ng-click="vm.close()" class="md-primary md-raised" hide-gt-sm>
             Close Filters Menu

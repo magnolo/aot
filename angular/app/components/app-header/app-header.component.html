@@ -41,12 +41,12 @@
                                     Documents
                                 </md-button>
                             </md-menu-item>
-                            <md-menu-item ng-if="vm.isAuthenticated()">
+                            <!-- <md-menu-item ng-if="vm.isAuthenticated()">
                                 <md-button ui-sref="app.admin.dashboard">
                                     <md-icon md-menu-align-target>shuffle</md-icon>
                                     Tags
                                 </md-button>
-                            </md-menu-item>
+                            </md-menu-item> -->
                             <md-divider ng-if="vm.isAuthenticated()"></md-divider>
                             <md-menu-item ng-if="vm.isAuthenticated()">
                                 <md-button ng-click="vm.logout()">

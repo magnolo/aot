@@ -95,5 +95,14 @@ export function RoutesConfig($stateProvider, $urlRouterProvider) {
                 templateUrl: getAdminView('items')
               }
             }
-        });
+        })
+        .state('app.admin.documents.details', {
+            url:'/{id}',
+            views:{
+              'main@':{
+                templateUrl: getAdminView('item')
+              }
+            }
+        })
+        ;
 }

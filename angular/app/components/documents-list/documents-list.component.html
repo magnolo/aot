@@ -15,7 +15,7 @@
                         <div class="header" layout="row" layout-align="start center">
                             <div class="actions" ng-if="!item.url">
                                 <md-icon ng-click="vm.toggleSelectedItem(item)">insert_drive_file</md-icon>
-                                <a title="download file" href="/api/items/{{item.id}}/download" target="_blank" download="{{item.document_title}}">
+                                <a title="download file" href="/uploader/api/items/{{item.id}}/download" target="_blank" download="{{item.document_title}}">
                                     <md-icon>file_download</md-icon>
                                 </a>
                             </div>
@@ -41,7 +41,7 @@
                               <div class="item-file item-info" flex="33">
                                   <div layout="column" layout-align="center center">
                                     <div class="wizard-button">
-                                        <a ng-if="!item.url" class="md-fab md-primary md-button wizard-icon" title="download file" href="/api/items/{{item.id}}/download" target="_blank" download="{{item.document_title}}">
+                                        <a ng-if="!item.url" class="md-fab md-primary md-button wizard-icon" title="download file" href="/uploader/api/items/{{item.id}}/download" target="_blank" download="{{item.document_title}}">
                                             <md-icon>file_download</md-icon>
                                         </a>
                                         <a ng-if="item.url" class="md-fab md-primary md-button wizard-icon" title="Visit URL" ng-href="{{item.url}}" target="_blank" >
@@ -77,7 +77,7 @@
                                       </div>
                                     </div>
                                 </div>
-                                <div class="item-authors item-info"flex="33" ng-if="item.instruments.length">
+                                <div class="item-authors item-info" flex="33" ng-if="item.authors.length">
                                     <h4>Authors</h4>
                                     <div layout="row" ng-repeat="author in item.authors">
                                         {{ author.name }}

@@ -46,7 +46,7 @@ class UploadWizardController {
         this.groups = [];
         this.instruments = [];
         this.years = [];
-        this.counries = [];
+        this.countries = [];
 
         this.CountryService = CountryService;
         this.CountryService.all((data) => {
