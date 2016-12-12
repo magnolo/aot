@@ -156,13 +156,108 @@ class ItemsController extends Controller
 
     public function update(Request $request, $id){
         DB::beginTransaction();
-        $mainData = $request->only(['comment', 'document_title', 'language_id', 'screen_title', 'short_description', 'source_id']);
-        $item = Item::where('id', $id);
-        $success = $item->update($mainData);
+       
+        $item = Item::findOrFail($id);
+
+        if($request->query('full')){
+          $item->document_title = $request->get('document_title');
+          $item->screen_title = $request->get('screen_title');
+          $item->short_description = $request->get('short_description');
+          $item->category_id = $request->get('category_id');
+          $item->language_id = $request->get('language_id');
+          $item->source_id = $request->get('source_id');
+          $item->type_id = $request->get('type_id');
+          $item->url = $request->get('url');
+          $item->comment = $request->get('comment');
+          $success = $item->save();
+
+          $item->authors()->detach();
+          if($request->has('authors')){
+          foreach($request->get('authors') as $a){
+            if(isset($a['id'])){
+              $author = Author::find($a['id']);
+            }
+            else{
+              $author = new Author;
+              $author->slug = str_slug($a['name']);
+              $author->name = $a['name'];
+              $author->save();
+            }
+            $item->authors()->attach($author);
+          }
+        }
+        $item->themes()->detach();
+        if($request->has('themes')){
+          foreach($request->get('themes') as $t){
+            $theme = Theme::find($t['id']);
+            $item->themes()->attach($theme);
+          }
+        }
+        $item->years()->detach();
+        if($request->has('years')){
+          foreach($request->get('years') as $y){
+            $year = Year::find($y);
+            $item->years()->attach($year);
+          }
+        }
+        $item->countries()->detach();
+        if($request->has('countries')){
+          foreach($request->get('countries') as $c){
+            foreach($c['countries'] as $count){
+              $theme_id = null;
+              if(isset($c['theme']['id'])){
+                $theme_id = $c['theme']['id'];
+                //dd($c);
+              }
+              $country = Country::find($count['id']);
+              $item->countries()->attach($country,['theme_id' => $theme_id]);
+            }
+          }
+        }
+        $item->groups()->detach();
+        if($request->has('groups')){
+          foreach($request->get('groups') as $g){
+            $theme_id = null;
+            if(isset($g['theme']['id'])){
+              $theme_id = $g['theme']['id'];
+            }
+            $group = Group::find($g['group']['id']);
+            $item->groups()->attach($group,['theme_id' => $theme_id]);
+          }
+        }
+        $item->instruments()->detach();
+        if($request->has('instruments')){
+          foreach($request->get('instruments') as $i){
+            $theme_id = null;
+            if(isset($i['theme']['id'])){
+              $theme_id = $i['theme']['id'];
+            }
+            $instrument = Instrument::find($i['instrument']['id']);
+            $item->instruments()->attach($instrument,['theme_id' => $theme_id]);
+          }
+        }
+
+        if($request->has('paragraphs')){
+          foreach($request->get('paragraphs') as $i){
+            $instrument = Instrument::find($i['paragraph']);
+            $item->instruments()->attach($instrument,['parent_id' => $i['instrument']['id']]);
+          }
+        }
+        }
+        else{
+           $mainData = $request->only(['comment', 'document_title', 'language_id', 'screen_title', 'short_description', 'source_id']);
+            $success = $item->update($mainData);
+        }
+     
         $item = $item->first();
         $item->load(['authors', 'themes', 'years', 'file', 'language','category', 'source', 'countries', 'groups', 'instruments']);
         DB::commit();
         return response()->success(['item' => $item , 'success' => $success]);
+    }
+    public function updateFull(Request $request, $id){
+        DB::beginTransaction();
+
+         DB::commit();
     }
     public function removeBulk(Request $request){
       // DB::beginTransaction();

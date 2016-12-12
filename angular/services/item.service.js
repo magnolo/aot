@@ -29,8 +29,15 @@ export class ItemService{
         error(response);
       });
     }
-    update(id, data, success, error){
-      return this.API.one('items', id).customPUT(data).then((response) => {
+    update(id, data, success, error, full){
+      let params;
+      console.log(full);
+      if(full){
+        params = {
+          full:full
+        }
+      }
+      return this.API.one('items', id).customPUT(data,undefined, params).then((response) => {
         if(success) success(response);
         return this.ToastService.show('Change successfully saved!');
       }, (response) => {

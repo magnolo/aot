@@ -1,5 +1,5 @@
 class DocumentController {
-    constructor($state, ItemService, CategoryService, TypeService, AuthorService, CountryService, ThemeService, SourceService, LanguageService, GroupService, InstrumentService, YearService) {
+    constructor($state, ItemService, CategoryService, TypeService, AuthorService, CountryService, ThemeService, SourceService, LanguageService, GroupService, InstrumentService, YearService, ToastService) {
         'ngInject';
 
         //
@@ -7,7 +7,7 @@ class DocumentController {
         this.item;
         this.$state = $state;
         this.ItemService = ItemService;
-
+        this.ToastService = ToastService;
 
         this.ItemService.one(this.$state.params.id, (data) => {
             this.item = data.data.item;
@@ -257,6 +257,20 @@ class DocumentController {
             }
         });
         return found;
+    }
+
+    saveDocument(){
+      if(this.titleForm.$valid && this.contentForm.$valid && this.fileForm.$valid){
+           this.ItemService.update(this.document.id, this.document, (response) => {
+
+         }, (response) => {
+            
+         }, true);
+      }
+      else{
+          this.ToastService.error('Your entries have problems, please check all the tabs first!');
+      }
+        
     }
 }
 

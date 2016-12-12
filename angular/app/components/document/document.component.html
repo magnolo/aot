@@ -2,7 +2,7 @@
     <div class="md-toolbar-tools">
         <h2 class="md-title">Document / {{ vm.document.screen_title || vm.document.document_title }}</h2>
         <div flex></div>
-        <md-button class="md-icon-button" ng-click="vm.showSearch()">
+        <md-button class="md-icon-button" ng-click="vm.saveDocument()">
             <md-icon>save</md-icon>
         </md-button>
     </div>
@@ -12,13 +12,13 @@
         <md-tab label="Title & Author">
             <md-content layout-padding>
 
-                <form name="titleForm">
+                <form name="vm.titleForm">
                     <div class="wizard-input-container" ng-if="!vm.document.url">
                         <div>
                             <md-input-container class="md-block">
                                 <label>Document title*</label>
                                 <input type="text" ng-model="vm.document.document_title" name="document_title" required/>
-                                <div ng-messages="titleForm.document_title.$error">
+                                <div ng-messages="vm.titleForm.document_title.$error">
                                     <div ng-message="required">This is required.</div>
                                 </div>
                             </md-input-container>
@@ -29,7 +29,7 @@
                             <md-input-container class="md-block">
                                 <label>Hyperlink (URL)*</label>
                                 <input type="url" ng-model="vm.document.url" name="document_title" required/>
-                                <div ng-messages="titleForm.document_title.$error">
+                                <div ng-messages="vm.titleForm.document_title.$error">
                                     <div ng-message="required">This is required.</div>
                                     <div ng-message="url">This is not a valid URL.</div>
                                 </div>
@@ -52,7 +52,7 @@
                                 <md-select ng-model="vm.document.category_id" name="output_category" required>
                                     <md-option ng-repeat="cat in vm.outputCategories" ng-value="{{cat.id}}">{{cat.title}}</md-option>
                                 </md-select>
-                                <div ng-messages="titleForm.output_category.$error">
+                                <div ng-messages="vm.titleForm.output_category.$error">
                                     <div ng-message="required">This is required.</div>
                                 </div>
                             </md-input-container>
@@ -68,7 +68,7 @@
         <md-tab label="Content">
             <md-content layout-padding>
 
-                <form name="contentForm" novalidate>
+                <form name="vm.contentForm" novalidate>
                     <div class="wizard-input-container">
                         <div>
                             <md-input-container class="md-block">
@@ -79,7 +79,7 @@
                                         <md-option ng-repeat="t in theme.children" ng-value="t">{{ t.title}}</md-option>
                                     </md-option>
                                 </md-select>
-                                <div ng-messages="contentForm.theme.$error">
+                                <div ng-messages="vm.contentForm.theme.$error">
                                     <div ng-message="required">This is required.</div>
                                 </div>
                             </md-input-container>
@@ -102,7 +102,7 @@
                             </md-input-container>
                             <md-input-container flex="45">
                                 <label>Parent Theme</label>
-                                <md-select ng-model="g.theme" name="group_{{key}}_theme" required>
+                                <md-select ng-model="g.theme" name="group_{{key}}_theme">
                                     <md-option ng-repeat="theme in vm.document.themes" ng-value="theme">{{theme.title}}</md-option>
                                 </md-select>
                             </md-input-container>
@@ -131,7 +131,7 @@
                             </md-input-container>
                             <md-input-container flex="45">
                                 <label>Parent Theme</label>
-                                <md-select ng-model="i.theme" name="instrument" required>
+                                <md-select ng-model="i.theme" name="instrument">
                                     <md-option ng-repeat="theme in vm.document.themes" ng-value="theme">{{theme.title}}</md-option>
                                 </md-select>
                             </md-input-container>
@@ -189,7 +189,7 @@
                             </md-input-container>
                             <md-input-container flex="45">
                                 <label>Parent Theme</label>
-                                <md-select ng-model="c.theme" name="instrument" required>
+                                <md-select ng-model="c.theme" name="instrument">
                                     <md-option ng-repeat="theme in vm.document.themes" ng-value="theme">{{theme.title}}</md-option>
                                 </md-select>
                             </md-input-container>
@@ -207,7 +207,7 @@
         <md-tab label="file" ng-if="!vm.document.url">
             <md-content layout-padding>
 
-                <form name="fileForm">
+                <form name="vm.fileForm">
                     <div class="wizard-input-container">
                         <div>
                             <md-input-container class="md-block">
@@ -215,7 +215,7 @@
                                 <md-select ng-model="vm.document.source_id" name="source" required>
                                     <md-option ng-repeat="source in vm.sources" ng-value="source.id">{{source.acronym_title}}</md-option>
                                 </md-select>
-                                <div ng-messages="fileForm.source.$error">
+                                <div ng-messages="vm.fileForm.source.$error">
                                     <div ng-message="required">This is required.</div>
                                 </div>
                             </md-input-container>
@@ -228,7 +228,7 @@
                                 <md-select ng-model="vm.document.type_id" name="file_type" required>
                                     <md-option ng-repeat="type in vm.types" ng-value="type.id">{{type.title}}</md-option>
                                 </md-select>
-                                <div ng-messages="fileForm.file_type.$error">
+                                <div ng-messages="vm.fileForm.file_type.$error">
                                     <div ng-message="required">This is required.</div>
                                 </div>
                             </md-input-container>
@@ -242,7 +242,7 @@
                                 <md-select ng-model="vm.document.years" name="years" required multiple>
                                     <md-option ng-repeat="year in vm.years" ng-value="year">{{year.year}}</md-option>
                                 </md-select>
-                                <div ng-messages="fileForm.years.$error">
+                                <div ng-messages="vm.fileForm.years.$error">
                                     <div ng-message="required">This is required.</div>
                                 </div>
                             </md-input-container>
@@ -256,7 +256,7 @@
                                 <md-select ng-model="vm.document.language_id" name="language" required>
                                     <md-option ng-repeat="lang in vm.languages" ng-value="lang.id">{{lang.title}}</md-option>
                                 </md-select>
-                                <div ng-messages="fileForm.language.$error">
+                                <div ng-messages="vm.fileForm.language.$error">
                                     <div ng-message="required">This is required.</div>
                                 </div>
                             </md-input-container>
@@ -266,52 +266,52 @@
 
             </md-content>
         </md-tab>
-        <md-tab label="Source"  ng-if="vm.document.url">
+        <md-tab label="Source" ng-if="vm.document.url">
             <md-content layout-padding>
-                <form name="fileForm">
-                <div class="wizard-input-container">
-                    
-                    <div>
-                        <md-input-container class="md-block">
-                            <label>Source*</label>
-                            <md-select ng-model="vm.document.source_id" name="source" required>
-                                <md-option ng-repeat="source in vm.sources" ng-value="source.id">{{source.acronym_title}}</md-option>
-                            </md-select>
-                            <div ng-messages="fileForm.source.$error">
-                                <div ng-message="required">This is required.</div>
-                            </div>
-                        </md-input-container>
+                <form name="vm.fileForm">
+                    <div class="wizard-input-container">
+
+                        <div>
+                            <md-input-container class="md-block">
+                                <label>Source*</label>
+                                <md-select ng-model="vm.document.source_id" name="source" required>
+                                    <md-option ng-repeat="source in vm.sources" ng-value="source.id">{{source.acronym_title}}</md-option>
+                                </md-select>
+                                <div ng-messages="vm.fileForm.source.$error">
+                                    <div ng-message="required">This is required.</div>
+                                </div>
+                            </md-input-container>
+                        </div>
                     </div>
-                </div>
-            </form>
+                </form>
             </md-content>
         </md-tab>
         <md-tab label="Additional">
             <md-content layout-padding>
-                <form name="additionlForm">
-                <div class="wizard-input-container">
-                    
-                    <div>
-                        <md-input-container class="md-block">
-                            <label>Short description (max. 400 characters)</label>
-                            <textarea ng-model="vm.document.description" name="description" md-maxlength="400"></textarea>
-                            <div ng-messages="additionlForm.description.$error">
-                                <div ng-message="md-maxlength">max. 400 characters!</div>
-                            </div>
-                        </md-input-container>
-                    </div>
-                </div>
-                <div class="wizard-input-container">
-    
-                    <div>
-                        <md-input-container class="md-block">
-                            <label>Internal comment</label>
-                            <textarea ng-model="vm.document.comment"></textarea>
-                        </md-input-container>
-                    </div>
-                </div>
+                <form name="vm.additionlForm">
+                    <div class="wizard-input-container">
 
-            </form>
+                        <div>
+                            <md-input-container class="md-block">
+                                <label>Short description (max. 400 characters)</label>
+                                <textarea ng-model="vm.document.short_description" name="short_description" md-maxlength="400"></textarea>
+                                <div ng-messages="vm.additionlForm.short_description.$error">
+                                    <div ng-message="md-maxlength">max. 400 characters!</div>
+                                </div>
+                            </md-input-container>
+                        </div>
+                    </div>
+                    <div class="wizard-input-container">
+
+                        <div>
+                            <md-input-container class="md-block">
+                                <label>Internal comment</label>
+                                <textarea ng-model="vm.document.comment"></textarea>
+                            </md-input-container>
+                        </div>
+                    </div>
+
+                </form>
             </md-content>
         </md-tab>
     </md-tabs>
