@@ -148,7 +148,6 @@ class DocumentController {
                 entry.theme = this.getItem(key, this.themes);
                 this.document[label].push(entry);
             })
-            console.log(this.document);
         }
         else {
             this.item[label].forEach((item) => {
@@ -169,7 +168,7 @@ class DocumentController {
      * Adds a new set to the TargetGroup list, where Theme and TargetGroup gets connected
      */
     addTargetGroup() {
-        this.item.groups.push({
+        this.document.groups.push({
             group: {},
             theme: {}
         });

@@ -31,7 +31,7 @@ export class ItemService{
     }
     update(id, data, success, error, full){
       let params;
-      console.log(full);
+ 
       if(full){
         params = {
           full:full
