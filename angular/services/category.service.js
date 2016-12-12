@@ -6,7 +6,7 @@ export class CategoryService{
 
     }
     all(success){
-      this.API.all('categories').getList().then((data) => {
+      return this.API.all('categories').getList().then((data) => {
         success(data)
       });
     }

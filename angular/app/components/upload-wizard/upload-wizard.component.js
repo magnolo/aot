@@ -315,7 +315,8 @@ class UploadWizardController {
      */
     instrumentsHasChildren() {
         var found = false;
-        angular.forEach(this.item.instruments, function(item) {
+        if(typeof this.document.instruments == "undefined") return false;
+        angular.forEach(this.document.instruments, (item) => {
             if (!found && angular.isDefined(item.instrument.children)) {
                 found = item.instrument.children.length ? true : false;
             }

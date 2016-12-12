@@ -104,5 +104,13 @@ export function RoutesConfig($stateProvider, $urlRouterProvider) {
               }
             }
         })
+        .state('app.admin.categories', {
+            url:'/categories',
+            views:{
+              'main@':{
+                templateUrl: getAdminView('categories')
+              }
+            }
+        })
         ;
 }
