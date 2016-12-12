@@ -13,6 +13,9 @@
 .DemoHeader-container{
     height: 100%;
     padding-left:2em;
+    > div{
+        min-height:64px;
+    }
 }
 
 .DemoHeader-logo {

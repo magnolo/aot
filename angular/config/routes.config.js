@@ -66,6 +66,7 @@ export function RoutesConfig($stateProvider, $urlRouterProvider) {
         })
         .state('app.upload-wizard', {
             url: '/add-entry',
+            data: {auth: true},
             views: {
                 'main@': {
                     templateUrl: getView('upload-wizard')

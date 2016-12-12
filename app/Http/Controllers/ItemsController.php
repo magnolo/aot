@@ -259,11 +259,12 @@ class ItemsController extends Controller
 
          DB::commit();
     }
-    public function removeBulk(Request $request){
-      // DB::beginTransaction();
-      $items = Item::destroy($request->get('ids'));
-      // DB::commit();
-      return response()->success(['success' => $request->get('ids')]);
+    public function removeBulk(Request $request, $ids){
+     DB::beginTransaction();
+     $ids = explode(',',$ids);
+      $items = Item::destroy($ids);
+       DB::commit();
+      return response()->success(['success' => $ids]);
     }
     public function download($id){
       $item = Item::findOrFail($id);

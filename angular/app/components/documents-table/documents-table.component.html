@@ -77,7 +77,7 @@
 
         <tbody md-body>
             <tr md-row md-select="document" md-select-id="id" ng-repeat="document in vm.documents">
-                <td md-cell>{{ document.id }}</td>
+                <td md-cell><md-button class="md-icon-button" ui-sref="app.admin.documents.details({id:document.id})" title="Edit Document">{{ document.id }}</md-button></td>
                 <td md-cell>
                     <a ng-if="!document.url" title="download file" href="/api/items/{{document.id}}/download" target="_blank" download="{{document.document_title}}">
                         <md-icon>file_download</md-icon>

@@ -1,11 +1,11 @@
 <md-content class="Page-Container DemoHeader">
     <div layout="row">
         <div flex class="DemoHeader-container">
-            <div layout="row" layout-align="space-between center">
+            <div layout="row" layout-align="space-between center" class="top-row">
                 <img src="img/atlas_of_torture_logo.png" ui-sref="app.landing" class="DemoHeader-logo"/>
                 <div layout="row" layout-align="center stretch">
                     <!-- <a ui-sref-active="active" class="DemoHeader-link md-subhead" ui-sref="app.login">Login</a> -->
-                    <a ui-sref-active="active" layout="row" layout-align="center center" class="DemoHeader-link md-subhead" ui-sref="app.upload-wizard">
+                    <a ng-if="vm.isAuthenticated()" ui-sref-active="active" layout="row" layout-align="center center" class="DemoHeader-link md-subhead" ui-sref="app.upload-wizard">
                         <md-icon class="md-primary">add</md-icon>
                         <span>Add Entry</span>
                     </a>

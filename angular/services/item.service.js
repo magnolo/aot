@@ -46,8 +46,8 @@ export class ItemService{
       })
     }
     remove(ids, success, error){
-      debugger;
-      return this.API.all('items').customDELETE('', {ids:ids}).then((response) => {
+   
+      return this.API.several('items', ids).remove().then((response) => {
         if(success) success(response);
         return this.ToastService.show('Items successfully deleted!');
       }, (response) => {

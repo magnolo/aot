@@ -1,0 +1,10 @@
+.top-row{
+    min-height: 64px;
+}
+.active{
+    md-icon{
+        &.md-primary{
+            color:#fff;
+        }
+    }
+}
