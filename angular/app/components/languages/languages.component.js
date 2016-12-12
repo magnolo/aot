@@ -1,14 +1,14 @@
-class CategoriesController {
-    constructor(CategoryService, DialogService, sweet) {
+class LanguagesController{
+    constructor(LanguageService, DialogService, sweet) {
         'ngInject';
 
         //
         this.fabOpen = false;
         this.sweet = sweet;
-        this.category = {};
-        this.categories = [];
+        this.language = {};
+        this.languages = [];
         this.selected = [];
-        this.CategoryService = CategoryService;
+        this.LanguageService = LanguageService;
         this.DialogService = DialogService;
         this.query = {
             order: 'id'
@@ -16,24 +16,28 @@ class CategoriesController {
     }
 
     $onInit() {
-        this.getCategories();
+        this.getLanguages();
     }
-    getCategories() {
-        this.CategoryService.all((response) => {
-            this.categories = response;
+    getLanguages() {
+        this.LanguageService.all((response) => {
+            this.languages = response;
         })
     }
-    inlineUpdate(category, field, value) {
-        category[field] = value;
-        this.saveCategory(category);
+    inlineUpdate(language, field, value) {
+        language[field] = value;
+        this.saveLanguage(language);
 
     }
-    saveCategory(category) {
-        this.CategoryService.update(category.id, category);
+    setDefault(language){
+        language.default = !language.default;
+        this.saveLanguage(language);
     }
-    newCategory() {
-        this.DialogService.fromTemplate('category', {
-            controller: CategoriesController,
+    saveLanguage(language) {
+        this.LanguageService.update(language.id, language);
+    }
+    newLanguage() {
+        this.DialogService.fromTemplate('language', {
+            controller: LanguagesController,
             controllerAs: 'vm'
         })
     }
@@ -41,9 +45,9 @@ class CategoriesController {
         this.DialogService.hide();
     }
     save() {
-        this.CategoryService.create(this.category, (response) => {
-             this.getCategories();
-            this.category = {};
+        this.LanguageService.create(this.language, (response) => {
+             this.getLanguages();
+            this.language = {};
             this.DialogService.hide();
         }, (response) => {
 
@@ -60,7 +64,7 @@ class CategoriesController {
             showLoaderOnConfirm: true
         }, (inputValue) => {
             if (inputValue) {
-                this.CategoryService.remove(this.selected.map((item) => { return item.id; }), (response) => {
+                this.LanguageService.remove(this.selected.map((item) => { return item.id; }), (response) => {
                     this.sweet.show({
                         title: 'Success!',
                         type: 'success',
@@ -70,7 +74,7 @@ class CategoriesController {
                         confirmButtonText: 'OK',
                     });
                     this.selected = [];
-                    this.getCategories();
+                    this.getLanguages();
                 }, () => {
                     this.sweet.show('Ups...', 'Something went wrong!', 'error');
                 });
@@ -79,9 +83,9 @@ class CategoriesController {
     }
 }
 
-export const CategoriesComponent = {
-    templateUrl: './views/app/components/categories/categories.component.html',
-    controller: CategoriesController,
+export const LanguagesComponent = {
+    templateUrl: './views/app/components/languages/languages.component.html',
+    controller: LanguagesController,
     controllerAs: 'vm',
     bindings: {}
 }

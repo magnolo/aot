@@ -62,4 +62,8 @@ $api->group(['middleware' => ['api', 'api.auth']], function ($api) {
     $api->post('/categories', 'OutputcategoriesController@create');
     $api->put('/categories/{id}', 'OutputcategoriesController@update');
     $api->delete('/categories/{ids}', 'OutputcategoriesController@removeBulk');
+
+    $api->post('/languages', 'LanguagesController@create');
+    $api->put('/languages/{id}', 'LanguagesController@update');
+    $api->delete('/languages/{ids}', 'LanguagesController@removeBulk');
 });

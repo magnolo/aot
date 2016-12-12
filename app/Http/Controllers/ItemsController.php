@@ -254,11 +254,7 @@ class ItemsController extends Controller
         DB::commit();
         return response()->success(['item' => $item , 'success' => $success]);
     }
-    public function updateFull(Request $request, $id){
-        DB::beginTransaction();
 
-         DB::commit();
-    }
     public function removeBulk(Request $request, $ids){
      DB::beginTransaction();
      $ids = explode(',',$ids);

@@ -113,5 +113,13 @@ export function RoutesConfig($stateProvider, $urlRouterProvider) {
               }
             }
         })
+        .state('app.admin.languages', {
+            url:'/languages',
+            views:{
+              'main@':{
+                templateUrl: getAdminView('languages')
+              }
+            }
+        })
         ;
 }
