@@ -102,6 +102,7 @@ class DocumentController {
             }
         }
         this.document.authors = this.item.authors;
+        this.document.paragraphs = [];
     }
     setRelation(label) {
         this.document[label] = [];
@@ -181,7 +182,7 @@ class DocumentController {
      * Adds a new set to the LegalInstruments list, where Theme and LegalInstrument gets connected
      */
     addInstrument() {
-        this.item.instruments.push({
+        this.document.instruments.push({
             instrument: {},
             theme: {}
         });
@@ -194,7 +195,7 @@ class DocumentController {
      * Adds a new set to the Article/Paragraph list, where LegalInstrument and Article/Paragraph gets connected
      */
     addParagraph() {
-        this.item.paragraphs.push({
+        this.document.paragraphs.push({
             paragraph: {},
             instrument: {}
         });
@@ -207,7 +208,7 @@ class DocumentController {
      * Adds a new set to the Countries list, where Theme and Countries gets connected
      */
     addCountry() {
-        this.item.countries.push({
+        this.document.countries.push({
             countries: {},
             theme: {}
         });
@@ -235,7 +236,7 @@ class DocumentController {
      */
     instrumentsList() {
         let list = [];
-        angular.forEach(this.item.instruments, function (item) {
+        angular.forEach(this.document.instruments, function (item) {
             list.push(item.instrument);
         });
         return list;
@@ -249,7 +250,8 @@ class DocumentController {
      */
     instrumentsHasChildren() {
         var found = false;
-        angular.forEach(this.item.instruments, function (item) {
+        if(typeof this.document.instruments == "undefined") return false;
+        angular.forEach(this.document.instruments, (item) => {
             if (!found && angular.isDefined(item.instrument.children)) {
                 found = item.instrument.children.length ? true : false;
             }

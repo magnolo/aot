@@ -13,7 +13,7 @@
             <md-content layout-padding>
 
                 <form name="titleForm">
-                    <div class="wizard-input-container" ng-if="!vm.document.isUrl">
+                    <div class="wizard-input-container" ng-if="!vm.document.url">
                         <div>
                             <md-input-container class="md-block">
                                 <label>Document title*</label>
@@ -24,7 +24,7 @@
                             </md-input-container>
                         </div>
                     </div>
-                    <div class="wizard-input-container" ng-if="vm.document.isUrl">
+                    <div class="wizard-input-container" ng-if="vm.document.url">
                         <div>
                             <md-input-container class="md-block">
                                 <label>Hyperlink (URL)*</label>
@@ -204,7 +204,7 @@
 
             </md-content>
         </md-tab>
-        <md-tab label="file" >
+        <md-tab label="file" ng-if="!vm.document.url">
             <md-content layout-padding>
 
                 <form name="fileForm">
@@ -264,6 +264,26 @@
                     </div>
                 </form>
 
+            </md-content>
+        </md-tab>
+        <md-tab label="Source"  ng-if="vm.document.url">
+            <md-content layout-padding>
+                <form name="fileForm">
+                <div class="wizard-input-container">
+                    
+                    <div>
+                        <md-input-container class="md-block">
+                            <label>Source*</label>
+                            <md-select ng-model="vm.document.source_id" name="source" required>
+                                <md-option ng-repeat="source in vm.sources" ng-value="source.id">{{source.acronym_title}}</md-option>
+                            </md-select>
+                            <div ng-messages="fileForm.source.$error">
+                                <div ng-message="required">This is required.</div>
+                            </div>
+                        </md-input-container>
+                    </div>
+                </div>
+            </form>
             </md-content>
         </md-tab>
         <md-tab label="Additional">
