@@ -19,5 +19,5 @@ angular.module('app.components', [
 	'ui.router', 'ngMaterial', 'angular-loading-bar',
 	'restangular', 'ngStorage', 'satellizer','mdSteppers','ngMessages','ngFileUpload',
    'ivh.treeview', 'vAccordion', 'ngAnimate','angular.filter','hSweetAlert','duScroll',
-   'ngFileSaver','angularMoment','md.data.table', 'angularInlineEdit'
+   'ngFileSaver','angularMoment','md.data.table', 'angularInlineEdit','sticky'
 ]);

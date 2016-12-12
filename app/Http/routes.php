@@ -53,8 +53,13 @@ $api->group(['middleware' => ['api']], function ($api) {
 
 //protected API routes with JWT (must be logged in)
 $api->group(['middleware' => ['api', 'api.auth']], function ($api) {
-     $api->post('/files', 'FilesController@upload');
+    $api->post('/files', 'FilesController@upload');
     $api->post('/items', 'ItemsController@create');
+
     $api->put('/items/{id}', 'ItemsController@update');
     $api->delete('/items/{ids}', 'ItemsController@removeBulk');
+
+    $api->post('/categories', 'OutputcategoriesController@create');
+    $api->put('/categories/{id}', 'OutputcategoriesController@update');
+    $api->delete('/categories/{ids}', 'OutputcategoriesController@removeBulk');
 });

@@ -8,8 +8,8 @@ class AppViewController {
     }
 
     $onInit() {
-        this.registerServiceWorker();
-        this.checkForNewerVersions();
+        // this.registerServiceWorker();
+        // this.checkForNewerVersions();
     }
 
     registerServiceWorker() {

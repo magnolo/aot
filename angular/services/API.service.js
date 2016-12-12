@@ -9,7 +9,7 @@ export class APIService {
 
         return Restangular.withConfig(function(RestangularConfigurer) {
             RestangularConfigurer
-                //.setBaseUrl('/api/')
+                //.setBaseUrl('/uploader/api/')
                 .setBaseUrl('/api/')
                 .setDefaultHeaders(headers)
                 .setErrorInterceptor(function(response) {

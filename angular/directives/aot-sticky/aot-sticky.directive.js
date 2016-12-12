@@ -1,20 +1,24 @@
-class AotStickyController{
-    constructor($mdSticky){
-        'ngInject';
 
-        //
-        this.$mdSticky = $mdSticky;
-    }
-}
-
-export function AotStickyDirective(){
+export function AotStickyDirective($mdSticky, $compile, $log){
     return {
-        restrict: 'EA',
-        controller: AotStickyController,
-        link: function(scope, element, attrs, controllers){
+        restrict: 'A',
+        transclude: true,
+        compile: function(element, attrs, transclude){
             //
+            return function postLink(scope, element, attr) {
+				var outerHTML = element[0].outerHTML;
+				$log.debug(outerHTML);
+				transclude(scope, function (clone) {
+					$log.debug(clone);
+					element.append(clone);
+				});
 
-             controllers.$mdSticky(scope, element);
+				transclude(scope, function (clone) {
+					var stickyClone = $compile(angular.element(outerHTML).removeAttr("md-sticky"))(scope); 
+					stickyClone.append(clone);
+					$mdSticky(scope, element, stickyClone);
+				});
+			};
         }
     }
 }
