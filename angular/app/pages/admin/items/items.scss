@@ -1,0 +1,13 @@
+.fixed-footer{
+    md-table-container{
+        padding-bottom:57px;
+    }
+    md-table-pagination{
+        position:fixed;
+        bottom:0px;
+        left:0px;
+        width:100%;
+        background: #fff;
+        z-index: 2;
+    }
+}

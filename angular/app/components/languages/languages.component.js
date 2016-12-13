@@ -1,4 +1,4 @@
-class LanguagesController{
+class LanguagesController {
     constructor(LanguageService, DialogService, sweet) {
         'ngInject';
 
@@ -26,9 +26,8 @@ class LanguagesController{
     inlineUpdate(language, field, value) {
         language[field] = value;
         this.saveLanguage(language);
-
     }
-    setDefault(language){
+    setDefault(language) {
         language.default = !language.default;
         this.saveLanguage(language);
     }
@@ -46,7 +45,7 @@ class LanguagesController{
     }
     save() {
         this.LanguageService.create(this.language, (response) => {
-             this.getLanguages();
+            this.getLanguages();
             this.language = {};
             this.DialogService.hide();
         }, (response) => {
@@ -56,7 +55,7 @@ class LanguagesController{
     deleteItems() {
         this.sweet.show({
             title: 'Are you shure?',
-            text: 'You are about to delete ' + this.selected.length + ' categories. Really?',
+            text: 'You are about to delete ' + this.selected.length + ' languages. Really?',
             type: 'info',
             confirmButtonColor: '#2196F3',
             showCancelButton: true,

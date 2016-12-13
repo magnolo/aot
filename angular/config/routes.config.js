@@ -78,6 +78,11 @@ export function RoutesConfig($stateProvider, $urlRouterProvider) {
             data:{
               auth:true
             },
+            views:{
+                'subheader@':{
+                    templateUrl: getAdminView('header')
+                }
+            },
             url:'/admin'
 
         })

@@ -1,6 +1,6 @@
-<md-toolbar class="md-primary">
+<md-toolbar class="md-primary md-table-toolbar">
     <div class="md-toolbar-tools">
-        <h2 class="md-title">Document // {{ vm.document.screen_title || vm.document.document_title }}</h2>
+        <h2 class="md-title">{{ vm.document.screen_title || vm.document.document_title }}</h2>
         <div flex></div>
         <md-button class="md-icon-button" ng-click="vm.saveDocument()">
             <md-icon>save</md-icon>

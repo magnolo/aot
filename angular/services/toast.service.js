@@ -4,7 +4,7 @@ export class ToastService {
 
 		this.$mdToast = $mdToast;
 
-		this.delay = 6000;
+		this.delay = 4000;
 		this.position = 'bottom right';
 		this.action = 'OK';
 	}

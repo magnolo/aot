@@ -1,3 +1,4 @@
+import {AdminHeaderComponent} from './app/components/admin-header/admin-header.component';
 import {LanguagesComponent} from './app/components/languages/languages.component';
 import {CategoriesComponent} from './app/components/categories/categories.component';
 import {DocumentComponent} from './app/components/document/document.component';
@@ -18,6 +19,7 @@ import {LoginFormComponent} from './app/components/login-form/login-form.compone
 import {RegisterFormComponent} from './app/components/register-form/register-form.component';
 
 angular.module('app.components')
+	.component('adminHeader', AdminHeaderComponent)
 	.component('languages', LanguagesComponent)
 	.component('categories', CategoriesComponent)
 	.component('document', DocumentComponent)
