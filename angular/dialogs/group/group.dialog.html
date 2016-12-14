@@ -1,9 +1,9 @@
 <md-dialog>
-    <form name="catForm" novalidate ng-submit="vm.save()">
+    <form name="groupForm" novalidate ng-submit="vm.save()">
 
         <md-toolbar>
           <div class="md-toolbar-tools">
-            <h2>New Category</h2>
+            <h2>Group</h2>
           </div>
         </md-toolbar>
 
@@ -11,18 +11,17 @@
             <div class="md-dialog-content">
                 <md-input-container flex  class="md-block">
                     <label>Title</label>
-                    <input type="text" ng-model="vm.category.title" name="title" required>
-                    <div ng-messages="catForm.title.$error">
+                    <input type="text" ng-model="vm.group.title" name="title" required>
+                    <div ng-messages="groupForm.title.$error">
                                     <div ng-message="required">This is required.</div>
                                 </div>
                 </md-input-container>
-                
              </div>
         </md-dialog-content>
 
         <md-dialog-actions>
             <md-button type="button" ng-click="vm.cancel()">Cancel</md-button>
-            <md-button class="md-primary md-raised" ng-disabled="catForm.$invalid" type="submit">Save</md-button>
+            <md-button class="md-primary md-raised" type="submit">Save</md-button>
         </md-dialog-actions>
     </form>
 </md-dialog>

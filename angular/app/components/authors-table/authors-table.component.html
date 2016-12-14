@@ -1,0 +1,56 @@
+<md-toolbar class="md-table-toolbar md-primary">
+    <div class="md-toolbar-tools">
+        <h2 class="md-title">Authors</h2>
+        <span flex></span>
+          <md-button class="md-icon-button" ng-click="vm.newAuthor()">
+          <md-icon>add</md-icon>
+        </md-button>
+    </div>
+</md-toolbar>
+<md-table-container>
+    <table md-table  md-row-select md-select-id="id" multiple ng-model="vm.selected">
+        <thead md-head md-order="vm.query.order" >
+            <tr md-row>
+                <th md-column>
+                    <span>ID</span>
+                </th>
+                <th md-column>
+                    <span>Name</span>
+                </th>
+                <!--<th md-column>
+                    <span>Docs</span>
+                </th>-->
+            </tr>
+        </thead>
+         <tbody md-body>
+            <tr md-row md-select="author" md-select-id="id" ng-repeat="author in vm.authors">
+                <td md-cell>{{ author.id }}</md-button></td>
+                <td md-cell
+                    inline-edit-callback="vm.inlineUpdate(author, 'name', newValue)"
+                    inline-edit-on-click
+                    inline-edit-on-blur="cancel"
+                    inline-edit="author.name"
+                    inline-edit-btn-edit="<md-icon>edit</md-icon>"
+                    inline-edit-btn-save="<md-icon>save</md-icon>"
+                    inline-edit-btn-cancel="<md-icon class='md-warning'>close</md-icon>"
+                    inline-edit-placeholder="No value yet..."></td>
+                <!--<td md-cell>{{ author.items.length }}</td>-->
+            </tr>
+         </tbody>
+    </table>
+</md-table-container>
+<md-fab-speed-dial md-open="vm.fabOpen" md-direction="up" ng-hide="!vm.selected.length" class="md-fab-bottom-right md-scale" ng-mouseenter="vm.fabOpen=true" ng-mouseleave="vm.fabOpen=false">
+    <md-fab-trigger>
+        <md-button aria-label="menu" class="md-fab md-primary">
+            <md-icon>menu</md-icon>
+        </md-button>
+    </md-fab-trigger>
+    <md-fab-actions>
+        <md-button ng-click="vm.deleteItems()" aria-label="Delete" class="md-fab md-warn md-raised md-mini">
+            <md-tooltip md-direction="left" md-delay="500">Delete
+                {{ vm.selected.length }}
+                Item(s)</md-tooltip>
+            <md-icon>delete</md-icon>
+        </md-button>
+    </md-fab-actions>
+</md-fab-speed-dial>

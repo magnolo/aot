@@ -31,6 +31,7 @@
     "angular-moment": "1.0.0-beta.6",
     "angular-material-data-table": "^0.10.9",
     "ng-inline-edit": "^0.7.0",
-    "ngSticky": "^1.8.13"
+    "ngSticky": "^1.8.13",
+    "angular-ui-tree": "^2.22.1"
   }
 }

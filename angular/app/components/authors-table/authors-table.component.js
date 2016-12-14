@@ -1,41 +1,39 @@
-class LanguagesController {
-    constructor(LanguageService, DialogService, sweet) {
+class AuthorsTableController{
+    constructor(AuthorService, DialogService, sweet) {
         'ngInject';
 
         //
         this.fabOpen = false;
         this.sweet = sweet;
-        this.language = {};
-        this.languages = [];
+        this.author = {};
+        this.categories = [];
         this.selected = [];
-        this.LanguageService = LanguageService;
+        this.AuthorService = AuthorService;
         this.DialogService = DialogService;
         this.query = {
             order: 'id'
         }
+         this.getAuthors();
     }
 
     $onInit() {
-        this.getLanguages();
+       
     }
-    getLanguages() {
-        this.LanguageService.all((response) => {
-            this.languages = response;
+    getAuthors() {
+        this.AuthorService.all((response) => {
+            this.authors = response;
         })
     }
-    inlineUpdate(language, field, value) {
-        language[field] = value;
-        this.saveLanguage(language);
+    inlineUpdate(author, field, value) {
+        author[field] = value;
+        this.saveAuthor(author);
+
     }
-    setDefault(language) {
-        language.default = !language.default;
-        this.saveLanguage(language);
+    saveAuthor(author) {
+        this.AuthorService.update(author.id, author);
     }
-    saveLanguage(language) {
-        this.LanguageService.update(language.id, language);
-    }
-    newLanguage() {
-        this.DialogService.fromTemplate('language', {
+    newAuthor() {
+        this.DialogService.fromTemplate('author', {
             controller: () => this,
             controllerAs: 'vm'
         })
@@ -44,9 +42,9 @@ class LanguagesController {
         this.DialogService.hide();
     }
     save() {
-        this.LanguageService.create(this.language, (response) => {
-            this.getLanguages();
-            this.language = {};
+        this.AuthorService.create(this.author, (response) => {
+             this.getAuthors();
+            this.author = {};
             this.DialogService.hide();
         }, (response) => {
 
@@ -55,7 +53,7 @@ class LanguagesController {
     deleteItems() {
         this.sweet.show({
             title: 'Are you shure?',
-            text: 'You are about to delete ' + this.selected.length + ' languages. Really?',
+            text: 'You are about to delete ' + this.selected.length + ' authors. Really?',
             type: 'info',
             confirmButtonColor: '#2196F3',
             showCancelButton: true,
@@ -63,7 +61,7 @@ class LanguagesController {
             showLoaderOnConfirm: true
         }, (inputValue) => {
             if (inputValue) {
-                this.LanguageService.remove(this.selected.map((item) => { return item.id; }), (response) => {
+                this.AuthorService.remove(this.selected.map((item) => { return item.id; }), (response) => {
                     this.sweet.show({
                         title: 'Success!',
                         type: 'success',
@@ -73,7 +71,7 @@ class LanguagesController {
                         confirmButtonText: 'OK',
                     });
                     this.selected = [];
-                    this.getLanguages();
+                    this.getAuthors();
                 }, () => {
                     this.sweet.show('Ups...', 'Something went wrong!', 'error');
                 });
@@ -82,9 +80,9 @@ class LanguagesController {
     }
 }
 
-export const LanguagesComponent = {
-    templateUrl: './views/app/components/languages/languages.component.html',
-    controller: LanguagesController,
+export const AuthorsTableComponent = {
+    templateUrl: './views/app/components/authors-table/authors-table.component.html',
+    controller: AuthorsTableController,
     controllerAs: 'vm',
     bindings: {}
 }

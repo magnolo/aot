@@ -1,0 +1,67 @@
+<md-toolbar class="md-table-toolbar md-primary">
+    <div class="md-toolbar-tools">
+        <h2 class="md-title">Themes <span ng-if="vm.theme.parent_id"> > {{ vm.theme.parent.title}}</span><span ng-if="vm.theme.id"> > {{ vm.theme.title}}</span></h2>
+        <span flex></span>
+        <md-button class="md-icon-button" ui-sref="app.admin.themes.hirarchy">
+            <md-icon>list</md-icon>
+            </md-button>
+          <md-button class="md-icon-button" ng-click="vm.newThemes()">
+          <md-icon>add</md-icon>
+        </md-button>
+    </div>
+</md-toolbar>
+<div ng-if="!vm.themes.length && !vm.loading" layout="row" layout-align="center center" layout-fill>
+    <div layout="column">
+    <h2>No children for this theme</h2>
+    <md-button class="md-primary" ng-click="vm.newThemes()">
+        <md-icon>add</md-icon> Add one
+    </md-button>
+    </div>
+</div>
+<md-table-container ng-if="vm.themes.length">
+    <table md-table  md-row-select md-select-id="id" multiple ng-model="vm.selected">
+        <thead md-head md-order="vm.query.order" >
+            <tr md-row>
+                <th md-column>
+                    <span>ID</span>
+                </th>
+                <th md-column>
+                    <span>Title</span>
+                </th>
+                <th md-column>
+                    <span>Children</span>
+                </th>
+            </tr>
+        </thead>
+         <tbody md-body>
+            <tr md-row md-select="theme" md-select-id="id" ng-repeat="theme in vm.themes">
+                <td md-cell><md-button class="md-icon-button" ui-sref="app.admin.themes.details({id:theme.id})" title="Edit Theme">{{ theme.id }}</md-button></md-button></td>
+                <td md-cell
+                    inline-edit-callback="vm.inlineUpdate(theme, 'title', newValue)"
+                    inline-edit-on-click
+                    inline-edit-on-blur="cancel"
+                    inline-edit="theme.title"
+                    inline-edit-btn-edit="<md-icon>edit</md-icon>"
+                    inline-edit-btn-save="<md-icon>save</md-icon>"
+                    inline-edit-btn-cancel="<md-icon class='md-warning'>close</md-icon>"
+                    inline-edit-placeholder="No value yet..."></td>
+                <td md-cell><md-button class="md-icon-button" ui-sref="app.admin.themes.details({id:theme.id})" title="Edit Theme">{{ theme.children.length }}</md-button></md-button></td>
+            </tr>
+         </tbody>
+    </table>
+</md-table-container>
+<md-fab-speed-dial md-open="vm.fabOpen" md-direction="up" ng-hide="!vm.selected.length" class="md-fab-bottom-right md-scale" ng-mouseenter="vm.fabOpen=true" ng-mouseleave="vm.fabOpen=false">
+    <md-fab-trigger>
+        <md-button aria-label="menu" class="md-fab md-primary">
+            <md-icon>menu</md-icon>
+        </md-button>
+    </md-fab-trigger>
+    <md-fab-actions>
+        <md-button ng-click="vm.deleteItems()" aria-label="Delete" class="md-fab md-warn md-raised md-mini">
+            <md-tooltip md-direction="left" md-delay="500">Delete
+                {{ vm.selected.length }}
+                Item(s)</md-tooltip>
+            <md-icon>delete</md-icon>
+        </md-button>
+    </md-fab-actions>
+</md-fab-speed-dial>

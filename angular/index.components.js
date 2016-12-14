@@ -1,3 +1,7 @@
+import {AuthorsTableComponent} from './app/components/authors-table/authors-table.component';
+import {GroupsTableComponent} from './app/components/groups-table/groups-table.component';
+import {ThemesHirarchyComponent} from './app/components/themes-hirarchy/themes-hirarchy.component';
+import {ThemeListComponent} from './app/components/theme-list/theme-list.component';
 import {AdminHeaderComponent} from './app/components/admin-header/admin-header.component';
 import {LanguagesComponent} from './app/components/languages/languages.component';
 import {CategoriesComponent} from './app/components/categories/categories.component';
@@ -19,6 +23,10 @@ import {LoginFormComponent} from './app/components/login-form/login-form.compone
 import {RegisterFormComponent} from './app/components/register-form/register-form.component';
 
 angular.module('app.components')
+	.component('authorsTable', AuthorsTableComponent)
+	.component('groupsTable', GroupsTableComponent)
+	.component('themesHirarchy', ThemesHirarchyComponent)
+	.component('themeList', ThemeListComponent)
 	.component('adminHeader', AdminHeaderComponent)
 	.component('languages', LanguagesComponent)
 	.component('categories', CategoriesComponent)

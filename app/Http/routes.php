@@ -38,6 +38,7 @@ $api->group(['middleware' => ['api']], function ($api) {
     $api->get('/types', 'TypesController@all');
     $api->get('/authors', 'AuthorsController@all');
     $api->get('/themes', 'ThemesController@all');
+    $api->get('/themes/{id}', 'ThemesController@get');
     $api->get('/sources', 'SourcesController@all');
     $api->get('/languages', 'LanguagesController@all');
     $api->get('/groups', 'GroupController@all');
@@ -63,7 +64,19 @@ $api->group(['middleware' => ['api', 'api.auth']], function ($api) {
     $api->put('/categories/{id}', 'OutputcategoriesController@update');
     $api->delete('/categories/{ids}', 'OutputcategoriesController@removeBulk');
 
+    $api->post('/groups', 'GroupController@create');
+    $api->put('/groups/{id}', 'GroupController@update');
+    $api->delete('/groups/{ids}', 'GroupController@removeBulk');
+
+    $api->post('/authors', 'AuthorsController@create');
+    $api->put('/authors/{id}', 'AuthorsController@update');
+    $api->delete('/authors/{ids}', 'AuthorsController@removeBulk');
+
     $api->post('/languages', 'LanguagesController@create');
     $api->put('/languages/{id}', 'LanguagesController@update');
     $api->delete('/languages/{ids}', 'LanguagesController@removeBulk');
+
+    $api->post('/themes', 'ThemesController@create');
+    $api->put('/themes/{id}', 'ThemesController@update');
+    $api->delete('/themes/{ids}', 'ThemesController@removeBulk');
 });

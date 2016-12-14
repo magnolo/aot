@@ -118,11 +118,51 @@ export function RoutesConfig($stateProvider, $urlRouterProvider) {
               }
             }
         })
+        .state('app.admin.groups', {
+            url:'/groups',
+            views:{
+              'main@':{
+                templateUrl: getAdminView('groups')
+              }
+            }
+        })
+         .state('app.admin.authors', {
+            url:'/authors',
+            views:{
+              'main@':{
+                templateUrl: getAdminView('authors')
+              }
+            }
+        })
         .state('app.admin.languages', {
             url:'/languages',
             views:{
               'main@':{
                 templateUrl: getAdminView('languages')
+              }
+            }
+        })
+        .state('app.admin.themes', {
+            url:'/themes',
+            views:{
+              'main@':{
+                templateUrl: getAdminView('themes')
+              }
+            }
+        })
+        .state('app.admin.themes.hirarchy', {
+            url:'/hirarchy',
+            views:{
+              'main@':{
+                templateUrl: getAdminView('themes-hirarchy')
+              }
+            }
+        })
+        .state('app.admin.themes.details', {
+            url:'/:id',
+            views:{
+              'main@':{
+                templateUrl: getAdminView('themes')
               }
             }
         })

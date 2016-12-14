@@ -13,10 +13,11 @@ class CategoriesController {
         this.query = {
             order: 'id'
         }
+         this.getCategories();
     }
 
     $onInit() {
-        this.getCategories();
+       
     }
     getCategories() {
         this.CategoryService.all((response) => {
@@ -33,7 +34,7 @@ class CategoriesController {
     }
     newCategory() {
         this.DialogService.fromTemplate('category', {
-            controller: CategoriesController,
+            controller: () => this,
             controllerAs: 'vm'
         })
     }

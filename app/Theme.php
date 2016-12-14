@@ -13,6 +13,6 @@ class Theme extends Model
       return $this->hasMany('App\Theme', 'parent_id')->with('children');
     }
     public function parent(){
-      return $this->hasOne('App\Theme', 'parent_id')->with('parent');
+      return $this->belongsTo('App\Theme', 'parent_id')->with('parent');
     }
 }

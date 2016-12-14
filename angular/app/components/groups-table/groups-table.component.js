@@ -1,41 +1,38 @@
-class LanguagesController {
-    constructor(LanguageService, DialogService, sweet) {
+class GroupsTableController{
+    constructor(GroupService, DialogService, sweet){
         'ngInject';
 
         //
         this.fabOpen = false;
         this.sweet = sweet;
-        this.language = {};
-        this.languages = [];
+        this.group = {};
+        this.groups = [];
         this.selected = [];
-        this.LanguageService = LanguageService;
+        this.GroupService = GroupService;
         this.DialogService = DialogService;
         this.query = {
             order: 'id'
         }
+        this.getGroups();
     }
 
-    $onInit() {
-        this.getLanguages();
+    $onInit(){
     }
-    getLanguages() {
-        this.LanguageService.all((response) => {
-            this.languages = response;
+    getGroups() {
+        this.GroupService.all((response) => {
+            this.groups = response;
         })
     }
-    inlineUpdate(language, field, value) {
-        language[field] = value;
-        this.saveLanguage(language);
+    inlineUpdate(group, field, value) {
+        group[field] = value;
+        this.saveGroup(group);
+
     }
-    setDefault(language) {
-        language.default = !language.default;
-        this.saveLanguage(language);
+    saveGroup(group) {
+        this.GroupService.update(group.id, group);
     }
-    saveLanguage(language) {
-        this.LanguageService.update(language.id, language);
-    }
-    newLanguage() {
-        this.DialogService.fromTemplate('language', {
+    newGroup() {
+        this.DialogService.fromTemplate('group', {
             controller: () => this,
             controllerAs: 'vm'
         })
@@ -44,9 +41,9 @@ class LanguagesController {
         this.DialogService.hide();
     }
     save() {
-        this.LanguageService.create(this.language, (response) => {
-            this.getLanguages();
-            this.language = {};
+        this.GroupService.create(this.group, (response) => {
+             this.getGroups();
+            this.group = {};
             this.DialogService.hide();
         }, (response) => {
 
@@ -55,7 +52,7 @@ class LanguagesController {
     deleteItems() {
         this.sweet.show({
             title: 'Are you shure?',
-            text: 'You are about to delete ' + this.selected.length + ' languages. Really?',
+            text: 'You are about to delete ' + this.selected.length + ' groups. Really?',
             type: 'info',
             confirmButtonColor: '#2196F3',
             showCancelButton: true,
@@ -63,7 +60,7 @@ class LanguagesController {
             showLoaderOnConfirm: true
         }, (inputValue) => {
             if (inputValue) {
-                this.LanguageService.remove(this.selected.map((item) => { return item.id; }), (response) => {
+                this.GroupService.remove(this.selected.map((item) => { return item.id; }), (response) => {
                     this.sweet.show({
                         title: 'Success!',
                         type: 'success',
@@ -73,7 +70,7 @@ class LanguagesController {
                         confirmButtonText: 'OK',
                     });
                     this.selected = [];
-                    this.getLanguages();
+                    this.getGroups();
                 }, () => {
                     this.sweet.show('Ups...', 'Something went wrong!', 'error');
                 });
@@ -82,9 +79,9 @@ class LanguagesController {
     }
 }
 
-export const LanguagesComponent = {
-    templateUrl: './views/app/components/languages/languages.component.html',
-    controller: LanguagesController,
+export const GroupsTableComponent = {
+    templateUrl: './views/app/components/groups-table/groups-table.component.html',
+    controller: GroupsTableController,
     controllerAs: 'vm',
     bindings: {}
 }
