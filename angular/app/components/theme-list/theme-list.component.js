@@ -14,11 +14,11 @@ class ThemeListController {
         this.loading = true;
         this.sweet = sweet;
         this.getData();
-    
+
     }
 
     $onInit() {
-        
+
     }
     getData(){
          if (angular.isDefined(this.$state.params.id)) {
@@ -51,6 +51,7 @@ class ThemeListController {
         if(angular.isDefined(this.theme.id)){
             this.newTheme.parent_id = this.theme.id;
         }
+
         this.DialogService.fromTemplate('theme', {
             controller: () => this,
             controllerAs: 'vm'

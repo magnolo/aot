@@ -259,17 +259,18 @@ class DocumentController {
     }
 
     saveDocument(){
-      if(this.titleForm.$valid && this.contentForm.$valid && this.fileForm.$valid){
+
+      if(this.titleForm.$valid && this.contentForm.$valid && this.fileInfoForm.$valid){
            this.ItemService.update(this.document.id, this.document, (response) => {
 
          }, (response) => {
-            
+
          }, true);
       }
       else{
-          this.ToastService.error('Your entries have problems, please check all the tabs first!');
+          this.ToastService.error('There are some fields incomplete, please check all the tabs first!');
       }
-        
+
     }
 }
 

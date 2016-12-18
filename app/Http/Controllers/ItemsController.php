@@ -42,7 +42,7 @@ class ItemsController extends Controller
             $count = $items->count();
         }
         $items = $items->get();
-        
+
         return response()->success(['items' => $items, 'count' => $count]);
     }
     public function show($id){
@@ -63,7 +63,7 @@ class ItemsController extends Controller
         $item->source_id = $request->get('sources');
         $item->url = $request->get('url');
         $item->comment = $request->get('comment');
-        
+
         if(!$item->document_title){
             if($item->screen_title){
                 $item->document_title = $item->screen_title;
@@ -75,9 +75,9 @@ class ItemsController extends Controller
         if(!$item->type_id){
             $item->type_id = 0;
         }
-        
+
         $item->save();
-        
+
         if($request->has('authors')){
             foreach($request->get('authors') as $a){
                 if(isset($a['id'])){
@@ -92,21 +92,21 @@ class ItemsController extends Controller
                 $item->authors()->attach($author);
             }
         }
-        
+
         if($request->has('themes')){
             foreach($request->get('themes') as $t){
                 $theme = Theme::find($t['id']);
                 $item->themes()->attach($theme);
             }
         }
-        
+
         if($request->has('years')){
             foreach($request->get('years') as $y){
                 $year = Year::find($y);
                 $item->years()->attach($year);
             }
         }
-        
+
         if($request->has('countries')){
             foreach($request->get('countries') as $c){
                 foreach($c['countries'] as $count){
@@ -120,7 +120,7 @@ class ItemsController extends Controller
                 }
             }
         }
-        
+
         if($request->has('groups')){
             foreach($request->get('groups') as $g){
                 $theme_id = null;
@@ -131,7 +131,7 @@ class ItemsController extends Controller
                 $item->groups()->attach($group,['theme_id' => $theme_id]);
             }
         }
-        
+
         if($request->has('instruments')){
             foreach($request->get('instruments') as $i){
                 $theme_id = null;
@@ -142,23 +142,23 @@ class ItemsController extends Controller
                 $item->instruments()->attach($instrument,['theme_id' => $theme_id]);
             }
         }
-        
+
         if($request->has('paragraphs')){
             foreach($request->get('paragraphs') as $i){
                 $instrument = Instrument::find($i['paragraph']);
                 $item->instruments()->attach($instrument,['parent_id' => $i['instrument']['id']]);
             }
         }
-        
+
         DB::commit();
         return response()->success(['item' => $item]);
     }
-    
+
     public function update(Request $request, $id){
         DB::beginTransaction();
-        
+
         $item = Item::findOrFail($id);
-        
+
         if($request->query('full')){
             $item->document_title = $request->get('document_title');
             $item->screen_title = $request->get('screen_title');
@@ -170,7 +170,7 @@ class ItemsController extends Controller
             $item->url = $request->get('url');
             $item->comment = $request->get('comment');
             $success = $item->save();
-            
+
             $item->authors()->detach();
             if($request->has('authors')){
                 foreach($request->get('authors') as $a){
@@ -236,7 +236,7 @@ class ItemsController extends Controller
                     $item->instruments()->attach($instrument,['theme_id' => $theme_id]);
                 }
             }
-            
+
             if($request->has('paragraphs')){
                 foreach($request->get('paragraphs') as $i){
                     $instrument = Instrument::find($i['paragraph']);
@@ -245,29 +245,40 @@ class ItemsController extends Controller
             }
         }
         else{
-            $mainData = $request->only(['comment', 'document_title', 'language_id', 'screen_title', 'short_description', 'source_id']);
-            $success = $item->update($mainData);
+        //  dd( $request->only(['comment', 'document_title', 'language_id', 'screen_title', 'short_description', 'source_id']));
+          //  $mainData = $request->only(['comment', 'document_title', 'language_id', 'screen_title', 'short_description', 'source_id']);
+
+            $item->comment = $request->get('comment');
+            $item->document_title = $request->get('document_title');
+            $item->language_id = $request->get('language_id');
+            $item->screen_title = $request->get('screen_title');
+            $item->short_description = $request->get('short_description');
+            $item->source_id = $request->get('source_id');
+
+            //dd($mainData);
+
+            $success = $item->save();
         }
         DB::commit();
-        
+
         $item = $item->first();
         $item->load(['authors', 'themes', 'years', 'file', 'language','category', 'source', 'countries', 'groups', 'instruments']);
-        
+
         return response()->success(['item' => $item , 'success' => $success]);
     }
-    
+
     public function removeBulk(Request $request, $ids){
-        
+
         $ids = explode(',',$ids);
         $items = Item::destroy($ids);
-        
+
         return response()->success(['success' => $ids]);
     }
     public function download($id){
         $item = Item::findOrFail($id);
         $item->load('file');
         $file = Storage::disk('local')->get($item->file->filename);
-        
+
         return (new Response($file, 200))
         ->header('Content-Type', $item->file->mime)
         ->header('Content-Length', $item->file->size)

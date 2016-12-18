@@ -60,6 +60,10 @@ class ThemesHirarchyController {
             this.theme = item;
             this.newTheme.parent_id = item.id;
         }
+        else{
+          this.theme = {};
+          this.newTheme.parent_id = null;
+        }
         this.DialogService.fromTemplate('theme', {
             controller: () => this,
             controllerAs: 'vm'
