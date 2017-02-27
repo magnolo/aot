@@ -1,15 +1,15 @@
-class InstrumentsListController {
-    constructor(API, InstrumentService, DialogService, $state, sweet) {
+class SourcesListController {
+    constructor(API, SourceService, DialogService, $state, sweet) {
         'ngInject';
 
         //
         this.API = API;
         this.$state = $state;
-        this.InstrumentService = InstrumentService;
+        this.SourceService = SourceService;
         this.DialogService = DialogService;
-        this.instruments = [];
-        this.instrument = {};
-        this.newInstrument = {};
+        this.sources = [];
+        this.source = {};
+        this.newSource = {};
         this.selected = [];
         this.loading = true;
         this.sweet = sweet;
@@ -19,36 +19,36 @@ class InstrumentsListController {
     $onInit() {}
     getData() {
         if (angular.isDefined(this.$state.params.id)) {
-            this.InstrumentService.one(this.$state.params.id, (response) => {
-                this.instrument = response.data.instrument;
-                this.instruments = this.instrument.children;
+            this.SourceService.one(this.$state.params.id, (response) => {
+                this.source = response.data.source;
+                this.sources = this.source.children;
                 this.loading = false;
 
             }, (response) => {
 
             });
         } else {
-            this.InstrumentService.all((response) => {
-                this.instruments = response;
+            this.SourceService.all((response) => {
+                this.sources = response;
                 this.loading = false;
             }, (response) => {
 
             });
         }
     }
-    inlineUpdate(instrument, field, value) {
-        instrument[field] = value;
-        this.saveInstrument(instrument);
+    inlineUpdate(source, field, value) {
+        source[field] = value;
+        this.saveSource(source);
     }
-    saveInstrument(instrument) {
-        this.InstrumentService.update(instrument.id, instrument);
+    saveSource(source) {
+        this.SourceService.update(source.id, source);
     }
-    newInstruments() {
-        if (angular.isDefined(this.instrument.id)) {
-            this.newInstrument.parent_id = this.instrument.id;
+    newSources() {
+        if (angular.isDefined(this.source.id)) {
+            this.newSource.parent_id = this.source.id;
         }
 
-        this.DialogService.fromTemplate('instrument', {
+        this.DialogService.fromTemplate('source', {
             controller: () => this,
             controllerAs: 'vm'
         })
@@ -57,8 +57,8 @@ class InstrumentsListController {
         this.DialogService.hide();
     }
     save() {
-        this.InstrumentService.create(this.newInstrument, (response) => {
-            this.newInstrument = {};
+        this.SourceService.create(this.newSource, (response) => {
+            this.newSource = {};
             this.DialogService.hide();
             this.getData();
         }, (response) => {
@@ -68,7 +68,7 @@ class InstrumentsListController {
     deleteItems() {
         this.sweet.show({
             title: 'Are you shure?',
-            text: 'You are about to delete ' + this.selected.length + ' legal instruments. Really?',
+            text: 'You are about to delete ' + this.selected.length + ' sources. Really?',
             type: 'info',
             confirmButtonColor: '#2196F3',
             showCancelButton: true,
@@ -76,7 +76,7 @@ class InstrumentsListController {
             showLoaderOnConfirm: true
         }, (inputValue) => {
             if (inputValue) {
-                this.InstrumentService.remove(this.selected.map((item) => { return item.id; }), (response) => {
+                this.SourceService.remove(this.selected.map((item) => { return item.id; }), (response) => {
                     this.sweet.show({
                         title: 'Success!',
                         type: 'success',
@@ -95,9 +95,9 @@ class InstrumentsListController {
     }
 }
 
-export const InstrumentsListComponent = {
-    templateUrl: './views/app/components/instruments-list/instruments-list.component.html',
-    controller: InstrumentsListController,
+export const SourcesListComponent = {
+    templateUrl: './views/app/components/sources-list/sources-list.component.html',
+    controller: SourcesListController,
     controllerAs: 'vm',
     bindings: {}
 }

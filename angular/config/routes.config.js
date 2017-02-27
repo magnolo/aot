@@ -66,7 +66,9 @@ export function RoutesConfig($stateProvider, $urlRouterProvider) {
         })
         .state('app.upload-wizard', {
             url: '/add-entry',
-            data: { auth: true },
+            data: {
+                auth: true
+            },
             views: {
                 'main@': {
                     templateUrl: getView('upload-wizard')
@@ -166,9 +168,7 @@ export function RoutesConfig($stateProvider, $urlRouterProvider) {
                 }
             }
         })
-
-
-    .state('app.admin.instruments', {
+        .state('app.admin.instruments', {
             url: '/instruments',
             views: {
                 'main@': {
@@ -189,6 +189,31 @@ export function RoutesConfig($stateProvider, $urlRouterProvider) {
             views: {
                 'main@': {
                     templateUrl: getAdminView('instruments')
+                }
+            }
+        })
+
+    .state('app.admin.sources', {
+            url: '/sources',
+            views: {
+                'main@': {
+                    templateUrl: getAdminView('sources')
+                }
+            }
+        })
+        .state('app.admin.sources.hirarchy', {
+            url: '/hirarchy',
+            views: {
+                'main@': {
+                    templateUrl: getAdminView('sources-hirarchy')
+                }
+            }
+        })
+        .state('app.admin.sources.details', {
+            url: '/:id',
+            views: {
+                'main@': {
+                    templateUrl: getAdminView('sources')
                 }
             }
         });

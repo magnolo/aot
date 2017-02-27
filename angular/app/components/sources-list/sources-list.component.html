@@ -1,24 +1,24 @@
 <md-toolbar class="md-table-toolbar md-primary">
     <div class="md-toolbar-tools">
-        <h2 class="md-title">Legal Instruments <span ng-if="vm.instrument.parent_id"> > {{ vm.instrument.parent.title}}</span><span ng-if="vm.instrument.id"> > {{ vm.instrument.title}}</span></h2>
+        <h2 class="md-title">Sources <span ng-if="vm.source.parent_id"> > {{ vm.source.parent.title}}</span><span ng-if="vm.source.id"> > {{ vm.source.title}}</span></h2>
         <span flex></span>
-        <md-button class="md-icon-button" ui-sref="app.admin.instruments.hirarchy">
+        <md-button class="md-icon-button" ui-sref="app.admin.sources.hirarchy">
             <md-icon>list</md-icon>
         </md-button>
-        <md-button class="md-icon-button" ng-click="vm.newInstruments()">
+        <md-button class="md-icon-button" ng-click="vm.newSources()">
             <md-icon>add</md-icon>
         </md-button>
     </div>
 </md-toolbar>
-<div ng-if="!vm.instruments.length && !vm.loading" layout="row" layout-align="center center" layout-fill>
+<div ng-if="!vm.sources.length && !vm.loading" layout="row" layout-align="center center" layout-fill>
     <div layout="column">
-        <h2>No children for this instrument</h2>
-        <md-button class="md-primary" ng-click="vm.newInstruments()">
+        <h2>No children for this source</h2>
+        <md-button class="md-primary" ng-click="vm.newSources()">
             <md-icon>add</md-icon> Add one
         </md-button>
     </div>
 </div>
-<md-table-container ng-if="vm.instruments.length">
+<md-table-container ng-if="vm.sources.length">
     <table md-table md-row-select md-select-id="id" multiple ng-model="vm.selected">
         <thead md-head md-order="vm.query.order">
             <tr md-row>
@@ -37,17 +37,17 @@
             </tr>
         </thead>
         <tbody md-body>
-            <tr md-row md-select="instrument" md-select-id="id" ng-repeat="instrument in vm.instruments">
+            <tr md-row md-select="source" md-select-id="id" ng-repeat="source in vm.sources">
                 <td md-cell>
-                    <md-button class="md-icon-button" ui-sref="app.admin.instruments.details({id:instrument.id})" title="Edit Instrument">{{ instrument.id }}</md-button>
+                    <md-button class="md-icon-button" ui-sref="app.admin.sources.details({id:source.id})" title="Edit source">{{ source.id }}</md-button>
                     </md-button>
                 </td>
-                <td md-cell inline-edit-callback="vm.inlineUpdate(instrument, 'title', newValue)" inline-edit-on-click inline-edit-on-blur="cancel" inline-edit="instrument.title" inline-edit-btn-edit="<md-icon>edit</md-icon>" inline-edit-btn-save="<md-icon>save</md-icon>"
-                    inline-edit-btn-cancel="<md-icon class='md-warning'>close</md-icon>" inline-edit-placeholder="No value yet..."></td>
-                <td md-cell inline-edit-callback="vm.inlineUpdate(instrument, 'acronym', newValue)" inline-edit-on-click inline-edit-on-blur="cancel" inline-edit="instrument.acronym" inline-edit-btn-edit="<md-icon>edit</md-icon>" inline-edit-btn-save="<md-icon>save</md-icon>"
+                <td md-cell inline-edit-callback="vm.inlineUpdate(source, 'title', newValue)" inline-edit-on-click inline-edit-on-blur="cancel" inline-edit="source.title" inline-edit-btn-edit="<md-icon>edit</md-icon>" inline-edit-btn-save="<md-icon>save</md-icon>" inline-edit-btn-cancel="<md-icon class='md-warning'>close</md-icon>"
+                    inline-edit-placeholder="No value yet..."></td>
+                <td md-cell inline-edit-callback="vm.inlineUpdate(source, 'acronym', newValue)" inline-edit-on-click inline-edit-on-blur="cancel" inline-edit="source.acronym" inline-edit-btn-edit="<md-icon>edit</md-icon>" inline-edit-btn-save="<md-icon>save</md-icon>"
                     inline-edit-btn-cancel="<md-icon class='md-warning'>close</md-icon>" inline-edit-placeholder="No value yet..."></td>
                 <td md-cell>
-                    <md-button class="md-icon-button" ui-sref="app.admin.instruments.details({id:instrument.id})" title="Edit Instrument">{{ instrument.children.length }}</md-button>
+                    <md-button class="md-icon-button" ui-sref="app.admin.sources.details({id:source.id})" title="Edit source">{{ source.children.length }}</md-button>
                     </md-button>
                 </td>
             </tr>

@@ -40,6 +40,7 @@ $api->group(['middleware' => ['api']], function ($api) {
     $api->get('/themes', 'ThemesController@all');
     $api->get('/themes/{id}', 'ThemesController@get');
     $api->get('/sources', 'SourcesController@all');
+    $api->get('/sources/{id}', 'SourcesController@get');
     $api->get('/languages', 'LanguagesController@all');
     $api->get('/groups', 'GroupController@all');
     $api->get('/instruments', 'InstrumentController@all');
@@ -84,5 +85,10 @@ $api->group(['middleware' => ['api', 'api.auth']], function ($api) {
     $api->post('/instruments', 'InstrumentController@create');
     $api->put('/instruments/{id}', 'InstrumentController@update');
     $api->delete('/instruments/{ids}', 'InstrumentController@removeBulk');
+
+
+    $api->post('/sources', 'SourcesController@create');
+    $api->put('/sources/{id}', 'SourcesController@update');
+    $api->delete('/sources/{ids}', 'SourcesController@removeBulk');
 
 });
