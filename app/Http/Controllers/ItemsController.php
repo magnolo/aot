@@ -22,7 +22,7 @@ class ItemsController extends Controller
 {
     //
     public function all(Request $request){
-        $items = Item::with(['authors', 'themes', 'years', 'file', 'language','category', 'source', 'countries', 'groups', 'instruments']);
+        $items = Item::with(['authors', 'themes', 'years', 'file', 'language','category', 'source', 'countries', 'groups', 'instruments', 'type']);
         if($request->has('limit')) $items = $items->take($request->get('limit'));
         if($request->has('page')) $items = $items->skip(($request->get('page')*$request->get('limit'))-$request->get('limit'));
         // if($request->has('order')) $items = $items->orderBy($request->get('order'));
@@ -48,7 +48,7 @@ class ItemsController extends Controller
     }
     public function show($id){
         $item = Item::findOrFail($id);
-        $item->load(['authors', 'themes', 'years', 'file', 'language','category', 'source', 'countries', 'groups', 'instruments']);
+        $item->load(['authors', 'themes', 'years', 'file', 'language','category', 'source', 'countries', 'groups', 'instruments', 'type']);
         return response()->success(['item' => $item]);
     }
     public function create(Request $request){

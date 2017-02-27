@@ -128,6 +128,14 @@ export function RoutesConfig($stateProvider, $urlRouterProvider) {
                 }
             }
         })
+        .state('app.admin.types', {
+            url: '/types',
+            views: {
+                'main@': {
+                    templateUrl: getAdminView('types')
+                }
+            }
+        })
         .state('app.admin.authors', {
             url: '/authors',
             views: {

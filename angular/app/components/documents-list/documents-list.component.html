@@ -7,8 +7,7 @@
         <v-accordion class="vAccordion--default" multiple>
             <v-pane ng-repeat="category in vm.categories | orderBy: 'id'" ng-show="vm.filterItems[category.id].length">
                 <v-pane-header>
-                    <div class="md-headline">{{ category.title}}
-                        ({{ vm.filterItems[category.id].length }})</div>
+                    <div class="md-headline">{{ category.title}} ({{ vm.filterItems[category.id].length }})</div>
                 </v-pane-header>
                 <v-pane-content class="group-container">
                     <div layout="column" class="file-container" ng-class="{'active': vm.selectedItem == item}" ng-repeat="item in vm.filterItems[category.id] = (vm.items | filterBy: ['category.id']: category.id | filter: vm.FilterService.searchTerm | filter: vm.filterItems )">
@@ -38,43 +37,43 @@
                                 {{ item.short_description}}
                             </div>
                             <div layout="row" layout-wrap>
-                              <div class="item-file item-info" flex="33">
-                                  <div layout="column" layout-align="center center">
-                                    <div class="wizard-button">
-                                        <a ng-if="!item.url" class="md-fab md-primary md-button wizard-icon" title="download file" href="/uploader/api/items/{{item.id}}/download" target="_blank" download="{{item.document_title}}">
-                                            <md-icon>file_download</md-icon>
-                                        </a>
-                                        <a ng-if="item.url" class="md-fab md-primary md-button wizard-icon" title="Visit URL" ng-href="{{item.url}}" target="_blank" >
-                                            <md-icon>link</md-icon>
-                                        </a>
+                                <div class="item-file item-info" flex="33">
+                                    <div layout="column" layout-align="center center">
+                                        <div class="wizard-button">
+                                            <a ng-if="!item.url" class="md-fab md-primary md-button wizard-icon" title="download file" href="/uploader/api/items/{{item.id}}/download" target="_blank" download="{{item.document_title}}">
+                                                <md-icon>file_download</md-icon>
+                                            </a>
+                                            <a ng-if="item.url" class="md-fab md-primary md-button wizard-icon" title="Visit URL" ng-href="{{item.url}}" target="_blank">
+                                                <md-icon>link</md-icon>
+                                            </a>
+                                        </div>
                                     </div>
-                                  </div>
-                              </div>
+                                </div>
                                 <div class="item-file item-info" flex="33">
                                     <h4>Details</h4>
                                     <div layout="column" ng-if="!item.url">
-                                      <div layout="row">
-                                        <span>Type:&nbsp;</span>
-                                        <span>{{ item.file.ext}}</span>
-                                      </div>
-                                      <div layout="row">
-                                        <span>Size:&nbsp;</span>
-                                        <span> {{ item.file.size | byteFmt: 2 }}</span>
-                                      </div>
-                                      <div layout="row">
-                                        <span>Date:&nbsp;</span>
-                                        <span am-time-ago="item.created_at | amParse:'YYYY-MM-DD HH:mm:ss'"></span>
-                                      </div>
+                                        <div layout="row">
+                                            <span>Type:&nbsp;</span>
+                                            <span>{{ item.file.ext}}</span>
+                                        </div>
+                                        <div layout="row">
+                                            <span>Size:&nbsp;</span>
+                                            <span> {{ item.file.size | byteFmt: 2 }}</span>
+                                        </div>
+                                        <div layout="row">
+                                            <span>Date:&nbsp;</span>
+                                            <span am-time-ago="item.created_at | amParse:'YYYY-MM-DD HH:mm:ss'"></span>
+                                        </div>
                                     </div>
                                     <div layout="column" ng-if="item.url">
-                                      <div layout="row">
-                                        <span>Type:&nbsp;</span>
-                                        <span>Hyperlink</span>
-                                      </div>
-                                      <div layout="row">
-                                        <span>Date:&nbsp;</span>
-                                        <span am-time-ago="item.created_at | amParse:'YYYY-MM-DD HH:mm:ss'"></span>
-                                      </div>
+                                        <div layout="row">
+                                            <span>Type:&nbsp;</span>
+                                            <span>Hyperlink</span>
+                                        </div>
+                                        <div layout="row">
+                                            <span>Date:&nbsp;</span>
+                                            <span am-time-ago="item.created_at | amParse:'YYYY-MM-DD HH:mm:ss'"></span>
+                                        </div>
                                     </div>
                                 </div>
                                 <div class="item-authors item-info" flex="33" ng-if="item.authors.length">
@@ -114,6 +113,12 @@
                                         {{ country.name }}
                                     </div>
                                 </div>
+                                <div class="item-type item-info" flex="33">
+                                    <h4>Document Type</h4>
+                                    <div layout="row">
+                                        {{ item.type.title }}
+                                    </div>
+                                </div>
                             </div>
                         </div>
                     </div>
@@ -124,5 +129,5 @@
                 ({{ category.items.length }})</div>
 
         </div> -->
-        </div>
     </div>
+</div>

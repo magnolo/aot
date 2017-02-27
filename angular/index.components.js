@@ -1,3 +1,4 @@
+import {TypesTableComponent} from './app/components/types-table/types-table.component';
 import {SourcesHirarchyComponent} from './app/components/sources-hirarchy/sources-hirarchy.component';
 import {SourcesListComponent} from './app/components/sources-list/sources-list.component';
 import {InstrumentsHirarchyComponent} from './app/components/instruments-hirarchy/instruments-hirarchy.component';
@@ -27,6 +28,7 @@ import {LoginFormComponent} from './app/components/login-form/login-form.compone
 import {RegisterFormComponent} from './app/components/register-form/register-form.component';
 
 angular.module('app.components')
+	.component('typesTable', TypesTableComponent)
 	.component('sourcesHirarchy', SourcesHirarchyComponent)
 	.component('sourcesList', SourcesListComponent)
 	.component('instrumentsHirarchy', InstrumentsHirarchyComponent)

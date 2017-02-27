@@ -36,6 +36,7 @@ $api->group(['middleware' => ['api']], function ($api) {
 
     $api->get('/categories', 'OutputcategoriesController@all');
     $api->get('/types', 'TypesController@all');
+    $api->get('/types/{id}', 'TypesController@get');
     $api->get('/authors', 'AuthorsController@all');
     $api->get('/themes', 'ThemesController@all');
     $api->get('/themes/{id}', 'ThemesController@get');
@@ -86,9 +87,13 @@ $api->group(['middleware' => ['api', 'api.auth']], function ($api) {
     $api->put('/instruments/{id}', 'InstrumentController@update');
     $api->delete('/instruments/{ids}', 'InstrumentController@removeBulk');
 
-
     $api->post('/sources', 'SourcesController@create');
     $api->put('/sources/{id}', 'SourcesController@update');
     $api->delete('/sources/{ids}', 'SourcesController@removeBulk');
+
+    $api->post('/types', 'TypesController@create');
+    $api->put('/types/{id}', 'TypesController@update');
+    $api->delete('/types/{ids}', 'TypesController@removeBulk');
+
 
 });
