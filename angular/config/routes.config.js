@@ -66,7 +66,7 @@ export function RoutesConfig($stateProvider, $urlRouterProvider) {
         })
         .state('app.upload-wizard', {
             url: '/add-entry',
-            data: {auth: true},
+            data: { auth: true },
             views: {
                 'main@': {
                     templateUrl: getView('upload-wizard')
@@ -75,96 +75,121 @@ export function RoutesConfig($stateProvider, $urlRouterProvider) {
         })
         .state('app.admin', {
             abstract: true,
-            data:{
-              auth:true
+            data: {
+                auth: true
             },
-            views:{
-                'subheader@':{
+            views: {
+                'subheader@': {
                     templateUrl: getAdminView('header')
                 }
             },
-            url:'/admin'
+            url: '/admin'
 
         })
         .state('app.admin.dashboard', {
-            url:'/dashboard',
-            views:{
-              'main@':{
-                templateUrl: getAdminView('dashboard')
-              }
+            url: '/dashboard',
+            views: {
+                'main@': {
+                    templateUrl: getAdminView('dashboard')
+                }
             }
         })
         .state('app.admin.documents', {
-            url:'/documents',
-            views:{
-              'main@':{
-                templateUrl: getAdminView('items')
-              }
+            url: '/documents',
+            views: {
+                'main@': {
+                    templateUrl: getAdminView('items')
+                }
             }
         })
         .state('app.admin.documents.details', {
-            url:'/{id}',
-            views:{
-              'main@':{
-                templateUrl: getAdminView('item')
-              }
+            url: '/{id}',
+            views: {
+                'main@': {
+                    templateUrl: getAdminView('item')
+                }
             }
         })
         .state('app.admin.categories', {
-            url:'/categories',
-            views:{
-              'main@':{
-                templateUrl: getAdminView('categories')
-              }
+            url: '/categories',
+            views: {
+                'main@': {
+                    templateUrl: getAdminView('categories')
+                }
             }
         })
         .state('app.admin.groups', {
-            url:'/groups',
-            views:{
-              'main@':{
-                templateUrl: getAdminView('groups')
-              }
+            url: '/groups',
+            views: {
+                'main@': {
+                    templateUrl: getAdminView('groups')
+                }
             }
         })
-         .state('app.admin.authors', {
-            url:'/authors',
-            views:{
-              'main@':{
-                templateUrl: getAdminView('authors')
-              }
+        .state('app.admin.authors', {
+            url: '/authors',
+            views: {
+                'main@': {
+                    templateUrl: getAdminView('authors')
+                }
             }
         })
         .state('app.admin.languages', {
-            url:'/languages',
-            views:{
-              'main@':{
-                templateUrl: getAdminView('languages')
-              }
+            url: '/languages',
+            views: {
+                'main@': {
+                    templateUrl: getAdminView('languages')
+                }
             }
         })
         .state('app.admin.themes', {
-            url:'/themes',
-            views:{
-              'main@':{
-                templateUrl: getAdminView('themes')
-              }
+            url: '/themes',
+            views: {
+                'main@': {
+                    templateUrl: getAdminView('themes')
+                }
             }
         })
         .state('app.admin.themes.hirarchy', {
-            url:'/hirarchy',
-            views:{
-              'main@':{
-                templateUrl: getAdminView('themes-hirarchy')
-              }
+            url: '/hirarchy',
+            views: {
+                'main@': {
+                    templateUrl: getAdminView('themes-hirarchy')
+                }
             }
         })
         .state('app.admin.themes.details', {
-            url:'/:id',
-            views:{
-              'main@':{
-                templateUrl: getAdminView('themes')
-              }
+            url: '/:id',
+            views: {
+                'main@': {
+                    templateUrl: getAdminView('themes')
+                }
             }
         })
-        ;
+
+
+    .state('app.admin.instruments', {
+            url: '/instruments',
+            views: {
+                'main@': {
+                    templateUrl: getAdminView('instruments')
+                }
+            }
+        })
+        .state('app.admin.instruments.hirarchy', {
+            url: '/hirarchy',
+            views: {
+                'main@': {
+                    templateUrl: getAdminView('instruments-hirarchy')
+                }
+            }
+        })
+        .state('app.admin.instruments.details', {
+            url: '/:id',
+            views: {
+                'main@': {
+                    templateUrl: getAdminView('instruments')
+                }
+            }
+        });
 }

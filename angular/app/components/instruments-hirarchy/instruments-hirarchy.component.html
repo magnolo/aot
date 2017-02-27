@@ -1,0 +1,48 @@
+<md-toolbar class="md-table-toolbar md-primary">
+    <div class="md-toolbar-tools">
+        <h2 class="md-title">Instruments // Structure</h2>
+        <md-button class="md-icon-button" ng-click="vm.expandAll()">
+            <md-icon>add</md-icon>
+        </md-button>
+        <md-button class="md-icon-button" ng-click="vm.collapseAll()">
+            <md-icon>remove</md-icon>
+        </md-button>
+        <span flex></span>
+        <md-button ui-sref="app.admin.instruments">
+            <md-icon>chevron_left</md-icon> Back
+        </md-button>
+        <md-button ng-click="vm.newInstruments()">
+            <md-icon>add</md-icon> New Main Instrument
+        </md-button>
+    </div>
+</md-toolbar>
+
+<!-- Nested node template -->
+<script type="text/ng-template" id="nodes_renderer.html">
+    <div ui-tree-handle class="tree-node tree-node-content" ng-class="{'single': !node.children.length }">
+        <md-button data-nodrag ng-if="node.children && node.children.length" aria-label="Toggle children" class="md-icon-button md-primary" ng-click="vm.toggle(this)">
+            <md-icon ng-if="!collapsed">remove</md-icon>
+            <md-icon ng-if="collapsed">add</md-icon>
+        </md-button>
+        {{node.title}}
+        <span flex></span>
+        <md-button data-nodrag ng-click="vm.newInstruments(node)" class="md-icon-button">
+            <md-icon>add</md-icon>
+        </md-button>
+        <md-button data-nodrag ng-click="vm.remove(node)" class="md-icon-button">
+            <md-icon>delete</md-icon>
+        </md-button>
+    </div>
+    <ol ui-tree-nodes="" ng-model="node.children" ng-hidden="collapsed">
+        <li ng-repeat="node in node.children" ui-tree-node ng-include="'nodes_renderer.html'">
+        </li>
+    </ol>
+</script>
+
+<md-content layout-padding>
+    <div ui-tree="vm.treeOptions">
+        <ol ui-tree-nodes="" ng-model="vm.instruments" id="tree-root">
+            <li ng-repeat="node in vm.instruments" ui-tree-node ng-include="'nodes_renderer.html'"></li>
+        </ol>
+    </div>
+</md-content>
