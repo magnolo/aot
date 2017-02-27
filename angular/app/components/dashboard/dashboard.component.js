@@ -1,17 +1,10 @@
-class DashboardController{
-    constructor(ItemService){
+class DashboardController {
+    constructor(ItemService) {
         'ngInject';
 
-        //
-        this.items;
-        this.ItemService = ItemService;
-        this.ItemService.all((data) => {
-          this.items = data;
-        });
     }
 
-    $onInit(){
-    }
+    $onInit() {}
 }
 
 export const DashboardComponent = {
