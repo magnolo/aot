@@ -9,8 +9,8 @@ export class APIService {
 
         return Restangular.withConfig(function(RestangularConfigurer) {
             RestangularConfigurer
-                .setBaseUrl('/uploader/api/')
-                //.setBaseUrl('/api/')
+            //.setBaseUrl('/uploader/api/')
+                .setBaseUrl('/api/')
                 .setDefaultHeaders(headers)
                 .setErrorInterceptor(function(response) {
                     if (response.status === 422 || response.status === 401) {
@@ -38,7 +38,7 @@ export class APIService {
                         if (data.data['count']) {
                             extractedData.count = data.data['count'];
                         }
-                      //  extractedData.error = data.errors;
+                        //  extractedData.error = data.errors;
                     } else {
                         extractedData = data;
                     }

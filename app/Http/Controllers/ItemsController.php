@@ -41,6 +41,7 @@ class ItemsController extends Controller
             $items = $items->where('source_id', $request->get('source'));
             $count = $items->count();
         }
+        $items = $items->orderBy('screen_title', 'ASC');
         $items = $items->get();
 
         return response()->success(['items' => $items, 'count' => $count]);
