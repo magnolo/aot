@@ -1,3 +1,5 @@
+import {AutocompleteListInlineComponent} from './app/components/autocomplete-list-inline/autocomplete-list-inline.component';
+import {AutocompleteListComponent} from './app/components/autocomplete-list/autocomplete-list.component';
 import {TypesTableComponent} from './app/components/types-table/types-table.component';
 import {SourcesHirarchyComponent} from './app/components/sources-hirarchy/sources-hirarchy.component';
 import {SourcesListComponent} from './app/components/sources-list/sources-list.component';
@@ -28,6 +30,8 @@ import {LoginFormComponent} from './app/components/login-form/login-form.compone
 import {RegisterFormComponent} from './app/components/register-form/register-form.component';
 
 angular.module('app.components')
+	.component('autocompleteListInline', AutocompleteListInlineComponent)
+	.component('autocompleteList', AutocompleteListComponent)
 	.component('typesTable', TypesTableComponent)
 	.component('sourcesHirarchy', SourcesHirarchyComponent)
 	.component('sourcesList', SourcesListComponent)

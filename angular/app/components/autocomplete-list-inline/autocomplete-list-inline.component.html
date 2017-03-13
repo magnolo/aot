@@ -1,0 +1,12 @@
+<md-autocomplete md-floating-label="{{ vm.label }}" md-selected-item="vm.item" md-search-text="vm.searchText" md-items="item in vm.list | filter: vm.searchText" md-item-text="item[vm.text]" md-min-length="0" placeholder="{{ vm.title }}" md-menu-class="autocomplete-custom-template">
+    <md-item-template>
+        <span class="item-title {{ item.class }}">
+                    <span md-highlight-text="vm.searchText">
+                        {{ item[vm.text] }}
+                    </span>
+        </span>
+    </md-item-template>
+    <md-not-found>
+        No entry was found matching "{{ vm.searchText }}"
+    </md-not-found>
+</md-autocomplete>

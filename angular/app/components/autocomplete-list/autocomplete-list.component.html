@@ -1,0 +1,25 @@
+<div layout="column">
+    <div class="label" flex>{{ vm.label}}</div>
+    <md-chips ng-model="vm.item" md-on-remove="vm.removeItem($chip)" ng-if="vm.item.length">
+        <md-chip-template>
+            {{$chip[vm.text]}}
+        </md-chip-template>
+        <input disabled/>
+    </md-chips>
+    <div layout="row" flex="1" layout-align="start center">
+        <md-autocomplete md-selected-item-change="vm.selectedItemChange(item)" md-selected-item="vm.selectedItem" md-search-text="vm.searchText" md-items="item in vm.list | filter: vm.searchText" md-item-text="item[vm.text]" md-min-length="0" placeholder="{{ vm.title }}"
+            md-menu-class="autocomplete-custom-template">
+            <md-item-template>
+                <span class="item-title {{ item.class }}">
+                    <span md-highlight-text="vm.searchText">
+                        {{ item[vm.text] }}
+                    </span>
+                </span>
+            </md-item-template>
+            <md-not-found>
+                No entry was found matching "{{ vm.searchText }}"
+            </md-not-found>
+        </md-autocomplete>
+    </div>
+</div>
+</div>

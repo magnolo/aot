@@ -55,7 +55,7 @@
                     <div>
                         <md-input-container class="md-block">
                             <label>Screen title</label>
-                            <input type="text" ng-model="vm.item.screen_title" name="screen_title"/>
+                            <input type="text" ng-model="vm.item.screen_title" name="screen_title" />
                         </md-input-container>
                     </div>
                 </div>
@@ -82,7 +82,8 @@
         <md-step-actions layout="row" layout-align="space-between center">
             <md-button class="md-primary" ng-click="vm.previousStep();">
                 <md-icon>chevron_left</md-icon>Back</md-button>
-            <md-button class="md-primary md-raised" ng-click="vm.validateForm(titleForm);" ng-disabled="titleForm.$invalid">Continue<md-icon>chevron_right</md-icon>
+            <md-button class="md-primary md-raised" ng-click="vm.validateForm(titleForm);" ng-disabled="titleForm.$invalid">Continue
+                <md-icon>chevron_right</md-icon>
             </md-button>
         </md-step-actions>
     </md-step>
@@ -93,36 +94,23 @@
                 <div class="wizard-input-container">
                     <h2 class="wizard-header">Specify the theme(s) of the document</h2>
                     <div>
-                        <md-input-container class="md-block">
-                            <label>Theme*</label>
-                            <md-select ng-model="vm.item.themes" name="themes" required multiple>
-                                <md-option ng-repeat="theme in vm.themes" ng-value="theme">
-                                  <div class="with-children"><span>{{theme.title}}</span></div>
-                                  <md-option ng-repeat="t in theme.children" ng-value="t">{{ t.title}}</md-option>
-                                </md-option>
-                            </md-select>
-                            <div ng-messages="contentForm.theme.$error">
-                                <div ng-message="required">This is required.</div>
-                            </div>
-                        </md-input-container>
+
+                        <autocomplete-list label="Theme(s)*" item="vm.item.themes" list="vm.themes" text="title" title="add themes" icon="person"></autocomplete-list>
                     </div>
                 </div>
-                <div class="wizard-input-container" >
+                <div class="wizard-input-container">
                     <div layout="column" layout-align="start start">
                         <h2 class="wizard-header">Specify the target group(s)</h2>
                         <md-button class="add_button" ng-click="vm.addTargetGroup()">
-                            <span >add target group</span>
+                            <span>add target group</span>
                             <md-icon>add</md-icon>
                         </md-button>
                     </div>
                     <div layout="row" ng-repeat="(key, g) in vm.item.groups">
 
-                        <md-input-container flex="45">
-                            <label>Target Group</label>
-                            <md-select ng-model="g.group" name="group_{{key}}" required>
-                                <md-option ng-repeat="group in vm.groups" ng-value="group">{{group.title}}</md-option>
-                            </md-select>
-                        </md-input-container>
+
+                        <autocomplete-list-inline flex="45" name="group_{{key}}" label="Target Group" item="g.group" list="vm.groups" text="title"></autocomplete-list-inline>
+
                         <md-input-container flex="45">
                             <label>Parent Theme</label>
                             <md-select ng-model="g.theme" name="group_{{key}}_theme">
@@ -137,21 +125,18 @@
                     </div>
 
                 </div>
-                <div class="wizard-input-container" >
+                <div class="wizard-input-container">
                     <div layout="column" layout-align="start start">
                         <h2 class="wizard-header">Specify legal instruments</h2>
                         <md-button class="add_button" ng-click="vm.addInstrument()">
-                            <span >add legal instrument</span>
+                            <span>add legal instrument</span>
                             <md-icon>add</md-icon>
                         </md-button>
                     </div>
                     <div layout="row" ng-repeat="(key, i) in vm.item.instruments">
-                        <md-input-container flex="45">
-                            <label>Legal Instruments</label>
-                            <md-select ng-model="i.instrument" name="instrument" required>
-                                <md-option ng-repeat="instrument in vm.instruments" ng-value="instrument">{{instrument.acronym_title}}</md-option>
-                            </md-select>
-                        </md-input-container>
+
+                        <autocomplete-list-inline flex="45" label="Legal Instruments" item="i.instrument" list="vm.instruments" text="acronym_title" title="Choose Instrument"></autocomplete-list-inline>
+
                         <md-input-container flex="45">
                             <label>Parent Theme</label>
                             <md-select ng-model="i.theme" name="instrument">
@@ -170,7 +155,7 @@
                     <div layout="column" layout-align="start start">
                         <h2 class="wizard-header">Specify legal instruments Paragraphs</h2>
                         <md-button class="add_button" ng-click="vm.addParagraph()">
-                            <span >add article</span>
+                            <span>add article</span>
                             <md-icon>add</md-icon>
                         </md-button>
                     </div>
@@ -181,12 +166,7 @@
                                 <md-option ng-if="instrument.children.length" ng-repeat="instrument in vm.instrumentsList()" ng-value="instrument">{{instrument.acronym_title}}</md-option>
                             </md-select>
                         </md-input-container>
-                        <md-input-container flex="45">
-                            <label>Article</label>
-                            <md-select ng-model="p.paragraph" name="paragraph">
-                                <md-option ng-repeat="paragraph in p.instrument.children" ng-value="paragraph.id">{{paragraph.title}}</md-option>
-                            </md-select>
-                        </md-input-container>
+                        <autocomplete-list-inline flex="45" label="Article" item="p.paragraph" list="p.instrument.children" text="title"></autocomplete-list-inline>
 
                         <div flex layout="row" layout-align="center start">
                             <md-button class="md-icon-button md-primary" ng-click="vm.removeItem(vm.item.paragraphs, key)">
@@ -199,7 +179,7 @@
                     <div layout="column" layout-align="start start">
                         <h2 class="wizard-header">Specify Country(ies)</h2>
                         <md-button class="add_button" ng-click="vm.addCountry()">
-                            <span >add country</span>
+                            <span>add country</span>
                             <md-icon>add</md-icon>
                         </md-button>
                     </div>
@@ -228,11 +208,12 @@
         <md-step-actions layout="row" layout-align="space-between center">
             <md-button class="md-primary" ng-click="vm.previousStep();">
                 <md-icon>chevron_left</md-icon>Back</md-button>
-            <md-button class="md-primary md-raised" ng-click="vm.validateForm(contentForm);" ng-disabled="contentForm.$invalid">Continue<md-icon>chevron_right</md-icon>
+            <md-button class="md-primary md-raised" ng-click="vm.validateForm(contentForm);" ng-disabled="contentForm.$invalid">Continue
+                <md-icon>chevron_right</md-icon>
             </md-button>
         </md-step-actions>
     </md-step>
-    <md-step md-label="{{ !vm.isUrl ? 'File' : 'Link'}}" >
+    <md-step md-label="{{ !vm.isUrl ? 'File' : 'Link'}}">
         <md-step-body ng-show="!vm.isUrl">
             <h1 class="wizard-head">File Information</h1>
             <form name="fileForm">
@@ -253,7 +234,7 @@
                 <div class="wizard-input-container">
                     <h2 class="wizard-header">Specify the type of the document</h2>
                     <div>
-                        <md-input-container class="md-block">
+                        <!--<md-input-container>
                             <label>Type*</label>
                             <md-select ng-model="vm.item.file_type_id" name="file_type" required>
                                 <md-option ng-repeat="type in vm.types" ng-value="{{type.id}}">{{type.title}}</md-option>
@@ -261,7 +242,9 @@
                             <div ng-messages="fileForm.file_type.$error">
                                 <div ng-message="required">This is required.</div>
                             </div>
-                        </md-input-container>
+                        </md-input-container>-->
+                        <autocomplete-list-inline class="md-block" flex="45" name="file_type" label="Type*" item="vm.item.file_type_id" list="vm.types" text="title"></autocomplete-list-inline>
+
                     </div>
                 </div>
                 <div class="wizard-input-container">
@@ -294,7 +277,7 @@
                 </div>
             </form>
         </md-step-body>
-        <md-step-body  ng-show="vm.isUrl">
+        <md-step-body ng-show="vm.isUrl">
             <h1 class="wizard-head">Source Information</h1>
             <form name="fileForm">
                 <div class="wizard-input-container">
@@ -316,7 +299,8 @@
         <md-step-actions layout="row" layout-align="space-between center">
             <md-button class="md-primary" ng-click="vm.previousStep();">
                 <md-icon>chevron_left</md-icon>Back</md-button>
-            <md-button class="md-primary md-raised" ng-click="vm.validateForm(fileForm);" ng-disabled="fileForm.$invalid">Continue<md-icon>chevron_right</md-icon>
+            <md-button class="md-primary md-raised" ng-click="vm.validateForm(fileForm);" ng-disabled="fileForm.$invalid">Continue
+                <md-icon>chevron_right</md-icon>
             </md-button>
         </md-step-actions>
     </md-step>

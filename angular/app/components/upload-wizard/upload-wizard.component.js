@@ -9,7 +9,7 @@
  */
 class UploadWizardController {
 
-    constructor(sweet,$document, $state, $mdStepper, ItemService, CategoryService, TypeService, AuthorService, CountryService, ThemeService, SourceService, LanguageService, GroupService, InstrumentService, YearService, ToastService, Upload) {
+    constructor(sweet, $document, $state, $mdStepper, ItemService, CategoryService, TypeService, AuthorService, CountryService, ThemeService, SourceService, LanguageService, GroupService, InstrumentService, YearService, ToastService, Upload) {
         'ngInject';
 
         this.progress = 0;
@@ -21,8 +21,8 @@ class UploadWizardController {
             instruments: [],
             paragraphs: [],
             countries: [],
-            authors:[],
-            themes:[]
+            authors: [],
+            themes: []
         };
         this.isAlternative = true;
         this.isLinear = true;
@@ -130,7 +130,7 @@ class UploadWizardController {
             this.isUploading = false;
             this.stepper.clearError();
             this.stepper.next();
-            this.$document.scrollTop(this.top,this.duration);
+            this.$document.scrollTop(this.top, this.duration);
         }, (response) => {
             this.isUploading = false;
             this.stepper = this.$mdStepper('upload-wizard');
@@ -154,7 +154,7 @@ class UploadWizardController {
         if (form.$valid) {
             this.stepper.clearError();
             this.stepper.next();
-            this.$document.scrollTop(this.top,this.duration);
+            this.$document.scrollTop(this.top, this.duration);
         } else {
             this.stepper.error('Errors in Form!');
         }
@@ -169,7 +169,7 @@ class UploadWizardController {
     previousStep() {
         this.stepper = this.$mdStepper('upload-wizard');
         this.stepper.back();
-        this.$document.scrollTop(this.top,this.duration);
+        this.$document.scrollTop(this.top, this.duration);
     }
 
     /**
@@ -194,31 +194,31 @@ class UploadWizardController {
                 closeOnConfirm: false,
                 showLoaderOnConfirm: true
             }, (inputValue) => {
-              if(inputValue){
-                this.ItemService.create(this.item, (response) => {
-                    this.sweet.show({
-                        title: 'Success!',
-                        type:'success',
-                        text: '<b>'+(response.data.item.screen_title || response.data.item.document_title)+'</b><br /> has been saved',
-                        html: true,
-                        confirmButtonColor: '#2196F3',
-                        showCancelButton: true,
-                        closeOnConfirm: true,
-                        confirmButtonText: 'Upload next file',
-                        cancelButtonText: 'Show me the list'
-                    }, (isConfirm)=>{
-                      if(isConfirm){
-                        this.$state.reload();
-                      }
-                      else{
-                        this.$state.go('app.landing');
-                      }
-                    });
+                if (inputValue) {
+                    this.item.file_type_id = this.item.file_type_id.id;
+                    this.ItemService.create(this.item, (response) => {
+                        this.sweet.show({
+                            title: 'Success!',
+                            type: 'success',
+                            text: '<b>' + (response.data.item.screen_title || response.data.item.document_title) + '</b><br /> has been saved',
+                            html: true,
+                            confirmButtonColor: '#2196F3',
+                            showCancelButton: true,
+                            closeOnConfirm: true,
+                            confirmButtonText: 'Upload next file',
+                            cancelButtonText: 'Show me the list'
+                        }, (isConfirm) => {
+                            if (isConfirm) {
+                                this.$state.reload();
+                            } else {
+                                this.$state.go('app.landing');
+                            }
+                        });
 
-                },() => {
-                  this.sweet.show('Ups...', 'Something went wrong! Please check your data.', 'error');
-                });
-              }
+                    }, () => {
+                        this.sweet.show('Ups...', 'Something went wrong! Please check your data.', 'error');
+                    });
+                }
 
             });
 
@@ -235,7 +235,7 @@ class UploadWizardController {
      */
     addTargetGroup() {
         this.item.groups.push({
-            group: {},
+            group: null,
             theme: {}
         });
     }
@@ -248,7 +248,7 @@ class UploadWizardController {
      */
     addInstrument() {
         this.item.instruments.push({
-            instrument: {},
+            instrument: null,
             theme: {}
         });
     }
@@ -261,7 +261,7 @@ class UploadWizardController {
      */
     addParagraph() {
         this.item.paragraphs.push({
-            paragraph: {},
+            paragraph: null,
             instrument: {}
         });
     }
@@ -316,9 +316,12 @@ class UploadWizardController {
     instrumentsHasChildren() {
         var found = false;
         angular.forEach(this.item.instruments, (item) => {
-            if (!found && angular.isDefined(item.instrument.children)) {
-                found = item.instrument.children.length ? true : false;
+            if (angular.isDefined(item.instrument) && item.instrument != null) {
+                if (!found && angular.isDefined(item.instrument.children)) {
+                    found = item.instrument.children.length ? true : false;
+                }
             }
+
         });
         return found;
     }
@@ -330,12 +333,12 @@ class UploadWizardController {
      * Defines that the item is set for an URL and
      * sets the wizard for it
      */
-     startLinkWizard(){
-       this.isUrl = true;
-       this.item.output_category_id = 6;
-       this.stepper = this.$mdStepper('upload-wizard');
-       this.stepper.next();
-     }
+    startLinkWizard() {
+        this.isUrl = true;
+        this.item.output_category_id = 6;
+        this.stepper = this.$mdStepper('upload-wizard');
+        this.stepper.next();
+    }
 
 }
 

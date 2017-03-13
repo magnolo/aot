@@ -1,0 +1,60 @@
+@import "../../../material/project";
+@import "../../../material/mixins";
+// autocomplete-multiple{
+//   .autocomplete-custom-template li {
+//    border-bottom: 1px solid #ccc;
+//    height: auto;
+//    padding-top: 8px;
+//    padding-bottom: 8px;
+//    white-space: normal; }
+//   .autocomplete-custom-template li:last-child {
+//    border-bottom-width: 0; }
+//  .autocomplete-custom-template .item-title,
+//   .autocomplete-custom-template .item-metadata {
+//    display: block;
+//    line-height: 2; }
+//   .autocomplete-custom-template .item-title md-icon {
+//    height: 18px;
+//    width: 18px; }
+// }
+autocomplete-list-inline {
+    .label {
+        color: rgba(0, 0, 0, 0.26);
+        font-size: 1.3em;
+    }
+    md-autocomplete {
+        border-radius: 0px;
+        background-color: transparent;
+        flex: 1;
+        md-autocomplete-wrap {
+            box-shadow: 0px 0px !important;
+            input {
+                &:not(.md-input) {
+                    font-size: 1em;
+                    padding: 3px;
+                    border-bottom: 1px solid #ddd;
+                }
+                @include placeholder {
+                    color: $color;
+                    opacity: 0.4;
+                    font-size: 1.3em;
+                }
+                &:focus {
+                    border-bottom: 1px solid $color;
+                }
+            }
+        }
+    }
+}
+
+.lvl-1 {
+    padding-left: 1.5em;
+}
+
+.lvl-2 {
+    padding-left: 3em;
+}
+
+.lvl-3 {
+    padding-left: 4.5em;
+}
