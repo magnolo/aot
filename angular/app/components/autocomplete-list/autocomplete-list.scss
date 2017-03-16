@@ -18,9 +18,14 @@
 //    width: 18px; }
 // }
 autocomplete-list {
+    display: block;
+    margin-bottom: 2em;
     .label {
         color: rgba(0, 0, 0, 0.26);
         font-size: 1.3em;
+    }
+    .md-chip-input-container {
+        display: none !important;
     }
     md-autocomplete {
         margin: 5px 0;

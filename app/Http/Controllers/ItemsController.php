@@ -48,7 +48,7 @@ class ItemsController extends Controller
     }
     public function show($id){
         $item = Item::findOrFail($id);
-        $item->load(['authors', 'themes', 'years', 'file', 'language','category', 'source', 'countries', 'groups', 'instruments', 'type']);
+        $item->load(['authors', 'themes', 'years', 'file', 'language','category', 'source', 'countries', 'groups', 'instruments', 'paragraphs', 'type']);
         return response()->success(['item' => $item]);
     }
     public function create(Request $request){
@@ -58,10 +58,10 @@ class ItemsController extends Controller
         $item->screen_title = $request->get('screen_title');
         $item->short_description = $request->get('description');
         $item->category_id = $request->get('output_category_id');
-        $item->type_id = $request->get('file_type_id');
+        $item->type_id = $request->get('type_id');
         $item->language_id = $request->get('language_id');
         $item->file_id = $request->get('file_id');
-        $item->source_id = $request->get('sources');
+        $item->source_id = $request->get('source_id');
         $item->url = $request->get('url');
         $item->comment = $request->get('comment');
 
@@ -103,7 +103,7 @@ class ItemsController extends Controller
 
         if($request->has('years')){
             foreach($request->get('years') as $y){
-                $year = Year::find($y);
+                $year = Year::find($y['id']);
                 $item->years()->attach($year);
             }
         }
@@ -146,7 +146,7 @@ class ItemsController extends Controller
 
         if($request->has('paragraphs')){
             foreach($request->get('paragraphs') as $i){
-                $instrument = Instrument::find($i['paragraph']);
+                $instrument = Instrument::find($i['paragraph']['id']);
                 $item->instruments()->attach($instrument,['parent_id' => $i['instrument']['id']]);
             }
         }
@@ -197,7 +197,7 @@ class ItemsController extends Controller
             $item->years()->detach();
             if($request->has('years')){
                 foreach($request->get('years') as $y){
-                    $year = Year::find($y);
+                    $year = Year::find($y['id']);
                     $item->years()->attach($year);
                 }
             }
@@ -240,7 +240,7 @@ class ItemsController extends Controller
 
             if($request->has('paragraphs')){
                 foreach($request->get('paragraphs') as $i){
-                    $instrument = Instrument::find($i['paragraph']);
+                    $instrument = Instrument::find($i['paragraph']['id']);
                     $item->instruments()->attach($instrument,['parent_id' => $i['instrument']['id']]);
                 }
             }
@@ -262,7 +262,7 @@ class ItemsController extends Controller
         }
         DB::commit();
 
-        $item = $item->first();
+        $item = Item::findOrFail($id);
         $item->load(['authors', 'themes', 'years', 'file', 'language','category', 'source', 'countries', 'groups', 'instruments']);
 
         return response()->success(['item' => $item , 'success' => $success]);

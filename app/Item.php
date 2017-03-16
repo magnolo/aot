@@ -45,6 +45,10 @@ class Item extends Model
     }
     public function instruments(){
       return $this->belongsToMany('App\Instrument', 'item_instruments', 'item_id', 'instrument_id')
-      ->withPivot('theme_id');
+      ->withPivot(['theme_id','parent_id']);
+    }
+    public function paragraphs(){
+        return $this->belongsToMany('App\Instrument', 'item_instruments', 'item_id', 'instrument_id')
+            ->withPivot('parent_id')->wherePivot('parent_id', '!=', 0);
     }
 }

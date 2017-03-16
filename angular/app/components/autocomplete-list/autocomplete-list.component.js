@@ -61,6 +61,7 @@ export const AutocompleteListComponent = {
         title: '@',
         icon: '@',
         label: '@',
-        flatten: '@?'
+        flatten: '@?',
+        isrequired: '=?'
     }
 }

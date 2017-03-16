@@ -70,20 +70,8 @@
 
                 <form name="vm.contentForm" novalidate>
                     <div class="wizard-input-container">
-                        <div>
-                            <md-input-container class="md-block">
-                                <label>Theme*</label>
-                                <md-select ng-model="vm.document.themes" name="themes" required multiple>
-                                    <md-option ng-repeat="theme in vm.themes" ng-value="theme">
-                                        <div class="with-children"><span>{{theme.title}}</span></div>
-                                        <md-option ng-repeat="t in theme.children" ng-value="t">{{ t.title}}</md-option>
-                                    </md-option>
-                                </md-select>
-                                <div ng-messages="vm.contentForm.theme.$error">
-                                    <div ng-message="required">This is required.</div>
-                                </div>
-                            </md-input-container>
-                        </div>
+
+                        <autocomplete-list label="Theme(s)*" item="vm.document.themes" list="vm.themes" text="title" title="add themes"></autocomplete-list>
                     </div>
                     <div class="wizard-input-container">
                         <div layout="column" layout-align="start start">
@@ -94,12 +82,8 @@
                         </div>
                         <div layout="row" ng-repeat="(key, g) in vm.document.groups">
 
-                            <md-input-container flex="45">
-                                <label>Target Group</label>
-                                <md-select ng-model="g.group" name="group_{{key}}" required>
-                                    <md-option ng-repeat="group in vm.groups" ng-value="group">{{group.title}}</md-option>
-                                </md-select>
-                            </md-input-container>
+
+                            <autocomplete-list-inline flex="45" name="group_{{key}}" label="Target Group" item="g.group" list="vm.groups" text="title"></autocomplete-list-inline>
                             <md-input-container flex="45">
                                 <label>Parent Theme</label>
                                 <md-select ng-model="g.theme" name="group_{{key}}_theme">
@@ -123,12 +107,8 @@
                             </md-button>
                         </div>
                         <div layout="row" ng-repeat="(key, i) in vm.document.instruments">
-                            <md-input-container flex="45">
-                                <label>Legal Instruments</label>
-                                <md-select ng-model="i.instrument" name="instrument" required>
-                                    <md-option ng-repeat="instrument in vm.instruments" ng-value="instrument">{{instrument.acronym_title}}</md-option>
-                                </md-select>
-                            </md-input-container>
+                            <autocomplete-list-inline flex="45" label="Legal Instruments" item="i.instrument" list="vm.instruments" text="acronym_title" title="Choose Instrument"></autocomplete-list-inline>
+
                             <md-input-container flex="45">
                                 <label>Parent Theme</label>
                                 <md-select ng-model="i.theme" name="instrument">
@@ -158,12 +138,8 @@
                                     <md-option ng-if="instrument.children.length" ng-repeat="instrument in vm.instrumentsList()" ng-value="instrument">{{instrument.acronym_title}}</md-option>
                                 </md-select>
                             </md-input-container>
-                            <md-input-container flex="45">
-                                <label>Article</label>
-                                <md-select ng-model="p.paragraph" name="paragraph" required>
-                                    <md-option ng-repeat="paragraph in p.instrument.children" ng-value="paragraph.id">{{paragraph.title}}</md-option>
-                                </md-select>
-                            </md-input-container>
+
+                            <autocomplete-list-inline flex="45" label="Article" item="p.paragraph" list="p.instrument.children" text="title"></autocomplete-list-inline>
 
                             <div flex layout="row" layout-align="center start">
                                 <md-button class="md-icon-button md-primary" ng-click="vm.removeItem(vm.document.paragraphs, key)">
@@ -181,12 +157,9 @@
                             </md-button>
                         </div>
                         <div layout="row" ng-repeat="(key, c) in vm.document.countries">
-                            <md-input-container flex="45">
-                                <label>Country(ies)</label>
-                                <md-select ng-model="c.countries" name="countries" multiple required>
-                                    <md-option ng-repeat="country in vm.countries" ng-value="country">{{country.name}}</md-option>
-                                </md-select>
-                            </md-input-container>
+
+                            <autocomplete-list flex="45" title="add countries" label="Country(ies)" item="c.countries" list="vm.countries" text="name"></autocomplete-list>
+
                             <md-input-container flex="45">
                                 <label>Parent Theme</label>
                                 <md-select ng-model="c.theme" name="instrument">
@@ -209,17 +182,9 @@
 
                 <form name="vm.fileInfoForm">
                     <div class="wizard-input-container">
-                        <div>
-                            <md-input-container class="md-block">
-                                <label>Source*</label>
-                                <md-select ng-model="vm.document.source_id" name="source" required>
-                                    <md-option ng-repeat="source in vm.sources" ng-value="source.id">{{source.acronym_title}}</md-option>
-                                </md-select>
-                                <div ng-messages="vm.fileForm.source.$error">
-                                    <div ng-message="required">This is required.</div>
-                                </div>
-                            </md-input-container>
-                        </div>
+
+                        <autocomplete-list-inline flex="1" label="Source*" item="vm.document.source" list="vm.sources" text="acronym_title"></autocomplete-list-inline>
+
                     </div>
                     <div class="wizard-input-container">
                         <div>
@@ -282,6 +247,8 @@
                                 </div>
                             </md-input-container>
                         </div>
+                        <autocomplete-list-inline isrequired="true" label="Source*" item="vm.document.source" name="source" list="vm.sources" text="acronym_title"></autocomplete-list-inline>
+
                     </div>
                 </form>
             </md-content>

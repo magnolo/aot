@@ -195,7 +195,8 @@ class UploadWizardController {
                 showLoaderOnConfirm: true
             }, (inputValue) => {
                 if (inputValue) {
-                    this.item.file_type_id = this.item.file_type_id.id;
+                    this.item.type_id = this.item.type.id;
+                    this.item.source_id = this.item.source.id;
                     this.ItemService.create(this.item, (response) => {
                         this.sweet.show({
                             title: 'Success!',
@@ -274,7 +275,7 @@ class UploadWizardController {
      */
     addCountry() {
         this.item.countries.push({
-            countries: {},
+            countries: [],
             theme: {}
         });
     }

@@ -95,7 +95,7 @@
                     <h2 class="wizard-header">Specify the theme(s) of the document</h2>
                     <div>
 
-                        <autocomplete-list label="Theme(s)*" item="vm.item.themes" list="vm.themes" text="title" title="add themes" icon="person"></autocomplete-list>
+                        <autocomplete-list label="Theme(s)*" item="vm.item.themes" list="vm.themes" text="title" title="add themes"></autocomplete-list>
                     </div>
                 </div>
                 <div class="wizard-input-container">
@@ -184,12 +184,9 @@
                         </md-button>
                     </div>
                     <div layout="row" ng-repeat="(key, c) in vm.item.countries">
-                        <md-input-container flex="45">
-                            <label>Country(ies)</label>
-                            <md-select ng-model="c.countries" name="countries" multiple required>
-                                <md-option ng-repeat="country in vm.countries" ng-value="country">{{country.name}}</md-option>
-                            </md-select>
-                        </md-input-container>
+
+                        <autocomplete-list flex="45" title="add countries" label="Country(ies)" item="c.countries" list="vm.countries" text="name"></autocomplete-list>
+
                         <md-input-container flex="45">
                             <label>Parent Theme</label>
                             <md-select ng-model="c.theme" name="instrument">
@@ -219,17 +216,8 @@
             <form name="fileForm">
                 <div class="wizard-input-container">
                     <h2 class="wizard-header">Specify the source of the document</h2>
-                    <div>
-                        <md-input-container class="md-block">
-                            <label>Source*</label>
-                            <md-select ng-model="vm.item.sources" name="source" required>
-                                <md-option ng-repeat="source in vm.sources" ng-value="{{source.id}}">{{source.acronym_title}}</md-option>
-                            </md-select>
-                            <div ng-messages="fileForm.source.$error">
-                                <div ng-message="required">This is required.</div>
-                            </div>
-                        </md-input-container>
-                    </div>
+                    <autocomplete-list-inline isrequired="true" label="Source*" item="vm.item.source" name="source" list="vm.sources" text="acronym_title"></autocomplete-list-inline>
+
                 </div>
                 <div class="wizard-input-container">
                     <h2 class="wizard-header">Specify the type of the document</h2>
@@ -243,7 +231,7 @@
                                 <div ng-message="required">This is required.</div>
                             </div>
                         </md-input-container>-->
-                        <autocomplete-list-inline class="md-block" flex="45" name="file_type" label="Type*" item="vm.item.file_type_id" list="vm.types" text="title"></autocomplete-list-inline>
+                        <autocomplete-list-inline isrequired="true" class="md-block" name="file_type" label="Type*" item="vm.item.type" list="vm.types" text="title"></autocomplete-list-inline>
 
                     </div>
                 </div>
@@ -253,7 +241,7 @@
                         <md-input-container class="md-block">
                             <label>Years*</label>
                             <md-select ng-model="vm.item.years" name="years" required multiple>
-                                <md-option ng-repeat="year in vm.years" ng-value="{{year.id}}">{{year.year}}</md-option>
+                                <md-option ng-repeat="year in vm.years" ng-value="year">{{year.year}}</md-option>
                             </md-select>
                             <div ng-messages="fileForm.years.$error">
                                 <div ng-message="required">This is required.</div>
@@ -282,17 +270,7 @@
             <form name="fileForm">
                 <div class="wizard-input-container">
                     <h2 class="wizard-header">Specify the source of the document</h2>
-                    <div>
-                        <md-input-container class="md-block">
-                            <label>Source*</label>
-                            <md-select ng-model="vm.item.sources" name="source" required>
-                                <md-option ng-repeat="source in vm.sources" ng-value="{{source.id}}">{{source.acronym_title}}</md-option>
-                            </md-select>
-                            <div ng-messages="fileForm.source.$error">
-                                <div ng-message="required">This is required.</div>
-                            </div>
-                        </md-input-container>
-                    </div>
+                    <autocomplete-list-inline isrequired="true" label="Source*" item="vm.item.source" list="vm.sources" text="acronym_title"></autocomplete-list-inline>
                 </div>
             </form>
         </md-step-body>

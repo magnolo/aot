@@ -1,4 +1,5 @@
-<md-autocomplete md-floating-label="{{ vm.label }}" md-selected-item="vm.item" md-search-text="vm.searchText" md-items="item in vm.list | filter: vm.searchText" md-item-text="item[vm.text]" md-min-length="0" placeholder="{{ vm.title }}" md-menu-class="autocomplete-custom-template">
+<md-autocomplete md-floating-label="{{ vm.label }}" md-selected-item="vm.item" md-search-text="vm.searchText" md-items="item in vm.list | filter: vm.searchText" md-item-text="item[vm.text]" md-min-length="0" placeholder="{{ vm.title }}" md-menu-class="autocomplete-custom-template"
+    required="vm.isrequired || false">
     <md-item-template>
         <span class="item-title {{ item.class }}">
                     <span md-highlight-text="vm.searchText">

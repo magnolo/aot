@@ -69,8 +69,8 @@ class DocumentController {
                     this.outputCategories = data;
                 });
             }, {
-                    flattend: true
-                });
+                flattend: true
+            });
 
 
         })
@@ -135,7 +135,7 @@ class DocumentController {
         if (multiple) {
             let grouped = {};
             this.item[label].forEach((item) => {
-                if(!angular.isDefined(grouped[item.pivot.theme_id])){
+                if (!angular.isDefined(grouped[item.pivot.theme_id])) {
                     grouped[item.pivot.theme_id] = [];
                 }
                 grouped[item.pivot.theme_id].push(this.getItem(item.id, this[label]))
@@ -148,8 +148,7 @@ class DocumentController {
                 entry.theme = this.getItem(key, this.themes);
                 this.document[label].push(entry);
             })
-        }
-        else {
+        } else {
             this.item[label].forEach((item) => {
                 let entry = {};
                 entry[name] = this.getItem(item.id, this[label]);
@@ -169,7 +168,7 @@ class DocumentController {
      */
     addTargetGroup() {
         this.document.groups.push({
-            group: {},
+            group: null,
             theme: {}
         });
     }
@@ -182,7 +181,7 @@ class DocumentController {
      */
     addInstrument() {
         this.document.instruments.push({
-            instrument: {},
+            instrument: null,
             theme: {}
         });
     }
@@ -195,7 +194,7 @@ class DocumentController {
      */
     addParagraph() {
         this.document.paragraphs.push({
-            paragraph: {},
+            paragraph: null,
             instrument: {}
         });
     }
@@ -208,7 +207,7 @@ class DocumentController {
      */
     addCountry() {
         this.document.countries.push({
-            countries: {},
+            countries: [],
             theme: {}
         });
     }
@@ -235,7 +234,7 @@ class DocumentController {
      */
     instrumentsList() {
         let list = [];
-        angular.forEach(this.document.instruments, function (item) {
+        angular.forEach(this.document.instruments, function(item) {
             list.push(item.instrument);
         });
         return list;
@@ -249,7 +248,7 @@ class DocumentController {
      */
     instrumentsHasChildren() {
         var found = false;
-        if(typeof this.document.instruments == "undefined") return false;
+        if (typeof this.document.instruments == "undefined") return false;
         angular.forEach(this.document.instruments, (item) => {
             if (!found && angular.isDefined(item.instrument.children)) {
                 found = item.instrument.children.length ? true : false;
@@ -258,18 +257,18 @@ class DocumentController {
         return found;
     }
 
-    saveDocument(){
+    saveDocument() {
 
-      if(this.titleForm.$valid && this.contentForm.$valid && this.fileInfoForm.$valid){
-           this.ItemService.update(this.document.id, this.document, (response) => {
+        if (this.titleForm.$valid && this.contentForm.$valid && this.fileInfoForm.$valid) {
+            this.document.source_id = this.document.source.id;
+            this.ItemService.update(this.document.id, this.document, (response) => {
 
-         }, (response) => {
+            }, (response) => {
 
-         }, true);
-      }
-      else{
-          this.ToastService.error('There are some fields incomplete, please check all the tabs first!');
-      }
+            }, true);
+        } else {
+            this.ToastService.error('There are some fields incomplete, please check all the tabs first!');
+        }
 
     }
 }
