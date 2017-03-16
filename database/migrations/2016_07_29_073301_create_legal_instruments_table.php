@@ -15,7 +15,7 @@ class CreateLegalInstrumentsTable extends Migration
         Schema::create('legalinstruments', function (Blueprint $table) {
             $table->increments('id');
             $table->integer('parent_id')->nullable();
-            $table->string('acronym');
+            $table->string('acronym')->nullable();
             $table->string('slug');
             $table->string('title');
             $table->timestamps();
